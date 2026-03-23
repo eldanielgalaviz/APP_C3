@@ -39,3 +39,66 @@
 </p-table>
 </p-card>
 </section>
+
+<section class="center-global">
+    <div class="flex justify-content-between flex-wrap">
+        <h2>Projects</h2>
+        <p-splitbutton label="Download document" [model]="items" rounded />
+    </div>
+
+    <p-card>
+        <p-table #dt1 [value]="products" [columns]="selectedColumns" [(selection)]="selectedProducts" dataKey="code"
+            [globalFilterFields]="['name', 'category.name',]" [scrollable]="true" scrollHeight="400px"
+            [tableStyle]="{'min-width': '50rem'}" [rows]="20" [paginator]="true">
+            <ng-template #caption>
+                <div class="flex justify-content-between flex-wrap">
+                    <div>
+                        <p-multiselect display="chip" [options]="cols" [(ngModel)]="selectedColumns"
+                            optionLabel="header" selectedItemsLabel="{0} columns selected"
+                            [style]="{ 'min-width': '200px' }" placeholder="Choose Columns" />
+                    </div>
+                    <div class="inline-flex">
+                        <div class="col-8">
+                            <p-floatlabel>
+                                <p-iconfield iconPosition="right">
+                                    <input pInputText type="text"
+                                        (input)="dt1.filterGlobal($event.target, 'contains')" />
+                                    <p-inputicon>
+                                        <i class="pi pi-search"></i>
+                                    </p-inputicon>
+                                </p-iconfield>
+                                <label for="over_label">Global Search</label>
+                            </p-floatlabel>
+
+                        </div>
+                        <div class="col-4">
+                            <p-button label="Download select" [rounded]="true" severity="primary" />
+                        </div>
+                    </div>
+                </div>
+
+
+            </ng-template>
+            <ng-template #header let-columns>
+                <tr>
+                    <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+                    <th pSortableColumn="columns" *ngFor="let col of columns">
+                        {{ col.header }} <p-sortIcon field="header" />
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product let-columns="columns">
+                <tr [pSelectableRow]="products">
+                    <td>
+                        <p-tableCheckbox [value]="product" />
+                    </td>
+                    <td *ngFor="let col of columns">
+                        {{ product[col.field] }}
+                    </td>
+                    <td> <p-button icon="pi pi-eye" [rounded]="true" [text]="true" severity="secondary" /></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</section>

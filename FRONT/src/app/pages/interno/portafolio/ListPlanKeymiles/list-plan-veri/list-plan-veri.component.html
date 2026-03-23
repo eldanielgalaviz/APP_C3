@@ -1,12 +1,15 @@
+<form [formGroup]="form">
 <div class="grid">
     <div class="col-12">
  <small>Planning</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Verification Kick Off Meeting Done</label>
+            <p-datepicker formControlName="verificationKickOffMeetingDone" styleClass="w-full" inputId="verificationKickOffMeetingDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('verificationKickOffMeetingDone')}" />
+            <label for="verificationKickOffMeetingDone">Verification Kick Off Meeting Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('verificationKickOffMeetingDone')">Verification Kick Off Meeting Done is required</small>
     </div>
 </div>
 
@@ -16,20 +19,27 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Onsite/Desk Verification Finished</label>
+            <p-datepicker formControlName="onsiteDeskVerificationFinished" styleClass="w-full" inputId="onsiteDeskVerificationFinished" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('onsiteDeskVerificationFinished')}" />
+            <label for="onsiteDeskVerificationFinished">Onsite/Desk Verification Finished</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('onsiteDeskVerificationFinished')">Onsite/Desk Verification Finished is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Response to Findings Submitted</label>
+            <p-datepicker formControlName="responseToFindingsSubmitted" styleClass="w-full" inputId="responseToFindingsSubmitted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('responseToFindingsSubmitted')}" />
+            <label for="responseToFindingsSubmitted">Response to Findings Submitted</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('responseToFindingsSubmitted')">Response to Findings Submitted is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Verification Report issued by Verifier Sent to CAR</label>
+            <p-datepicker formControlName="verificationReportIssuedByVerifierSentToCAR" styleClass="w-full" inputId="verificationReportIssuedByVerifierSentToCAR" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('verificationReportIssuedByVerifierSentToCAR')}" />
+            <label for="verificationReportIssuedByVerifierSentToCAR">Verification Report issued by Verifier Sent to CAR</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('verificationReportIssuedByVerifierSentToCAR')">Verification Report issued by Verifier Sent to CAR is required</small>
     </div>
 </div>
+</form>

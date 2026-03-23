@@ -35,38 +35,54 @@ export class MenuComponent {
     private readonly serviceObsProject$: ObservableService,
   ) {
     this.user = this._authGuardService.getUser();
-    
+
   }
 
   ngOnInit() {
 
-       this.countries = [
-            { name: 'Project 1', },
-            { name: 'Project 2', },
-            { name: 'Project 3', },
-        ];
+    this.countries = [
+      { name: 'Project 1', },
+      { name: 'Project 2', },
+      { name: 'Project 3', },
+    ];
 
     this.avatar = [
       {
-        label: 'Aviso de privacidad',
+        label: 'Generate folio',
       },
       {
-        label: 'Terminos y condiciones',
+        label: 'Privacy Policy',
+      },
+      {
+        label: 'Terms and Conditions',
       },
 
     ];
 
     this.items = [
       {
-        label: 'Home',
+        label: 'Master Dashboard',
         command: () => {
           this.router.navigate(['/Inicio']);
         }
       },
       {
-        label: 'Projects',
+        label: 'Corporate',
+        items: [
+          {
+            label: 'Expenses review',
+            icon: 'fa-solid fa-code-compare'
+          },
+          {
+            label: 'Agreements',
+            icon: 'fa-solid fa-handshake'
+          },
+        ]
+      },
+      {
+        label: 'Tools',
         command: () => {
-          this.router.navigate(['/projects']);
+          this.router.navigate(['/tools']);
         }
       },
     ];
@@ -75,7 +91,7 @@ export class MenuComponent {
     this.observaProjectSelected();
   }
 
-  getProjects(){
+  getProjects() {
     let savedValue = this._authGuardService.getProject();
     this._projectServices.getProjects(this.token?.access_token).subscribe((response: any) => {
       this.projects = response.projects;
@@ -84,22 +100,22 @@ export class MenuComponent {
     });
   }
 
-  onProjectSelected(project: Project | any){
+  onProjectSelected(project: Project | any) {
     this.serviceObsProject$.setProject(project);
     sessionStorage.setItem('selectedOption', project?.ProjectName);
   }
 
   observaProjectSelected() {
-      /*** Este sirve para saber que proyecto ha sido seleccionado y se copia este bloque */
-      this.serviceObsProject$.selectedProject$.subscribe((project: Project) => {
-        if(project){
-          this.selectedCountry = this.projects.find(x => x.idprojects == project.idprojects);
-        } else {
+    /*** Este sirve para saber que proyecto ha sido seleccionado y se copia este bloque */
+    this.serviceObsProject$.selectedProject$.subscribe((project: Project) => {
+      if (project) {
+        this.selectedCountry = this.projects.find(x => x.idprojects == project.idprojects);
+      } else {
 
-        }
-      });
+      }
+    });
   }
- 
+
   logout(): void {
     localStorage.clear()
     this.router.navigate(['/']);

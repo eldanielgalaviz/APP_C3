@@ -9,7 +9,10 @@ import { ListPlanRegisComponent } from './ListPlanKeymiles/list-plan-regis/list-
 import { ListPlanRepoComponent } from './ListPlanKeymiles/list-plan-repo/list-plan-repo.component';
 import { ListPlanSettComponent } from './ListPlanKeymiles/list-plan-sett/list-plan-sett.component';
 import { ListPlanVeriComponent } from './ListPlanKeymiles/list-plan-veri/list-plan-veri.component';
-import { Router } from '@angular/router';
+import { Router,NavigationEnd  } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 interface Rp {
   name: string;
@@ -49,6 +52,9 @@ export class PortafolioComponent {
   rp: any[] | undefined;
   milestones: any[] | undefined;
   visible: boolean = false;
+  hideTitle = false;
+  form!: FormGroup;
+  state: any[] | undefined;
 
         showDialog() {
         this.visible = true;
@@ -60,10 +66,28 @@ export class PortafolioComponent {
   }
 
     constructor(
-    private router: Router,
+      private fb: FormBuilder,
+      private router: Router,
   ) {}
+  isInvalid(field: string): boolean {
+    const control = this.form.get(field);
+    return !!(control?.invalid && control?.touched);
+  }
 
+  saveForm() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+  }
   ngOnInit() {
+    this.hideTitle = this.router.url.includes('/portafolio/prospect');
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      this.hideTitle = event.urlAfterRedirects.includes('/portafolio/prospect');
+    });
     this.MenuProject = [
       {
         label: 'Dashboard project',
@@ -137,61 +161,61 @@ export class PortafolioComponent {
         label: 'Implementation',
         items: [
           {
-            label: 'New',
+            label: 'Assign PM to Project',
           },
           {
-            label: 'Search',
-          }
+            label: 'Listing',
+          },
+          {
+            label: 'Baseline',
+          },
+          {
+            label: 'Strategic planning',
+          },
+          {
+            label: 'Annual planning',
+          },
+          {
+            label: 'Execution and monitoring',
+          },
+          {
+            label: 'Trainning',
+          },
+          {
+            label: 'Review',
+          },
         ]
       },
        //-----------------------------------------------------------------------
-            //inicia Documents
+            //inicia reporting
       {
-        label: 'Documents',
+        label: 'Reporting',
         items: [
-          {
-            label: 'New',
+           {
+            label: 'Reporting periods',
           },
-          {
-            label: 'Search',
-          }
-        ]
-      },
-      {
-        label: 'Documents',
-        items: [
-          {
-            label: 'New',
-          },
-          {
-            label: 'Search',
-          }
-        ]
-      },
-      {
-        label: 'Documents',
-        items: [
-          {
-            label: 'New',
-          },
-          {
-            label: 'Search',
-          }
-        ]
-      },
-    ];
-
-    this.MenuGeneProject = [
-      {
-        label: 'List',
-        items: [
-          {
-            label: 'Full Project Log',
+           {
+            label: 'Project Log',
           },
           {
             label: 'Incidences',
           },
-
+        ]
+      },
+      {
+        label: 'Settlement',
+        items: [
+          {
+            label: 'Settlement planning',
+          },
+        ]
+      },
+      {
+        label: 'Commercialization',
+        items: [
+          {
+            label: 'Marketing',
+          },
         ]
       },
     ];
@@ -224,6 +248,17 @@ export class PortafolioComponent {
       { name: 'Mileston2' },
       { name: 'Mileston3' },
     ];
+      this.form = this.fb.group({
+      eventDate: [null, Validators.required],
+      description: ['', Validators.required],
+      decisions: ['', Validators.required],
+      agreements: ['', Validators.required],
+      milestone: [null, Validators.required],
+      category: [null, Validators.required],
+      typeEvidence: [null, Validators.required],
+      notes: ['', Validators.required],
+      rp: [null, Validators.required],
+    });
   }
 
 }

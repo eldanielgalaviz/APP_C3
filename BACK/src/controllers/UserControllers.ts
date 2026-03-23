@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { ServiceContainer } from '../shared/ServiceContainer';
 import { plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
-import { CreateUserRequest } from '../modules/User/domain-exceptions/CreateUserRequest';
+import { CreateUserRequest } from '../modules/User/domain/CreateUserRequest';
 
 export class UserController {
     async getUsers(req: Request, res: Response, next: NextFunction){

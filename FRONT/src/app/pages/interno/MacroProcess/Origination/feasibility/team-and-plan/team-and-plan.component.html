@@ -1,48 +1,57 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3">DD Team</p>
-
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>DD Team</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Origination lead</label>
+                <p-select formControlName="originationLead" inputId="originationLead" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('originationLead')}" />
+                <label for="originationLead">Origination lead</label>
             </p-floatlabel>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Origination Promoter</label>
+                <p-select formControlName="originationPromoter" inputId="originationPromoter" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('originationPromoter')}" />
+                <label for="originationPromoter">Origination Promoter</label>
             </p-floatlabel>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">SME Development & Implementation</label>
+                <p-select formControlName="smeDevelopment" inputId="smeDevelopment" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('smeDevelopment')}" />
+                <label for="smeDevelopment">SME Development & Implementation</label>
             </p-floatlabel>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">SME Legal</label>
+                <p-select formControlName="smeLegal" inputId="smeLegal" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('smeLegal')}" />
+                
+                <label for="smeLegal">SME Legal</label>
             </p-floatlabel>
         </div>
         <div class="col-12 md:col-4">
-          <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">SME Safeguards</label>
+            <p-floatlabel>
+                <p-select formControlName="smeSafeguards" inputId="smeSafeguards" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('smeSafeguards')}" />
+                <label for="smeSafeguards">SME Safeguards</label>
             </p-floatlabel>
         </div>
         <div class="col-12 md:col-4">
-          <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">SME MRV</label>
+            <p-floatlabel>
+                <p-select formControlName="smeMrv" inputId="smeMrv" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('smeMrv')}" />
+                <label for="smeMrv">SME MRV</label>
             </p-floatlabel>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveDocument()"/>
     </div>
 </div>

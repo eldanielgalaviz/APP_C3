@@ -1,35 +1,47 @@
+<form [formGroup]="form">
 <div class="grid">
    <div class="col-12">
         <small>Execution</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Settlement Started</label>
+            <p-datepicker formControlName="settlementStarted" styleClass="w-full" inputId="settlementStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('settlementStarted')}" />
+            <label for="settlementStarted">Settlement Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('settlementStarted')">Settlement Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Payment Made to Ejido</label>
+            <p-datepicker formControlName="paymentMadeToEjido" styleClass="w-full" inputId="paymentMadeToEjido" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('paymentMadeToEjido')}" />
+            <label for="paymentMadeToEjido">Payment Made to Ejido</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('paymentMadeToEjido')">Payment Made to Ejido is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Transfer of OPEX to Mandate Account Done</label>
+            <p-datepicker formControlName="transferOfOPEXToMandateAccountDone" styleClass="w-full" inputId="transferOfOPEXToMandateAccountDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('transferOfOPEXToMandateAccountDone')}" />
+            <label for="transferOfOPEXToMandateAccountDone">Transfer of OPEX to Mandate Account Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('transferOfOPEXToMandateAccountDone')">Transfer of OPEX to Mandate Account Done is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Payment Made to Canopia</label>
+            <p-datepicker formControlName="paymentMadeToCanopia" styleClass="w-full" inputId="paymentMadeToCanopia" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('paymentMadeToCanopia')}" />
+            <label for="paymentMadeToCanopia">Payment Made to Canopia</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('paymentMadeToCanopia')">Payment Made to Canopia is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Settlement Ended</label>
+            <p-datepicker formControlName="settlementEnded" styleClass="w-full" inputId="settlementEnded" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('settlementEnded')}" />
+            <label for="settlementEnded">Settlement Ended</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('settlementEnded')">Settlement Ended is required</small>
     </div>
 </div>
+</form>

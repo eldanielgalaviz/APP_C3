@@ -30,49 +30,69 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _encryptService: EncryptionService,
-    private usuarioservice : LoginService,
-    private _authGuardService: authGuardService,
-    private _fb: FormBuilder
-  ){
-
-  }
+    private loginService: LoginService,
+    private encryptService: EncryptionService,
+    private authGuardService: authGuardService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(){
     this.initFormulario();
   }
 
-  initFormulario(){
-    this.loginForm = this._fb?.group({
+  initFormulario() {
+    this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
-
-
-  login(){
-    if(!this.loginForm.valid){
+  
+  login() {
+    if (!this.loginForm.valid) {
       this.typeSeverity = "error";
-      this.message = "Please, check all fields"
+      this.message = "Please, check all fields";
       return this.showMessage();
     }
 
-    let data = {
+    const credentials = {
       Email: this.loginForm.value.email,
-      password: this.loginForm.value.password,
-    }
+      password: this.loginForm.value.password  
+    };
 
-    const encryptedData = this._encryptService.encryptObject(data);
-    this.usuarioservice.iniciarSesion({userData: encryptedData}).subscribe((response) => {
-      if(response.valido === 1){
-        const decryptData = this._encryptService.decryptObject(response.resp);
-        this._authGuardService.setToken(decryptData?.access_token)
-        this._authGuardService.setUser(decryptData)
-        this.router.navigate(['/Inicio'], { replaceUrl: true });
+    const encryptedData = this.encryptService.encryptObject(credentials);
 
-      } else {
-        this.typeSeverity = "error"
-        this.message = "Please check your credentials. If the problem persists, contact the IT team."
+    const payload = {
+      userData: encryptedData 
+    };
+
+    this.loginService.iniciarSesion(payload).subscribe({
+      next: (response) => {
+        if (response.success || response.valido === 1) {
+          
+          this.authGuardService.setToken(response.accessToken);
+          
+          if (response.user) {
+            this.authGuardService.setUser(response.user);
+          }
+          
+          this.typeSeverity = "success";
+          this.message = response.message || "Login successful";
+          this.showMessage();
+          
+          setTimeout(() => {
+            this.router.navigate(['/Inicio'], { replaceUrl: true });
+          }, 1000);
+        } else {
+          this.typeSeverity = "error";
+          this.message = response.message || "Login failed";
+          this.showMessage();
+        }
+      },
+      error: (error) => {
+        console.error('Login error:', error);
+        this.typeSeverity = "error";
+        this.message = error.error?.message || "Please check your credentials. If the problem persists, contact the IT team.";
+        this.showMessage();
       }
     });
   }

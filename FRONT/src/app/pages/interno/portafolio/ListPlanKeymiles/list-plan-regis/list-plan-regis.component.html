@@ -1,42 +1,55 @@
+<form [formGroup]="form">
 <div class="grid">
     <div class="col-12">
         <small>Execution</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">CAR Project Review Started</label>
+            <p-datepicker formControlName="carProjectReviewStarted" styleClass="w-full" inputId="carProjectReviewStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('carProjectReviewStarted')}" />
+            <label for="carProjectReviewStarted">CAR Project Review Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('carProjectReviewStarted')">CAR Project Review Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">CAR Project Review Finished</label>
+            <p-datepicker formControlName="carProjectReviewFinished" styleClass="w-full" inputId="carProjectReviewFinished" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('carProjectReviewFinished')}" />
+            <label for="carProjectReviewFinished">CAR Project Review Finished</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('carProjectReviewFinished')">CAR Project Review Finished is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Ejidal Assembly to Agree Benefits </label>
+            <p-datepicker formControlName="ejidalAssemblyToAgreeBenefits" styleClass="w-full" inputId="ejidalAssemblyToAgreeBenefits" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('ejidalAssemblyToAgreeBenefits')}" />
+            <label for="ejidalAssemblyToAgreeBenefits">Ejidal Assembly to Agree Benefits </label>
         </p-floatlabel>
-        <small class="username-help" id="username-help"> Distribution & Settlement Done.</small>
+        <small class="p-error" *ngIf="isInvalid('ejidalAssemblyToAgreeBenefits')">Ejidal Assembly to Agree Benefits is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Project Registration Finished</label>
+            <p-datepicker formControlName="projectRegistrationFinished" styleClass="w-full" inputId="projectRegistrationFinished" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectRegistrationFinished')}" />
+            <label for="projectRegistrationFinished">Project Registration Finished</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectRegistrationFinished')">Project Registration Finished is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Issuance Started</label>
+            <p-datepicker formControlName="issuanceStarted" styleClass="w-full" inputId="issuanceStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('issuanceStarted')}" />
+            <label for="issuanceStarted">Issuance Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('issuanceStarted')">Issuance Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Issuance Ended</label>
+            <p-datepicker formControlName="issuanceEnded" styleClass="w-full" inputId="issuanceEnded" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('issuanceEnded')}" />
+            <label for="issuanceEnded">Issuance Ended</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('issuanceEnded')">Issuance Ended is required</small>
     </div>
 </div>
+</form>

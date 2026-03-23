@@ -1,28 +1,50 @@
-// src/modules/login/infrastructure/controllers/LoginController.ts
 import { Request, Response } from 'express';
-import { LoginUseCase } from '../modules/login/application/LoginUseCase';
+import { LoginUseCase } from '../modules/login/Bin/application/LoginUseCase';
 import { LoginCredentials } from '../modules/login/domain/LoginCredentials';
 import { AuthTokens } from '../modules/login/domain/AuthTokens';
-import { RefreshTokenUseCase } from '../modules/login/application/RefreshTokenUseCase';
+import { RefreshTokenUseCase } from '../modules/login/Bin/application/RefreshTokenUseCase';
 import { ServiceContainer } from '../shared/ServiceContainer';
+import { EncryptionService } from '../shared/security/EncryptionService';
 
 
 export class LoginController {
-  // ✅ Constructor vacío → pero usa casos de uso del contenedor
   constructor() {}
 
   login = async (req: Request, res: Response): Promise<Response> => {
     try {
-      const { Email, PasswordHash }: LoginCredentials = req.body;
+      const { userData } = req.body;
 
-      if (!Email || !PasswordHash) {
+      if (!userData) {
         return res.status(400).json({
           success: false,
-          message: 'Email y contraseña son requeridos'
+          message: 'Invalid request format - userData is required'
         });
       }
 
-      const tokens: AuthTokens = await ServiceContainer.auth.loginUseCase.execute({ Email, PasswordHash });
+      let credentials: LoginCredentials;
+      try {
+        const decryptedData = EncryptionService.decryptObject(userData);
+        
+        credentials = {
+          Email: decryptedData.Email,
+          PasswordHash: decryptedData.password 
+        };
+      } catch (error) {
+        console.error('Decryption error:', error);
+        return res.status(400).json({
+          success: false,
+          message: 'Invalid encrypted data'
+        });
+      }
+
+      if (!credentials.Email || !credentials.PasswordHash) {
+        return res.status(400).json({
+          success: false,
+          message: 'Email and password are required'
+        });
+      }
+
+      const tokens: AuthTokens = await ServiceContainer.auth.loginUseCase.execute(credentials);
 
       res.cookie('refreshToken', tokens.refreshToken, {
         httpOnly: true,
@@ -34,15 +56,16 @@ export class LoginController {
 
       return res.status(200).json({
         success: true,
-        accessToken: tokens.accessToken,
-        message: 'Inicio de sesión exitoso'
+        message: 'Login successful',
+        valido: 1 
       });
 
     } catch (error: any) {
       console.error('Error en login:', error.message);
       return res.status(401).json({
         success: false,
-        message: 'Credenciales inválidas'
+        message: 'Invalid email or password',
+        valido: 0
       });
     }
   };

@@ -1,182 +1,252 @@
+<!--este div solo aparece cuando seleccionen un nuevo proyecto-->
 <div>
     <h2>New Project</h2>
-    <p>description</p>
+</div>
+<!--este aparece cuando ya existe el projecto-->
+<div>
+    <h4 class="tit-subcu">Prospect onboarding</h4>
 </div>
 
-<p-card class="col-12 ">
-    <p class="font-bold pb-3">Land Onboarding</p>
+<form [formGroup]="form">
+
+<div class="col-12 pb-5">
+    <div class="pb-3">
+    <hr class="m-0 p-0">
+    <h5>Land Onboarding</h5>
+    </div>
 
     <div class="grid">
         <div class="col-12 md:col-6">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">State</label>
+                <p-select formControlName="landState" inputId="landState" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('landState')}" />
+                <label for="landState">State</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('landState')">State is required.</small>
         </div>
         <div class="col-12 md:col-6">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Municipality</label>
+                <p-select formControlName="municipality" inputId="municipality" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('municipality')}" />
+                <label for="municipality">Municipality</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('municipality')">Municipality is required.</small>
         </div>
         <div class="col-12 md:col-4 flex align-content-center flex-wrap">
             <div class="col-6">
-                <p-radiobutton name="pizza" value="Cheese" inputId="ingredient1" />
+                <p-radiobutton formControlName="nucleoAgrario" name="nucleoAgrario" value="yes" inputId="ingredient1" />
                 <label for="ingredient1" class="ml-2">Yes, is a nucleo agrario</label>
             </div>
             <div class="col-6">
-                <p-radiobutton name="pizza" value="Cheese" inputId="ingredient1" />
-                <label for="ingredient1" class="ml-2">No, is a nucleo agrario</label>
+                <p-radiobutton formControlName="nucleoAgrario" name="nucleoAgrario" value="no" inputId="ingredient2" />
+                <label for="ingredient2" class="ml-2">No, is a nucleo agrario</label>
             </div>
+            <small class="p-error" *ngIf="isInvalid('nucleoAgrario')">Please select an option.</small>
+        </div>
+        <div class="col-12 md:col-4" *ngIf="form.get('nucleoAgrario')?.value === 'yes'">
+            <p-floatlabel>
+                <p-select formControlName="nucleoAgrarioVal" inputId="nucleoAgrarioVal" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('nucleoAgrarioVal')}" />
+                <label for="nucleoAgrarioVal">Nucleo agrario</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('nucleoAgrarioVal')">Nucleo agrario is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Nucleo agrario</label>
+                <p-select formControlName="landTenureType" inputId="landTenureType" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('landTenureType')}" />
+                <label for="landTenureType">Land tenure type</label>
             </p-floatlabel>
-        </div>
-        <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Land tenure type</label>
-            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('landTenureType')">Land tenure type is required.</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Link Property Polygon</label>
+                <input pInputText formControlName="linkPolygon" id="linkPolygon" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('linkPolygon')}" />
+                <label for="linkPolygon">Link Property Polygon</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('linkPolygon')">Link Property Polygon is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
-<p-card class="col-12 ">
-    <p class="font-bold pb-3">Prospect Onboarding</p>
+<div class="col-12 pb-5">
+      <div class="pb-3">
+    <hr class="m-0 p-0">
+    <h5>Prospect Onboarding</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Project Counterpart</label>
+                <input pInputText formControlName="projectCounterpart" id="projectCounterpart" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectCounterpart')}" />
+                <label for="projectCounterpart">Project Counterpart</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectCounterpart')">Project Counterpart is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Prospect contact name</label>
+                <input pInputText formControlName="prospectContactName" id="prospectContactName" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('prospectContactName')}" />
+                <label for="prospectContactName">Prospect contact name</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('prospectContactName')">Prospect contact name is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Prospect contact role</label>
+                <input pInputText formControlName="prospectContactRole" id="prospectContactRole" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('prospectContactRole')}" />
+                <label for="prospectContactRole">Prospect contact role</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('prospectContactRole')">Prospect contact role is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Prospect contact telephone</label>
+                <p-inputmask formControlName="prospectContactTelephone" id="prospectContactTelephone"
+                    mask="(999) 999-9999" placeholder="" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('prospectContactTelephone')}" />
+                <label for="prospectContactTelephone">Prospect contact telephone</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('prospectContactTelephone')">
+                {{ form.get('prospectContactTelephone')?.hasError('required') ? 'Telephone is required.' : 'Must be 10 digits.' }}
+            </small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Prospect contact email</label>
+                <input pInputText formControlName="prospectContactEmail" id="prospectContactEmail" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('prospectContactEmail')}" />
+                <label for="prospectContactEmail">Prospect contact email</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('prospectContactEmail')">
+                {{ form.get('prospectContactEmail')?.hasError('required') ? 'Email is required.' : 'Invalid email format.' }}
+            </small>
         </div>
     </div>
 
-    <p class="font-bold pb-3">Prospect contact address</p>
+    <h6 class="pb-3">Prospect contact address</h6>
+
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Zip code</label>
+                <input pInputText formControlName="zipCode" id="zipCode" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('zipCode')}" (keypress)="onlyNumbers($event)" maxlength="5"/>
+                <label for="zipCode">Zip code</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('zipCode')">
+                {{ form.get('zipCode')?.hasError('required') ? 'Zip code is required.' : 'Must be 5 digits.' }}
+            </small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">State</label>
+                <p-select formControlName="addressState" inputId="addressState" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('addressState')}" />
+                <label for="addressState">State</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('addressState')">State is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Municipality</label>
+                <p-select formControlName="addressMunicip" inputId="addressMunicip" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('addressMunicip')}" />
+                <label for="addressMunicip">Municipality</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('addressMunicip')">Municipality is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Cologn</label>
+                <p-select formControlName="colony" inputId="colony" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('colony')}" />
+                <label for="colony">Cologn</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('colony')">Colony is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Street</label>
+                <input pInputText formControlName="street" id="street" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('street')}" />
+                <label for="street">Street</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('street')">Street is required.</small>
         </div>
         <div class="col-12 md:col-2">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Exterior number</label>
+                <input pInputText formControlName="exteriorNumber" id="exteriorNumber" type="text"
+                    (keypress)="onlyNumbers($event)"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('exteriorNumber')}" />
+                <label for="exteriorNumber">Exterior number</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('exteriorNumber')">Exterior number is required.</small>
         </div>
         <div class="col-12 md:col-2">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Interior Number</label>
+                <input pInputText formControlName="interiorNumber" id="interiorNumber" type="text"
+                    (keypress)="onlyNumbers($event)" />
+                <label for="interiorNumber">Interior Number</label>
             </p-floatlabel>
         </div>
     </div>
-</p-card>
+</div>
 
-<p-card class="col-12 ">
-    <p class="font-bold pb-5">Project Onboarding</p>
+<div class="col-12 pb-5">
+       <div class="pb-3">
+    <hr class="m-0 p-0">
+    <h5>Project Onboarding</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Project Name</label>
+                <input pInputText formControlName="projectName" id="projectName" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectName')}" />
+                <label for="projectName">Project Name</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectName')">Project Name is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Project type</label>
+                <p-select formControlName="projectType" inputId="projectType" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectType')}" />
+                <label for="projectType">Project type</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectType')">Project type is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Program</label>
+                <p-select formControlName="program" inputId="program" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('program')}" />
+                <label for="program">Program</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('program')">Program is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Prospect priority</label>
+                <p-select formControlName="priority" inputId="priority" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('priority')}" />
+                <label for="priority">Prospect priority</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('priority')">Prospect priority is required.</small>
         </div>
         <div class="col-12 md:col-8">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Description</label>
+                <textarea pTextarea formControlName="description" id="description" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('description')}"></textarea>
+                <label for="description">Description</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('description')">Description is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-end flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" label="Project Alive" [rounded]="true" severity="warn"
-            (click)="projectAlive('bottom')" />
+        <p-button [style.visibility]="mostrarBoton ? 'visible' : 'hidden'" styleClass="w-full" label="Project Alive" [rounded]="true" severity="warn"
+            (click)="projectAlive('bottom')"/>
     </div>
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save or Edit" [rounded]="true" />
+        <p-button styleClass="w-full" class="col-4" label="Save or Edit" [rounded]="true" (click)="saveProject()" />
     </div>
 </div>
+
+</form>
 
 <!--INICIA MODAL PROJECT ALIVE-->
 
@@ -197,7 +267,7 @@
         </div>
     </div>
        <ng-template #footer>
-        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" [rounded]="true" severity="primary" (click)="visible = false" />
+        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="projectalive = false" />
+        <p-button label="Save" [rounded]="true" severity="primary" (click)="projectalive = false" />
     </ng-template>
 </p-dialog>

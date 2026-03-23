@@ -1,16 +1,18 @@
 <p-menubar [model]="items" styleClass="center-global">
     <ng-template pTemplate="start">
-        <img src="../logo-white.png" alt="" width="150"> </ng-template>
+        <img src="../logo-white.png" alt="" width="150">
+    </ng-template>
     <ng-template pTemplate="item" let-item let-root="root">
         <a pRipple class="flex align-items-center p-menuitem-link">
             <span class="ml-2">{{ item.label }}</span>
         </a>
     </ng-template>
     <ng-template pTemplate="end">
-        <div class="inline-flex">
+        <div class="inline-flex align-items-center flex-wrap">
             <div class="pr-5">
-                <p-select [options]="projects" (onChange)="onProjectSelected(selectedCountry)" [(ngModel)]="selectedCountry" optionLabel="ProjectName" [filter]="true"
-                    filterBy="ProjectName" [showClear]="true" placeholder="Select a project">
+                <p-select [options]="projects" (onChange)="onProjectSelected(selectedCountry)"
+                    [(ngModel)]="selectedCountry" optionLabel="ProjectName" [filter]="true" filterBy="ProjectName"
+                    [showClear]="true" placeholder="Select a project">
                     <ng-template #selectedItem let-selectedOption>
                         <div class="flex items-center gap-2" *ngIf="selectedOption">
                             <div>{{ selectedOption.ProjectName }}</div>
@@ -26,15 +28,19 @@
                     </ng-template>
                     <ng-template #footer>
                         <div class="pb-3">
-                          <p-divider/>  
-                            <p-button label="New project" fluid severity="secondary" text size="small" routerLink="portafolio/prospect"
-                                icon="pi pi-plus" />
+                            <p-divider />
+                            <p-button label="New project" fluid severity="secondary" text size="small"
+                                routerLink="portafolio/prospect" icon="pi pi-plus" />
                         </div>
                     </ng-template>
                 </p-select>
             </div>
+            <div class="pr-3">
+                <p-button pTooltip="Report a Problem" tooltipPosition="bottom" icon="fa-solid fa-screwdriver-wrench" size="small" 
+                    severity="warn" [rounded]="true" ></p-button>
+            </div>
             <div>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle"
+                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" 
                     (click)="sidebarPerfil = true" />
             </div>
         </div>

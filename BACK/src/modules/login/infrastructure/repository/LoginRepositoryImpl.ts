@@ -1,5 +1,5 @@
 
-import { UserRepository } from '../../../User/domain-exceptions/UserRepository';
+import { UserRepository } from '../../../User/domain/exceptions/UserRepository';
 import { PasswordHasher } from '../../../../shared/security/PasswordHasher';
 import jwt from 'jsonwebtoken';
 import { JwtService } from '../../../../middlewares/JwtService';
@@ -24,7 +24,6 @@ export class LoginRepositoryImpl implements LoginRepository {
 
   async generateTokens(Email: string): Promise<AuthTokens> {
     const user = await this.userRepository.findByEmail(Email);
-    
     if (!user) {
       throw new Error('Usuario no encontrado');
     }
@@ -34,20 +33,21 @@ export class LoginRepositoryImpl implements LoginRepository {
       Iduser: user.Iduser,
       Email: user.Email
     };
-
-    // ✅ Usamos JwtService en lugar de jwt.sign directamente
+    // Obtenemos información y permisos del usuario
+    const userPermissions = await this.userRepository.userPermissions(payload.Iduser);
+    // Usamos JwtService en lugar de jwt.sign directamente
     const accessToken = JwtService.generateAccessToken(payload);
     const refreshToken = JwtService.generateRefreshToken(payload);
-
+    
     // Guardamos el refresh token en BD
-    await this.userRepository.saveRefreshToken(user.Iduser, refreshToken);
+    // await this.userRepository.saveRefreshToken(user.Iduser, refreshToken);
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, userPermissions };
   }
 
   async invalidateTokens(refreshToken: string): Promise<void> {
     try {
-      // ✅ Validamos el token antes de invalidarlo
+      // Validamos el token antes de invalidarlo
       const decoded = JwtService.validateRefreshToken(refreshToken);
       
       if (!decoded || !decoded.Iduser) {
@@ -64,7 +64,7 @@ export class LoginRepositoryImpl implements LoginRepository {
 
   async validateToken(token: string): Promise<any> {
     try {
-      // ✅ Validamos el access token
+      // Validamos el access token
       return JwtService.validateAccessToken(token);
     } catch (error: any) {
       throw new Error('Token no válido: ' + error.message);

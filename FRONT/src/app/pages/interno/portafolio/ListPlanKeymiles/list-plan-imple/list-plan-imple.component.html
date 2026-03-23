@@ -1,18 +1,23 @@
+<form [formGroup]="form">
 <div class="grid">
     <div class="col-12">
         <small>Listing</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Proyect Enlist Format Submitted</label>
+            <p-datepicker formControlName="projectEnlistFormatSubmitted" styleClass="w-full" inputId="projectEnlistFormatSubmitted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectEnlistFormatSubmitted')}" />
+            <label for="projectEnlistFormatSubmitted">Proyect Enlist Format Submitted</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectEnlistFormatSubmitted')">Proyect Enlist Format Submitted is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Project Listed by CAR</label>
+            <p-datepicker formControlName="projectListedByCar" styleClass="w-full" inputId="projectListedByCar" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectListedByCar')}" />
+            <label for="projectListedByCar">Project Listed by CAR</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectListedByCar')">Project Listed by CAR is required</small>
     </div>
 </div>
 
@@ -22,21 +27,27 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">PST Training Done</label>
+            <p-datepicker formControlName="pstTrainingDone" styleClass="w-full" inputId="pstTrainingDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('pstTrainingDone')}" />
+            <label for="pstTrainingDone">PST Training Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('pstTrainingDone')">PST Training Done is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Inventory Started</label>
+            <p-datepicker formControlName="inventoryStarted" styleClass="w-full" inputId="inventoryStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('inventoryStarted')}" />
+            <label for="inventoryStarted">Inventory Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('inventoryStarted')">Inventory Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Inventory Finished</label>
+            <p-datepicker formControlName="inventoryFinished" styleClass="w-full" inputId="inventoryFinished" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('inventoryFinished')}" />
+            <label for="inventoryFinished">Inventory Finished</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('inventoryFinished')">Inventory Finished is required</small>
     </div>
 </div>
 
@@ -44,18 +55,20 @@
     <div class="col-12 md:col-4">
         <small>Strategic Planning</small>
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Carbon Program Management Plan</label>
+            <p-datepicker formControlName="carbonProgramManagementPlanStarted" styleClass="w-full" inputId="carbonProgramManagementPlanStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('carbonProgramManagementPlanStarted')}" />
+            <label for="carbonProgramManagementPlanStarted">Carbon Program Management Plan</label>
         </p-floatlabel>
-         <small class="username-help" id="username-help"> (CPMP) Started.</small>
+         <small class="p-error" *ngIf="isInvalid('carbonProgramManagementPlanStarted')">Carbon Program Management Plan is required</small>
     </div>
     <div class="col-12 md:col-4">
         <small>Annual Planning</small>
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Final Annual Project </label>
+            <p-datepicker formControlName="finalAnnualProjectPlanApproved" styleClass="w-full" inputId="finalAnnualProjectPlanApproved" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('finalAnnualProjectPlanApproved')}" />
+            <label for="finalAnnualProjectPlanApproved">Final Annual Project Plan Approved</label>
         </p-floatlabel>
-        <small class="username-help" id="username-help">Plan Approved Off by Technical Director.</small>
+        <small class="p-error" *ngIf="isInvalid('finalAnnualProjectPlanApproved')">Final Annual Project Plan Approved is required</small>
     </div>
 </div>
 
@@ -65,15 +78,19 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Project Actvity Started</label>
+            <p-datepicker formControlName="projectActivityStarted" styleClass="w-full" inputId="projectActivityStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectActivityStarted')}" />
+            <label for="projectActivityStarted">Project Activity Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectActivityStarted')">Project Activity Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Project Actvities Finished</label>
+            <p-datepicker formControlName="projectActivitiesFinished" styleClass="w-full" inputId="projectActivitiesFinished" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectActivitiesFinished')}" />
+            <label for="projectActivitiesFinished">Project Activities Finished</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectActivitiesFinished')">Project Activities Finished is required</small>
     </div>
 </div>
 
@@ -83,23 +100,30 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Final Annual Activity & Financial </label>
+            <p-datepicker formControlName="finalAnnualActivityFinancialReportApproved" styleClass="w-full" inputId="finalAnnualActivityFinancialReportApproved" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('finalAnnualActivityFinancialReportApproved')}" />
+            <label for="finalAnnualActivityFinancialReportApproved">Final Annual Activity & Financial Report Approved</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('finalAnnualActivityFinancialReportApproved')">Final Annual Activity & Financial Report Approved is required</small>
         <small class="username-help" id="username-help">Project Report Approved by Technical Director & Finance Manager.</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Annual Activity & Financial </label>
+            <p-datepicker formControlName="finalAnnualActivityFinancialReportCommunicatedToME" styleClass="w-full" inputId="finalAnnualActivityFinancialReportCommunicatedToME" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('finalAnnualActivityFinancialReportCommunicatedToME')}" />
+            <label for="finalAnnualActivityFinancialReportCommunicatedToME">Final Annual Activity & Financial Report Communicated to ME</label>
         </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('finalAnnualActivityFinancialReportCommunicatedToME')">Final Annual Activity & Financial Report Communicated to ME is required</small>
                 <small class="username-help" id="username-help">Project Report Communicated to ME.</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Annual Activity & Financial </label>
+            <p-datepicker formControlName="finalAnnualActivityFinancialReportCommunicatedToEjidoAndSil" styleClass="w-full" inputId="finalAnnualActivityFinancialReportCommunicatedToEjidoAndSil" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('finalAnnualActivityFinancialReportCommunicatedToEjidoAndSil')}" />
+            <label for="finalAnnualActivityFinancialReportCommunicatedToEjidoAndSil">Final Annual Activity & Financial Report Communicated to Ejido & SIL</label>
         </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('finalAnnualActivityFinancialReportCommunicatedToEjidoAndSil')">Final Annual Activity & Financial Report Communicated to Ejido & SIL is required</small>
                 <small class="username-help" id="username-help">Project Report Communicated to Ejido & SIL.</small>
     </div>
 </div>
+</form>

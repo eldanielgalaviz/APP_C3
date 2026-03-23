@@ -1,3 +1,4 @@
+<form [formGroup]="form">
 <div>
     <div class="grid">
     <div class="col-12">
@@ -5,15 +6,20 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">CRTs Marketing & Commercialisation Started</label>
+            <p-datepicker formControlName="crtMarketingCommercialisationStarted" styleClass="w-full" inputId="crtMarketingCommercialisationStarted" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('crtMarketingCommercialisationStarted')}" />
+            <label for="crtMarketingCommercialisationStarted">CRTs Marketing & Commercialisation Started</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('crtMarketingCommercialisationStarted')">CRTs Marketing & Commercialisation Started is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">CRTs Sold</label>
+            <p-datepicker formControlName="crtSold" styleClass="w-full" inputId="crtSold" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('crtSold')}" />
+            <label for="crtSold">CRTs Sold</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('crtSold')">CRTs Sold is required</small>
     </div>
 </div>
 </div>
+</form>

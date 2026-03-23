@@ -9,7 +9,7 @@ import { UtilApiService } from '../../../../service/UtilApi.service';
 })
 export class LoginService {
   private config = environment.url
-  private apiUrl: string = this.config +'login/';
+  private apiUrl: string = this.config +'api/auth/login';
 
 
   private httpOptions = {

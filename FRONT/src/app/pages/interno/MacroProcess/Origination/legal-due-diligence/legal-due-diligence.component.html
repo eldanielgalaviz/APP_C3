@@ -1,113 +1,154 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3">Legal</p>
+<h4 class="tit-subcu font-bold">Legal Due Diligence</h4>
+<form [formGroup]="form">
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5 class="font-bold m-0">Legal</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Legal lead</label>
+                <p-select formControlName="legalLead" inputId="legalLead" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('legalLead')}" />
+                <label for="legalLead">Legal lead</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('legalLead')">Legal lead is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Legal DD Status</label>
+                <p-select formControlName="legalDueDiligenceStatus" inputId="legalDueDiligenceStatus" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('legalDueDiligenceStatus')}" />
+                <label for="legalDueDiligenceStatus">Legal DD Status</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('legalDueDiligenceStatus')">Legal DD Status is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">LOI Signed Date</label>
+                <p-datepicker formControlName="loiSignedDate" styleClass="w-full" inputId="loiSignedDate" showIcon iconDisplay="input"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('loiSignedDate')}" />
+                <label for="loiSignedDate">LOI Signed Date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('loiSignedDate')">LOI Signed Date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">KYC Completed?</label>
+                <input pInputText formControlName="kycCompleted" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycCompleted')}" />
+                <label for="kycCompleted">KYC Completed?</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('kycCompleted')">KYC Completed is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">CB Requested to RAN date</label>
+                <p-datepicker formControlName="cbRequestedToRanDate" styleClass="w-full" inputId="cbRequestedToRanDate" showIcon iconDisplay="input"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('cbRequestedToRanDate')}" />
+
+                <label for="cbRequestedToRanDate">CB Requested to RAN date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('cbRequestedToRanDate')">CB Requested to RAN date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">CB Completed?</label>
+                <p-select formControlName="cbCompleted" inputId="cbCompleted" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('cbCompleted')}" />
+                <label for="cbCompleted">CB Completed?</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('cbCompleted')">CB Completed is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">ERPA Signed Date</label>
+                <p-datepicker formControlName="erpaSignedDate" styleClass="w-full" inputId="erpaSignedDate" showIcon iconDisplay="input"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaSignedDate')}" />
+                <label for="erpaSignedDate">ERPA Signed Date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('erpaSignedDate')">ERPA Signed Date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Buyer</label>
+                <input pInputText formControlName="buyer" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('buyer')}" />
+                <label for="buyer">Buyer</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('buyer')">Buyer is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Project aggregator</label>
+                <input pInputText formControlName="projectAggregator" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectAggregator')}" />
+                <label for="projectAggregator">Project aggregator</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectAggregator')">Project aggregator is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Project Developer</label>
+                <input pInputText formControlName="projectDeveloper" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectDeveloper')}" />
+                <label for="projectDeveloper">Project Developer</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectDeveloper')">Project Developer is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Project Coordinator</label>
+                <input pInputText formControlName="projectCoordinator" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectCoordinator')}" />
+                <label for="projectCoordinator">Project Coordinator</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectCoordinator')">Project Coordinator is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">Project Coordinator Term</label>
+                <p-datepicker formControlName="projectCoordinatorTerm" styleClass="w-full" inputId="projectCoordinatorTerm" showIcon iconDisplay="input"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectCoordinatorTerm')}" />
+                <label for="projectCoordinatorTerm">Project Coordinator Term</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('projectCoordinatorTerm')">Project Coordinator Term is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">KYC to ME Submission Date</label>
+                <p-datepicker formControlName="kycToMeSubmissionDate" styleClass="w-full" inputId="kycToMeSubmissionDate" showIcon iconDisplay="input"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycToMeSubmissionDate')}" />
+                <label for="kycToMeSubmissionDate">KYC to ME Submission Date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('kycToMeSubmissionDate')">KYC to ME Submission Date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">ME KYC Status</label>
+                <p-select formControlName="meKycStatus" inputId="meKycStatus" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('meKycStatus')}" />
+                <label for="meKycStatus">ME KYC Status</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('meKycStatus')">ME KYC Status is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">KYC</label>
+                <input pInputText formControlName="kyc" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('kyc')}" />
+                <label for="kyc">KYC</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('kyc')">KYC is required</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Specific Conditions Prescendent</label>
+                <textarea  pTextarea formControlName="specificConditionsPrescendent" id="specificConditionsPrescendent" rows="3" class="w-full"
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('specificConditionsPrescendent')}" ></textarea>
+                <label for="specificConditionsPrescendent">Specific Conditions Prescendent</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('specificConditionsPrescendent')">Specific Conditions Prescendent is required</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Notes Legal Team</label>
+                <textarea pTextarea formControlName="notesLegalTeam" id="notesLegalTeam" rows="3" class="w-full"
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('notesLegalTeam')}" ></textarea>
+                <label for="notesLegalTeam">Notes Legal Team</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('notesLegalTeam')">Notes Legal Team is required</small>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveForm()"/>
     </div>
 </div>
+</form>

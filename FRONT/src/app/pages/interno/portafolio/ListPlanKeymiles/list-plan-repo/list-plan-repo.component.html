@@ -1,11 +1,15 @@
+<form [formGroup]="form">
 <div class="grid">
     <div class="col-12">
         <small>Execution</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Project report / Monitoring report Done by FM</label>
+            <p-datepicker formControlName="projectReportMonitoringReportDoneByFM" styleClass="w-full" inputId="projectReportMonitoringReportDoneByFM" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectReportMonitoringReportDoneByFM')}" />
+            <label for="projectReportMonitoringReportDoneByFM">Project report / Monitoring report Done by FM</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('projectReportMonitoringReportDoneByFM')">Project report / Monitoring report Done by FM is required</small>
     </div>
 </div>
+</form>

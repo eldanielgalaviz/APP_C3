@@ -1,0 +1,152 @@
+<div class="flex justify-content-between">
+    <div>
+        <p>Method for evaluating the financial viability of a project or investment by comparing its costs with its
+            expected benefits. <br>
+            If you haven't tried this method, <a href="">Download the template.</a> </p>
+    </div>
+    <div>
+        <p-button styleClass="w-full" class="col-6" label="Import document" [rounded]="true"
+            (click)="importDoc('bottom')" severity="secondary" />
+    </div>
+</div>
+<!--PASO 0 imagen que aparece antes de importar-->
+<div class="p-2 m-2 text-center" *ngIf="mostrarImage">
+    <img src="./import-document.png" alt="" width="35%">
+</div>
+<!--PASO 2 visualizacion de la importacion-->
+<div>
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>ERs From Restoration</h5>
+    </div>
+    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+        <ng-template #header>
+            <tr>
+                <th class="text-center"></th>
+                <th class="text-center"><small>TOTAL</small></th>
+                <th class="text-center"><small>RP1</small></th>
+                <th class="text-center"><small>RP2</small></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<div>
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Initial Investment</h5>
+    </div>
+    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+        <ng-template #header>
+            <tr>
+                <th class="text-center"><small>Initial Investment</small></th>
+                <th class="text-center"><small>TOTAL</small></th>
+                <th class="text-center"><small>RP1</small></th>
+                <th class="text-center"><small>RP2</small></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+            </tr>
+        </ng-template>
+        <ng-template #footer>
+        <tr>
+            <td class="font-bold">TOTAL</td>
+            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold">$1,902,000</td>
+        </tr>
+    </ng-template>
+    </p-table>
+</div>
+
+<div>
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Project Costs</h5>
+    </div>
+    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+        <ng-template #header>
+            <tr>
+                <th class="text-center"><small>Project Costs</small></th>
+                <th class="text-center"><small>TOTAL</small></th>
+                <th class="text-center"><small>RP1</small></th>
+                <th class="text-center"><small>RP2</small></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{ product.code }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+            </tr>
+        </ng-template>
+          <ng-template #footer>
+        <tr>
+            <td class="font-bold">TOTAL</td>
+            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold">$1,902,000</td>
+        </tr>
+    </ng-template>
+    </p-table>
+</div>
+
+
+<!--PASO 1 INICIA MODAL DE IMPORTACION-->
+<p-dialog header="Import document" [modal]="true" [(visible)]="importdoc" [maximizable]="true" [position]="position"
+    [style]="{ width: '50rem' }">
+    <p>
+        If your CBA is already prepared, please make sure your file includes three sheets with the following names:
+    </p>
+    <ul>
+        <li> Initial Investment</li>
+        <li> ERs from Restoration</li>
+        <li> Project Costs</li>
+    </ul>
+    <p>
+        This helps us easily identify where each table is located.  You can use the template above as a reference to
+        ensure your file follows the required format.
+    </p>
+    <div class="flex justify-content-center flex-wrap">
+            <div class="col-6 pt-5">
+                <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                    <div class="flex align-items-center">
+                        <small *ngIf="!Uploaded">Upload template</small>
+                        <small *ngIf="Uploaded">{{ File?.name }}</small>
+                    </div>
+                    <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                        <i *ngIf="Uploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                        <p-fileupload *ngIf="!Uploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                            (onSelect)="onUpload($event)">
+                        </p-fileupload>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <hr>
+    <small>The file must comply with the required structure or an error will occur. If you don’t have the template, <a
+            href="">download it here.</a> </small>
+
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
+        <p-button label="import document" [rounded]="true" severity="primary" (click)="showImage()" />
+    </ng-template>
+</p-dialog>

@@ -13,10 +13,6 @@ export interface ConfigPort {
   readonly HOST: string;
   readonly USER: string;
   readonly PASSWORD: string;
-  readonly SMTP_USER: string;
-  readonly SMTP_PWD: string;
-  readonly SMTP_HOST: string;
-  readonly SMTP_PORT: string;
   readonly APP_CLIENTID: string;
   readonly TENANTID: string;
   readonly SECRETVALUE: string;
@@ -25,6 +21,15 @@ export interface ConfigPort {
   readonly AIRTABLE_ACCESSTOKEN: string;
   readonly TABLE_ID: string;
   readonly ENV: 'development' | 'production' | 'test';
+  readonly SECRETMAILVALUE: string;
+  readonly CLIENTMAILID: string;
+  readonly SECRETIDMAIL: string;
+  readonly SEND_NOTIFICATIONS: boolean;
+  readonly PORTFOLIO_EMAIL: string;
+  readonly ADMIN_NOTIFICATION_EMAIL: string;
+  readonly ACCOUNT_NAME: string;
+  readonly SAS_TOKEN: string;
+  readonly CONTAINER_NAME: string;
 }
 
 export class SecureYamlConfig implements ConfigPort {
@@ -71,21 +76,6 @@ export class SecureYamlConfig implements ConfigPort {
     return this.decrypt(this.configData.PASSWORD);
   }
 
-  get SMTP_USER(): string {
-    return this.decrypt(this.configData.SMTP_USER);
-  }
-
-  get SMTP_PWD(): string {
-    return this.decrypt(this.configData.SMTP_PWD);
-  }
-
-  get SMTP_HOST(): string {
-    return this.configData.SMTP_HOST;
-  }
-
-  get SMTP_PORT(): string {
-    return this.configData.SMTP_PORT;
-  }
 
   get APP_CLIENTID(): string {
     return this.decrypt(this.configData.APP_CLIENTID);
@@ -119,6 +109,42 @@ export class SecureYamlConfig implements ConfigPort {
     return this.configData.ENV || 'development';
   }
 
+  get SECRETMAILVALUE(): string {
+    return this.decrypt(this.configData.SECRETMAILVALUE);
+  }  
+  
+  get CLIENTMAILID(): string {
+    return this.decrypt(this.configData.CLIENTMAILID);
+  }  
+
+  get SECRETIDMAIL(): string {
+    return this.decrypt(this.configData.SECRETIDMAIL);
+  }
+
+  get SEND_NOTIFICATIONS(): boolean {
+    return this.configData.SEND_NOTIFICATIONS === 'true';
+  }
+
+  get PORTFOLIO_EMAIL(): string {
+    return this.decrypt(this.configData.PORTFOLIO_EMAIL);
+  }
+
+  get ADMIN_NOTIFICATION_EMAIL(): string {
+    return this.decrypt(this.configData.ADMIN_NOTIFICATION_EMAIL);
+  }
+
+  get ACCOUNT_NAME(): string {
+    return this.decrypt(this.configData.ACCOUNT_NAME);
+  }
+
+  get SAS_TOKEN(): string {
+    return this.decrypt(this.configData.SAS_TOKEN);
+  }
+
+  get CONTAINER_NAME(): string {
+    return this.decrypt(this.configData.CONTAINER_NAME);
+  }
+  
   /**
    * Descifra un valor si está marcado como ENC:
    * Formato esperado: ENC:<ciphertext-base64>::<iv-hex>
@@ -177,11 +203,17 @@ export class SecureYamlConfig implements ConfigPort {
       'HOST',
       'USER',
       'PASSWORD',
-      'SMTP_HOST',
-      'SMTP_PORT',
       'APP_CLIENTID',
       'TENANTID',
-      'ENV'
+      'ENV',
+      'SECRETMAILVALUE',
+      'CLIENTMAILID',
+      'SECRETIDMAIL',
+      'PORTFOLIO_EMAIL',
+      'ADMIN_NOTIFICATION_EMAIL',
+      'ACCOUNT_NAME',
+      'SAS_TOKEN',
+      'CONTAINER_NAME',
     ];
 
     for (const field of required) {

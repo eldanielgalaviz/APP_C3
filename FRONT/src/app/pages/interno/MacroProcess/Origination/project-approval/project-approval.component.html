@@ -1,36 +1,51 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3">Mercuria</p>
+
+<h4 class="tit-subcu font-bold">Project Approval</h4>
+<form [formGroup]="form">
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5 class="font-bold m-0">Mercuria</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">DD pack to Mercuria Submission Date</label>
+                <p-datepicker formControlName="ddPackToMercuriaSubmissionDate" styleClass="w-full" inputId="ddPackToMercuriaSubmissionDate" showIcon iconDisplay="input" 
+                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackToMercuriaSubmissionDate')}" />
+                <label for="ddPackToMercuriaSubmissionDate">DD pack to Mercuria Submission Date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('ddPackToMercuriaSubmissionDate')">DD pack to Mercuria Submission Date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">Informal Assembly to Present Project Done</label>
+                <p-datepicker formControlName="informalAssemblyToPresentProjectDone" styleClass="w-full" inputId="informalAssemblyToPresentProjectDone" showIcon iconDisplay="input"
+                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('informalAssemblyToPresentProjectDone')}" />
+                <label for="informalAssemblyToPresentProjectDone">Informal Assembly to Present Project Done</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('informalAssemblyToPresentProjectDone')">Informal Assembly to Present Project Done is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">Mercuria Questions Answered</label>
+                <p-datepicker formControlName="mercuriaQuestionsAnswered" styleClass="w-full" inputId="mercuriaQuestionsAnswered" showIcon iconDisplay="input" 
+                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('mercuriaQuestionsAnswered')}" />
+                <label for="mercuriaQuestionsAnswered">Mercuria Questions Answered</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('mercuriaQuestionsAnswered')">Mercuria Questions Answered is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" inputId="over_label" showIcon iconDisplay="input" />
-                <label for="over_label">DD Pack Approved by Mercuria</label>
+                <p-datepicker formControlName="ddPackApprovedByMercuria" styleClass="w-full" inputId="ddPackApprovedByMercuria" showIcon iconDisplay="input" 
+                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackApprovedByMercuria')}" />
+                <label for="ddPackApprovedByMercuria">DD Pack Approved by Mercuria</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('ddPackApprovedByMercuria')">DD Pack Approved by Mercuria is required</small>
         </div>
    
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveForm()"/>
     </div>
 </div>
+</form>

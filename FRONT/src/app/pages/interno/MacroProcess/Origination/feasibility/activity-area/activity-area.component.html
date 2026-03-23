@@ -1,37 +1,50 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3">Activity Area</p>
+<form [formGroup]="form">
+
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Activity Area</h5>
+    </div>
     <div class="grid">
-            <div class="col-12 md:col-4">
+        <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Activity Area (ha)</label>
+                <input pInputText formControlName="activityArea" id="activityArea" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('activityArea')}" />
+                <label for="activityArea">Activity Area (ha)</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('activityArea')">Activity Area is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Validation status AA</label>
+                <p-select formControlName="validationStatusAA" inputId="validationStatusAA" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('validationStatusAA')}" />
+                <label for="validationStatusAA">Validation status AA</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('validationStatusAA')">Validation status is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Version AA</label>
+                <p-select formControlName="versionAA" inputId="versionAA" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('versionAA')}" />
+                <label for="versionAA">Version AA</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('versionAA')">Version AA is required.</small>
         </div>
-
-
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Notes AA</label>
+                <textarea pTextarea formControlName="notesAA" id="notesAA" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('notesAA')}"></textarea>
+                <label for="notesAA">Notes AA</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('notesAA')">Notes AA is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
     </div>
 </div>
+
+</form>

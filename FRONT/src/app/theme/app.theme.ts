@@ -70,7 +70,8 @@ const AppTheme = definePreset(Aura, {
             colorScheme: {
                 light: {
                     root: {
-                        color: '#999999',
+                        color: '#5E6C84',
+                        invalidColor: '#D1410D',
                         over: {
                             active: {
                                 top: '-0.80rem',
@@ -80,12 +81,51 @@ const AppTheme = definePreset(Aura, {
                 }
             }
         },
+        inputtext: {
+            colorScheme: {
+                light: {
+                    root: {
+                        invalidBorderColor: '#D1410D',
+                        invalidFocusBorderColor: '#D1410D',
+                    },
+
+                }
+            }
+        },
+        select: {
+            colorScheme: {
+                light: {
+                    root: {
+                        invalidBorderColor: '#D1410D',
+                        invalidFocusBorderColor: '#D1410D',
+                    },
+
+                }
+            }
+        },
+        textarea: {
+            colorScheme: {
+                light: {
+                    root: {
+                        invalidBorderColor: '#D1410D',
+                        invalidFocusBorderColor: '#D1410D',
+                    },
+
+                }
+            }
+        },
         breadcrumb: {
             colorScheme: {
                 light: {
                     root: {
-                        background: 'transparent',
-                        padding: '8px',
+                        background: '#F8FAFB',
+                        padding: '4px 50px',
+                    },
+                    item: {
+                        color: '#5E6C84'
+                    },
+                    divider: {
+                        color: '#5E6C84'
                     }
                 }
             }
@@ -94,17 +134,20 @@ const AppTheme = definePreset(Aura, {
             colorScheme: {
                 light: {
                     root: {
+                        background: 'transparent',
+
                         borderColor: '0px',
                         item: {
                             color: '#163029',
+                      
                             focus: {
                                 background: '#E3F0EA',
                             }
                         },
                         submenu: {
                             label: {
-                                color: '#163029',
-                                fontSize: '12px',
+                                color: '#088F83',
+                                fontSize: '10px',
                                 fontWeight: '700',
                             }
                         },
@@ -170,17 +213,30 @@ const AppTheme = definePreset(Aura, {
                     root: {
                         padding: '16px 32px',
                         background: "#163029",
-                        borderRadius: '0px',
+                        borderRadius: '0',
                         borderColor: 'none',
                         item: {
-                            color: 'white',
-                        }
+                            color: "#ffffff",
+                            icon: {
+                                color: "#999999",
+                                focus: {
+                                    color: "#00946E",
+                                },
+                            },
+                            focus: {
+                                background: "transparent",
+                                color: '#ffffff',
+                            }
+                        },
+                        submenu: {
+                            background: "#F8FAFB",
+                        },
 
-                    }
+                    },
+
                 }
             }
         },
-
         divider: {
             colorScheme: {
                 light: {
@@ -193,7 +249,6 @@ const AppTheme = definePreset(Aura, {
             }
 
         },
-
         dialog: {
             colorScheme: {
                 light: {
@@ -217,21 +272,56 @@ const AppTheme = definePreset(Aura, {
                 }
             }
         },
-
         datatable: {
             colorScheme: {
                 light: {
                     root: {
                         header: {
                             cell: {
-                                background: " #E3F0EA",
+                                background: " #F8FAFB",
                             }
                         }
                     }
                 }
             }
         },
+        tag: {
+            colorScheme: {
+                light: {
+                    root: {
+                        primary: {
+                            background: '#ffffff00',
+                            color: '#00946E'
+                        },
+                        secondary: {
+                            background: '#ffffff00',
+                            color: '#3DB87B'
+                        },
+                        success: {
+                            background: '#ffffff00',
+                            color: '#21B6A8'
+                        },
+                        info: {
+                            background: '#ffffff00',
+                            color: '#000'
+                        },
+                        warn: {
+                            background: '#ffffff00',
+                            color: '#D87610'
+                        },
+                        danger: {
+                            background: '#ffffff00',
+                            color: '#D1410D'
+                        },
+                        contrast: {
+                            background: '#ffffff00',
+                            color: '#000'
+                        }
 
+                    }
+                }
+            }
+        },
         tabs: {
             colorScheme: {
                 light: {
@@ -247,7 +337,7 @@ const AppTheme = definePreset(Aura, {
 
                         },
                         tab: {
-
+                            color: '#6B7280',
                             active: {
                                 color: "#163029",
                             }

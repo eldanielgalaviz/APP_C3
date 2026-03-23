@@ -1,144 +1,182 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3"> PHINA </p>
-
+<p-toast />
+<form [formGroup]="form">
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>PHINA</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Certification</label>
+                <p-select formControlName="certification" inputId="certification" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('certification')}" />
+                <label for="certification">Certification</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('certification')">Certification is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Total Area PHINA (ha)</label>
+                <input pInputText formControlName="totalAreaPhina" inputId="totalAreaPhina" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('totalAreaPhina')}" />
+                <label for="totalAreaPhina">Total Area PHINA (ha)</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('totalAreaPhina')">Total Area PHINA is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Achurado (ha)</label>
+                <input pInputText formControlName="achurado" inputId="achurado" type="text"
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('achurado')}" />
+                <label for="achurado">Achurado (ha)</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('achurado')">Achurado is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Expropriated Area (ha)</label>
+                <input pInputText formControlName="expropriatedArea" inputId="expropriatedArea" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('expropriatedArea')}" />
+                <label for="expropriatedArea">Expropriated Area (ha)</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('expropriatedArea')">Expropriated Area is required.</small>
         </div>
+      <!-- UPLOAD PHINA -->
         <div class="col-12 md:col-4">
-            <div class="flex justify-content-between align-content-center flex-wrap document">
-                <div class="flex align-items-center justify-content-center">
-                    <i class="pi pi-spinner-dotted pi-spin green"></i>
-                    <i class="pi pi-check-circle green"></i>
-                    <a href="">Document PHINA</a>
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center">
+                    <small *ngIf="!phinaUploaded">Upload document PHINA</small>
+                    <small *ngIf="phinaUploaded">{{ phinaFile?.name }}</small>
                 </div>
-                <div>
-                    <p-button icon="pi pi-upload" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Upload document" />
-                    <p-button icon="pi pi-trash" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Delete document" />
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="phinaUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <p-fileupload *ngIf="!phinaUploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                    chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                    (onSelect)="onPhinaUpload($event)">
+                    </p-fileupload>
                 </div>
             </div>
         </div>
     </div>
-</p-card>
+</div>
 
-<p-card class="col-12">
-    <p class="font-bold pb-3"> RAN perimetrales </p>
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>RAN perimetrales</h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Total perimeter area of the RAN (ha)</label>
+                <input pInputText formControlName="totalPerimeterAreaRan" inputId="totalPerimeterAreaRan" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('totalPerimeterAreaRan')}" />
+                <label for="totalPerimeterAreaRan">Total perimeter area of the RAN (ha)</label>
             </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('totalPerimeterAreaRan')">Total perimeter area of the RAN is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
-<p-card class="col-12">
-    <p class="font-bold pb-3"> Plano interno </p>
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5> Plano interno </h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
+                <p-select pInputText formControlName="ranApplication" inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full"
+                 [ngClass]="{'ng-invalid ng-dirty': isInvalid('ranApplication')}" />
                 <label for="over_label">RAN application</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('ranApplication')">RAN application is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Internal flat surface</label>
+                <input pInputText formControlName="internalFlatSurface" inputId="internalFlatSurface" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('internalFlatSurface')}" />
+                <label for="internalFlatSurface">Internal flat surface</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('internalFlatSurface')">Internal flat surface is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Expropriated areas (ha)</label>
+                <input pInputText formControlName="expropriatedAreas" inputId="expropriatedAreas" type="text" 
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('expropriatedAreas')}" />
+                <label for="expropriatedAreas">Expropriated areas (ha)</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('expropriatedAreas')">Expropriated areas is required.</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <input pInputText type="text" />
-                <label for="over_label">Plan year</label>
+                <input pInputText formControlName="planYear" inputId="planYear" type="text"
+                 [ngClass]="{'ng-invalid ng-dirty': isInvalid('planYear')}" />
+                <label for="planYear">Plan year</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('planYear')">Plan year is required.</small>
         </div>
-
+      <!-- UPLOAD INTERNAL FLAT -->
         <div class="col-12 md:col-4">
-            <div class="flex justify-content-between align-content-center flex-wrap document">
-                <div class="flex align-items-center justify-content-center">
-                    <i class="pi pi-spinner-dotted pi-spin green"></i>
-                    <i class="pi pi-check-circle green"></i>
-                    <a href="">Document Internal flat </a>
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center">
+                    <small *ngIf="!internalFlatUploaded">Upload Document Internal flat</small>
+                    <small *ngIf="internalFlatUploaded">{{ internalFlatFile?.name }}</small>
                 </div>
-                <div>
-                    <p-button icon="pi pi-upload" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Upload document" />
-                    <p-button icon="pi pi-trash" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Delete document" />
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="internalFlatUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <p-fileupload *ngIf="!internalFlatUploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                        chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                        (onSelect)="onInternalFlatUpload($event)">
+                    </p-fileupload>
                 </div>
             </div>
         </div>
     </div>
-</p-card>
+</div>
 
-<p-card class="col-12">
-    <p class="font-bold pb-3">Validacion </p>
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Validacion </h5>
+    </div>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">AP por SIG</label>
+                <p-select inputId="apPorSig" [options]="state" optionLabel="name" styleClass="w-full" formControlName="apPorSig"
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('apPorSig')}" />
+                <label for="apPorSig">AP por SIG</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('apPorSig')">AP por SIG is required.</small>
         </div>
 
+      <!-- UPLOAD AP -->
         <div class="col-12 md:col-4">
-            <div class="flex justify-content-between align-content-center flex-wrap document">
-                <div class="flex align-items-center justify-content-center">
-                    <i class="pi pi-spinner-dotted pi-spin green"></i>
-                    <i class="pi pi-check-circle green"></i>
-                    <a href="">Document AP</a>
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center">
+                    <small *ngIf="!apUploaded">Upload Document AP</small>
+                    <small *ngIf="apUploaded">{{ apFile?.name }}</small>
                 </div>
-                <div>
-                    <p-button icon="pi pi-upload" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Upload document" />
-                    <p-button icon="pi pi-trash" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Delete document" />
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="apUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <p-fileupload *ngIf="!apUploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                        chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                        (onSelect)="onApUpload($event)">
+                    </p-fileupload>
                 </div>
             </div>
         </div>
 
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Observaciones AP</label>
+                <textarea pTextarea id="observations" rows="3" class="w-full" formControlName="observations"
+                [ngClass]="{'ng-invalid ng-dirty': isInvalid('observations')}"></textarea>
+                <label for="observations">Observaciones AP</label>
             </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('observations')">Observations AP is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveForm()"/>
     </div>
 </div>
+</form>

@@ -1,30 +1,22 @@
-<section class="flex justify-content-between flex-wrap">
-    <div class="col-8">
+<section  *ngIf="!hideTitle" class="flex justify-content-between flex-wrap portafolio">
+    <div *ngIf="!hideTitle" class="flex align-items-center justify-content-center">
         <h3 class="font-bold">[Titulo proyecto]</h3>
-
-        <div class="flex">
-            <div class="fase">
-                <p class="font-bold">[MacroProcess] | [Subprocess]</p>
-            </div>
-            <div class="flex gap-2">
-                <p-button size="small" icon="pi pi-bars" [rounded]="true" pTooltip="Menu Project" tooltipPosition="top"
-                    (click)="MenuGlobal = true" />
-                <p-button size="small" icon="pi pi-eye" [rounded]="true" pTooltip="Project Overview"
-                    tooltipPosition="top" (click)="overview = true" />
-                <p-button size="small" icon="pi pi-calendar" [rounded]="true" pTooltip="KeyMilestones"
-                    tooltipPosition="top" (click)="menu.toggle($event)" />
-
-                <p-button size="small" icon="pi pi-clipboard" [rounded]="true" pTooltip="Project Log"
-                    tooltipPosition="top" (click)="projectLog('bottom')" />
-            </div>
-        </div>
     </div>
+    <div *ngIf="hideTitle" class="flex align-items-center justify-content-center">
+    </div>
+    <div class="flex align-items-center justify-content-center">
+        <div class="flex gap-2">
 
-    <div class="col-4">
-        <p-message severity="warn" icon="pi pi-exclamation-triangle">
+            <p-button size="small" icon="pi pi-eye" [rounded]="true" pTooltip="Project Overview" tooltipPosition="top" severity="success"
+                (click)="overview = true" />
+            <p-button size="small" icon="pi pi-calendar" [rounded]="true" pTooltip="KeyMilestones" tooltipPosition="top" severity="success"
+                (click)="menu.toggle($event)" />
 
-            <p> <span class="font-bold">Alert Project Alive</span> <br> <span> For [status] [description]</span></p>
-        </p-message>
+            <p-button size="small" icon="pi pi-clipboard" [rounded]="true" pTooltip="Project Log" tooltipPosition="top" severity="success"
+                (click)="projectLog('bottom')" />
+            <p-button size="small" icon="pi pi-bars" [rounded]="true" pTooltip="Menu Project" tooltipPosition="top" severity="success"
+                (click)="MenuGlobal = true" />
+        </div>
     </div>
 </section>
 
@@ -52,6 +44,13 @@
     <ng-template #header>
         <h3>Project Overview</h3>
     </ng-template>
+    <div class="fase">
+        <p class="font-bold">[MacroProcess] | [Subprocess]</p>
+    </div>
+    <p-message severity="warn" icon="pi pi-exclamation-triangle">
+
+        <p> <span class="font-bold">Alert Project Alive</span> <br> <span> For [status] [description]</span></p>
+    </p-message>
     <table>
         <tbody>
             <tr>
@@ -215,12 +214,15 @@
 <!--planning Keymilestones-->
 <p-dialog header="Planning Keymilestones" [modal]="true" [(visible)]="planning" [maximizable]="true" [resizable]="false"
     [position]="position">
+    <form [formGroup]="form">
     <div class="col-2">
         <p-floatlabel>
-            <p-select inputId="over_label" [options]="rp" optionLabel="name" styleClass="w-full" />
-            <label for="over_label">RP</label>
+            <p-select formControlName="rp" inputId="rp" [options]="rp" optionLabel="name" styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('rp')}"/>
+            <label for="rp">RP</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('rp')">RP is required</small>
     </div>
+    </form>
     <p-tabs value="0">
         <p-tablist>
             <p-tab value="0">Origination</p-tab>
@@ -345,37 +347,48 @@
 <!--Project log-->
 
 <p-dialog header="Project Log" [modal]="true" [(visible)]="projectlog" [maximizable]="true" [position]="position">
+    <form [formGroup]="form">
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker styleClass="w-full" [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" />
-                <label for="over_label">Event date</label>
+                <p-datepicker formControlName="eventDate"  styleClass="w-full" [iconDisplay]="'input'" [showIcon]="true" inputId="eventDate" 
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('eventDate')}" />
+                <label for="eventDate">Event date</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('eventDate')">Event date is required</small>
         </div>
 
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="milestones" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Milestones</label>
+                <p-select formControlName="milestone" inputId="milestone" [options]="milestones" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('milestone')}" />
+                <label for="milestone">Milestones</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('milestone')">Milestone is required</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Description</label>
+                <textarea formControlName="description" pTextarea id="description" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('description')}"></textarea>
+                <label for="description">Description</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('description')">Description is required</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="in_label" rows="3" class="w-full"></textarea>
-                <label for="in_label">Decisions required</label>
+                <textarea formControlName="decisions" pTextarea id="decisions" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('decisions')}"></textarea>
+                <label for="decisions">Decisions required</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('decisions')">Decisions is required</small>
         </div>
         <div class="col-12 md:col-12">
             <p-floatlabel>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">Agreements</label>
+                <textarea formControlName="agreements" pTextarea id="agreements" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('agreements')}"></textarea>
+                <label for="agreements">Agreements</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('agreements')">Agreements is required</small>
         </div>
 
     </div>
@@ -389,25 +402,31 @@
                 <div class="grid">
                     <div class="col-12">
                         <p-floatlabel>
-                            <p-select inputId="over_label" [options]="milestones" optionLabel="name"
-                                styleClass="w-full" />
+                            <p-select formControlName="category" inputId="over_label" [options]="milestones" optionLabel="name"
+                                styleClass="w-full" 
+                                [ngClass]="{'ng-invalid ng-dirty': isInvalid('category')}"/>
                             <label for="over_label">Category</label>
                         </p-floatlabel>
+                        <small class="p-error" *ngIf="isInvalid('category')">Category is required</small>
                     </div>
                     <div class="col-12">
                         <p-floatlabel>
-                            <p-select inputId="over_label" [options]="milestones" optionLabel="name"
-                                styleClass="w-full" />
+                            <p-select formControlName="typeEvidence" inputId="over_label" [options]="milestones" optionLabel="name"
+                                styleClass="w-full" 
+                                [ngClass]="{'ng-invalid ng-dirty': isInvalid('typeEvidence')}"/>
                             <label for="over_label">Type Evidence</label>
                         </p-floatlabel>
+                        <small class="p-error" *ngIf="isInvalid('typeEvidence')">Type Evidence is required</small>
                     </div>
                 </div>
             </div>
             <div class="col-8">
                 <p-floatlabel>
-                    <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
+                    <textarea formControlName="notes" pTextarea id="over_label" rows="3" class="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('notes')}"></textarea>
                     <label for="over_label">Notes</label>
                 </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('notes')">Notes is required</small>
             </div>
         </div>
         <div>
@@ -442,6 +461,7 @@
     </div>
     <ng-template #footer>
         <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" [rounded]="true" severity="primary" (click)="visible = false" />
+        <p-button label="Save" [rounded]="true" severity="primary" (click)="saveForm()" />
     </ng-template>
+    </form>
 </p-dialog>

@@ -1,0 +1,129 @@
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Accounts</h4>
+        </div>
+        <div>
+            <p-button label="New accounts" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+    <p>This catalog feeds the “Annual planning, Financial monitoring, settlement” sections. Since the sections are
+        interconnected, options cannot be deleted—only edited.
+    </p>
+
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">Capex</p-tab>
+            <p-tab value="1">Opex</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                <p-table [value]="products" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5"
+                    [filterDelay]="0" [globalFilterFields]="['code', 'products.name']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center flex-wrap">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
+                                <input pInputText type="text" placeholder="Search global" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="code">
+                                Compaq <p-sortIcon field="code" />
+                            </th>
+                            <th pSortableColumn="name">
+                                Name account <p-sortIcon field="name" />
+                            </th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="visible2 = true" /></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+                <p-table [value]="products" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5"
+                    [filterDelay]="0" [globalFilterFields]="['code', 'products.name']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center flex-wrap">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
+                                <input pInputText type="text" placeholder="Search global" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="code">
+                                Compaq <p-sortIcon field="code" />
+                            </th>
+                            <th pSortableColumn="name">
+                                Name account <p-sortIcon field="name" />
+                            </th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{product.code }}</td>
+                            <td>{{ product.name }}</td>
+                            <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="visible2 = true" /></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+        </p-tabpanels>
+    </p-tabs>
+</div>
+
+<!--inicia drawer generador nuevos-->
+
+<p-drawer header="New account" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+            <div class="flex flex-wrap gap-4 pb-2">
+                <div class="flex items-center">
+                    <p-radiobutton inputId="ingredient1" />
+                    <label for="ingredient1" class="ml-2">Capex</label>
+                </div>
+
+                <div class="flex items-center">
+                    <p-radiobutton inputId="ingredient2" />
+                    <label for="ingredient2" class="ml-2">Opex</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="newcompaq" />
+                    <label for="newcompaq">New compaq</label>
+                </p-floatlabel>
+                <small class="p-error">compaq is required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="newcompaq" />
+                    <label for="newcompaq">New name</label>
+                </p-floatlabel>
+                <small class="p-error">name is required.</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #footer>
+        <p-button label="Save" [rounded]="true" styleClass="w-full" />
+    </ng-template>
+</p-drawer>

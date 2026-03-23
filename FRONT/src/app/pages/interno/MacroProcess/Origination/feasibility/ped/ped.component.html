@@ -1,124 +1,164 @@
-<p-card class="col-12">
-    <p class="font-bold pb-3"> AP-Regional Result</p>
-    <div class="grid">
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">PED AP-Regional Result</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Can it include ANP or ADVC?</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Can it include PSA?</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Does it requiere commercial agriculture?</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Does it requiere subsidies?</label>
-            </p-floatlabel>
-        </div>
-    </div>
-</p-card>
+<form [formGroup]="form">
 
-<p-card class="col-12">
-    <p class="font-bold pb-3">Local PED on AA</p>
-    <div class="grid">
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Sección PED AA</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Población AA con modelo de REDES</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Actividad agropecuaria AA + 1km</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Encuestas</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Subsidios AA + 1km</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Pendiente AA</label>
-            </p-floatlabel>
-        </div>
-     <div class="col-12 md:col-4">
-            <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Cambio de cobertura AA</label>
-            </p-floatlabel>
-        </div>
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>AP-Regional Result</h5>
     </div>
-</p-card>
-
-<p-card class="col-12">
-    <p class="font-bold pb-3">Local Feasibility on AA</p>
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                <label for="over_label">Resultado PED AA-Local</label>
+                <p-select formControlName="pedApRegionalResult" inputId="pedApRegionalResult" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('pedApRegionalResult')}" />
+                <label for="pedApRegionalResult">PED AP-Regional Result</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('pedApRegionalResult')">This field is required.</small>
         </div>
-
         <div class="col-12 md:col-4">
-            <div class="flex justify-content-between align-content-center flex-wrap document">
-                <div class="flex align-items-center justify-content-center">
-                    <i class="pi pi-spinner-dotted pi-spin green"></i>
-                    <i class="pi pi-check-circle green"></i>
-                    <a href="">Document PED AA-Local</a>
+            <p-floatlabel>
+                <p-select formControlName="canIncludeAnpOrAdvc" inputId="canIncludeAnpOrAdvc" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('canIncludeAnpOrAdvc')}" />
+                <label for="canIncludeAnpOrAdvc">Can it include ANP or ADVC?</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('canIncludeAnpOrAdvc')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="canIncludePsa" inputId="canIncludePsa" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('canIncludePsa')}" />
+                <label for="canIncludePsa">Can it include PSA?</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('canIncludePsa')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="requiresCommercialAgriculture" inputId="requiresCommercialAgriculture" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('requiresCommercialAgriculture')}" />
+                <label for="requiresCommercialAgriculture">Does it requiere commercial agriculture?</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('requiresCommercialAgriculture')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="requiresSubsidies" inputId="requiresSubsidies" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('requiresSubsidies')}" />
+                <label for="requiresSubsidies">Does it requiere subsidies?</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('requiresSubsidies')">This field is required.</small>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Local PED on AA</h5>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="seccionPedAA" inputId="seccionPedAA" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('seccionPedAA')}" />
+                <label for="seccionPedAA">Sección PED AA</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('seccionPedAA')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="poblacionAaConModelo" inputId="poblacionAaConModelo" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('poblacionAaConModelo')}" />
+                <label for="poblacionAaConModelo">Población AA con modelo de REDES</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('poblacionAaConModelo')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="actividadAgropecuaria" inputId="actividadAgropecuaria" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('actividadAgropecuaria')}" />
+                <label for="actividadAgropecuaria">Actividad agropecuaria AA + 1km</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('actividadAgropecuaria')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="encuestas" inputId="encuestas" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('encuestas')}" />
+                <label for="encuestas">Encuestas</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('encuestas')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="subsidiosAa" inputId="subsidiosAa" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('subsidiosAa')}" />
+                <label for="subsidiosAa">Subsidios AA + 1km</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('subsidiosAa')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="pendienteAa" inputId="pendienteAa" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('pendienteAa')}" />
+                <label for="pendienteAa">Pendiente AA</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('pendienteAa')">This field is required.</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="cambioCoberturaAa" inputId="cambioCoberturaAa" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('cambioCoberturaAa')}" />
+                <label for="cambioCoberturaAa">Cambio de cobertura AA</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('cambioCoberturaAa')">This field is required.</small>
+        </div>
+    </div>
+</div>
+
+<div class="col-12 pb-5">
+    <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5>Local Feasibility on AA</h5>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-select formControlName="resultadoPedAaLocal" inputId="resultadoPedAaLocal" [options]="state" optionLabel="name" styleClass="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('resultadoPedAaLocal')}" />
+                <label for="resultadoPedAaLocal">Resultado PED AA-Local</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('resultadoPedAaLocal')">This field is required.</small>
+        </div>
+      <!-- UPLOAD PED AA-Local-->
+        <div class="col-12 md:col-4">
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center">
+                    <small *ngIf="!pedUploaded">Upload Document PED AA-Local</small>
+                    <small *ngIf="pedUploaded">{{ pedFile?.name }}</small>
                 </div>
-                <div>
-                    <p-button icon="pi pi-upload" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Upload document" />
-                    <p-button icon="pi pi-trash" [rounded]="true" severity="secondary" variant="text"
-                        pTooltip="Delete document" />
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="pedUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <p-fileupload *ngIf="!pedUploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                        chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                        (onSelect)="onPedUpload($event)">
+                    </p-fileupload>
                 </div>
             </div>
         </div>
-
         <div class="col-12 md:col-12">
-            <p-floatlabel><span style="color: red;">no tiene nombre el campo</span>
-                <textarea pTextarea id="over_label" rows="3" class="w-full"></textarea>
-                <label for="over_label">-</label>
+            <p-floatlabel>
+                <textarea pTextarea formControlName="notesLocal" id="notesLocal" rows="3" class="w-full"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('notesLocal')}"></textarea>
+                <label for="notesLocal">Notes PED AA-Local</label>
             </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('notesLocal')">This field is required.</small>
         </div>
     </div>
-</p-card>
+</div>
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" />
+        <p-button styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
     </div>
 </div>
+
+</form>

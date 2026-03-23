@@ -1,24 +1,31 @@
+<form [formGroup]="form">
 <div class="grid">
     <div class="col-12">
         <small>Feasibility</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Carbon Feasibility Requested</label>
+            <p-datepicker formControlName="carbonFeasibilityRequested" styleClass="w-full"inputId="carbonFeasibilityRequested" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('carbonFeasibilityRequested')}" />
+            <label for="carbonFeasibilityRequested">Carbon Feasibility Requested</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('carbonFeasibilityRequested')">Carbon Feasibility Requested is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">PIN Approved</label>
+            <p-datepicker formControlName="pinApproved" styleClass="w-full" inputId="pinApproved" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('pinApproved')}" />
+            <label for="pinApproved">PIN Approved</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('pinApproved')">PIN Approved is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">LoI Signed</label>
+            <p-datepicker formControlName="loiSignedDate" styleClass="w-full" inputId="loiSignedDate" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('loiSignedDate')}" />
+            <label for="loiSignedDate">LoI Signed</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('loiSignedDate')">LoI Signed is required</small>
     </div>
 </div>
 
@@ -28,15 +35,19 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Technical Dictum Assessment Approved</label>
+            <p-datepicker formControlName="technicalDictumApproved" styleClass="w-full"inputId="technicalDictumApproved" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('technicalDictumApproved')}" />
+            <label for="technicalDictumApproved">Technical Dictum Assessment Approved</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('technicalDictumApproved')">Technical Dictum Assessment Approved is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Updated PIN Approved</label>
+            <p-datepicker formControlName="updatedPinApproved" styleClass="w-full"inputId="updatedPinApproved" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('updatedPinApproved')}" />
+            <label for="updatedPinApproved">Updated PIN Approved</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('updatedPinApproved')">Updated PIN Approved is required</small>
     </div>
 </div>
 
@@ -46,21 +57,27 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">DD Pack Sent to Mercuria</label>
+            <p-datepicker formControlName="ddPackSentToMercuria" styleClass="w-full"inputId="ddPackSentToMercuria" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackSentToMercuria')}" />
+            <label for="ddPackSentToMercuria">DD Pack Sent to Mercuria</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('ddPackSentToMercuria')">DD Pack Sent to Mercuria is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Informal Assembly to Present Project Done</label>
+            <p-datepicker formControlName="informalAssemblyToPresentProjectDone" styleClass="w-full"inputId="informalAssemblyToPresentProjectDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('informalAssemblyToPresentProjectDone')}" />
+            <label for="informalAssemblyToPresentProjectDone">Informal Assembly to Present Project Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('informalAssemblyToPresentProjectDone')">Informal Assembly to Present Project Done is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">DD Pack Approved by Mercuria</label>
+            <p-datepicker formControlName="ddPackApprovedByMercuria" styleClass="w-full"inputId="ddPackApprovedByMercuria" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackApprovedByMercuria')}" />
+            <label for="ddPackApprovedByMercuria">DD Pack Approved by Mercuria</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('ddPackApprovedByMercuria')">DD Pack Approved by Mercuria is required</small>
     </div>
 </div>
 
@@ -70,9 +87,11 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">KYC  Sent to Mercuria</label>
+            <p-datepicker formControlName="kycSentToMercuria" styleClass="w-full"inputId="kycSentToMercuria" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycSentToMercuria')}" />
+            <label for="kycSentToMercuria">KYC  Sent to Mercuria</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('kycSentToMercuria')">KYC Sent to Mercuria is required</small>
     </div>
 </div>
 
@@ -82,20 +101,25 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Assembly for Approval Project  Done</label>
+            <p-datepicker formControlName="assemblyForApprovalProjectDone" styleClass="w-full"inputId="assemblyForApprovalProjectDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('assemblyForApprovalProjectDone')}" />
+            <label for="assemblyForApprovalProjectDone">Assembly for Approval Project  Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('assemblyForApprovalProjectDone')">Assembly for Approval Project Done is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Assembly for CP Approval Done</label>
+            <p-datepicker formControlName="assemblyForCpApprovalDone" styleClass="w-full"inputId="assemblyForCpApprovalDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('assemblyForCpApprovalDone')}" />
+            <label for="assemblyForCpApprovalDone">Assembly for CP Approval Done</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('assemblyForCpApprovalDone')">Assembly for CP Approval Done is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Assembly for Approval </label>
+            <p-datepicker formControlName="assemblyForApprovalDone" styleClass="w-full"inputId="assemblyForApprovalDone" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('assemblyForApprovalDone')}" />
+            <label for="assemblyForApprovalDone">Assembly for Approval Done</label>
         </p-floatlabel>
          <small class="username-help" id="username-help"> Developer Project, Aggregation & Aggregator Done.</small>
     </div>
@@ -107,14 +131,19 @@
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">ERPA Contract Signed</label>
+            <p-datepicker formControlName="erpaContractSigned" styleClass="w-full"inputId="erpaContractSigned" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaContractSigned')}" />
+            <label for="erpaContractSigned">ERPA Contract Signed</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('erpaContractSigned')">ERPA Contract Signed is required</small>
     </div>
     <div class="col-12 md:col-4">
         <p-floatlabel>
-            <p-datepicker  styleClass="w-full"inputId="over_label" showIcon iconDisplay="input" />
-            <label for="over_label">Developer & Aggregator Contract Signed</label>
+            <p-datepicker formControlName="developerAggregatorContractSigned" styleClass="w-full"inputId="developerAggregatorContractSigned" showIcon iconDisplay="input"
+             [ngClass]="{'ng-invalid ng-dirty': isInvalid('developerAggregatorContractSigned')}" />
+            <label for="developerAggregatorContractSigned">Developer & Aggregator Contract Signed</label>
         </p-floatlabel>
+        <small class="p-error" *ngIf="isInvalid('developerAggregatorContractSigned')">Developer & Aggregator Contract Signed is required</small>
     </div>
 </div>
+</form>

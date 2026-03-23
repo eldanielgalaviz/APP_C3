@@ -35,7 +35,7 @@ export class Server {
     this.app.use(express.json());
     this.app.use(cors());
      this.app.use(cors({
-      origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+      origin: process.env.FRONTEND_URL || 'http://localhost:4200',
       credentials: true
     }));
       // Cookie parser for refresh tokens
@@ -57,10 +57,10 @@ export class Server {
   private async connectDB(): Promise<void> {
     try {
       const connection = await pool.getConnection();
-      console.log('🔋 Conexión a la base de datos establecida.');
+      console.log('Conexión a la base de datos establecida.');
       connection.release();
     } catch (err) {
-      console.error('❌ Error al conectar a la base de datos:', err);
+      console.error('Error al conectar a la base de datos:', err);
       process.exit(1);
     }
   }
@@ -70,15 +70,15 @@ export class Server {
 
   private setupErrorHandling(): void {
     this.app.use((error: any, req: any, res: any, next: any) => {
-      console.error("💥 Error:", error);
+      console.error("Error: ", error);
       res.status(500).json({ error: "Something went wrong!" });
     });
   }
   // Iniciar servidor
   public listen(): void {
     this.app.listen(this.port, () => {
-      console.log(`🚀 Servidor corriendo en http://localhost:${this.port}`);
-      console.log(`📦 Entorno: ${this.config.ENV}`);
+      console.log(`Servidor corriendo en http://localhost:${this.port}`);
+      console.log(`Entorno: ${this.config.ENV}`);
     });
   }
 
