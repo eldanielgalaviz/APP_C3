@@ -11,14 +11,14 @@ import { Router } from '@angular/router';
 })
 export class ToolsComponent {
 
-  items: MenuItem[] | undefined;
+  items!: MenuItem[];
 
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.items = [
       {
-        label: "Catalogos",
+        label: "Catalogs",
         items: [
           {
             label: 'Accounts',
@@ -32,12 +32,7 @@ export class ToolsComponent {
               this.router.navigate(['tools/ToolsSubaccounts']);
             }
           },
-          {
-            label: 'Subprocess',
-            command: () => {
-              this.router.navigate(['tools/ToolsSubprocess']);
-            }
-          },
+       
           {
             label: 'Activities',
             command: () => {
@@ -57,7 +52,7 @@ export class ToolsComponent {
             }
           },
           {
-            label: 'Adjustment Types',
+            label: 'Adjustment types',
             command: () => {
               this.router.navigate(['tools/ToolsAdjtypes']);
             }
@@ -69,7 +64,7 @@ export class ToolsComponent {
             }
           },
           {
-            label: 'Indicadors',
+            label: 'Indicators',
             command: () => {
               this.router.navigate(['tools/ToolsIndicadors']);
             }
@@ -77,27 +72,33 @@ export class ToolsComponent {
         ]
       },
       {
-        label: "Evaluators modulos",
+        label: "Evaluators module",
         items: [
           {
-            label: 'Evaluators subaccounts',
+            label: 'Expenses review evaluators',
             command: () => {
               this.router.navigate(['tools/ToolsEvSubacounts']);
-            }
-          },
-          {
-            label: 'Evaluators settlement',
-            command: () => {
-              this.router.navigate(['tools/ToolsEvSettlement']);
             }
           },
         ]
       },
       {
-        label: "Segurity",
+        label: "Security",
         items: [
+             {
+            label: 'Subprocess',
+            command: () => {
+              this.router.navigate(['tools/ToolsSubprocess']);
+            }
+          },
           {
-            label: 'Perfiles',
+            label: 'Menus',
+            command: () => {
+              this.router.navigate(['tools/ToolsMenu']);
+            }
+          },
+          {
+            label: 'Roles',
             command: () => {
               this.router.navigate(['tools/ToolsPerfiles']);
             }

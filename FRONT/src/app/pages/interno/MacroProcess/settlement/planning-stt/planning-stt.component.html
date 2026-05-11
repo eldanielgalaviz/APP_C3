@@ -1,0 +1,389 @@
+<p-menu #menu [model]="items" [popup]="true" />
+
+<p-table [value]="products" [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [rows]="10" [filterDelay]="0"
+    size="small" [globalFilterFields]="['code', 'products.name']">
+    <ng-template #caption>
+        <div class="flex justify-content-between flex-wrap">
+            <div class="inline-flex">
+                <h4 class="tit-subcu font-bold">Settlement Planning</h4>
+                <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" [rounded]="true" [text]="true" />
+            </div>
+            <div class="grid">
+                <div class="col-3">
+                    <p-floatlabel>
+                        <p-select inputId="subprocess" [options]="state" optionLabel="name" styleClass="w-full" />
+                        <label for="subprocess">RP</label>
+                    </p-floatlabel>
+                </div>
+                <div class="col-7">
+                    <p-iconField iconPosition="left">
+                        <p-inputIcon>
+                            <i class="pi pi-search"></i>
+                        </p-inputIcon>
+                        <input pInputText type="text" placeholder="Global search" (click)="showDialog()" />
+                    </p-iconField>
+                </div>
+                <div class="col-2">
+                    <p-button [rounded]="true" [raised]="true" icon="pi pi-plus" (click)="visible = true"
+                        pTooltip="New settlement" tooltipPosition="top" />
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th class="text-center" pSortableColumn="code" style="width:8%">
+                <small>Folio<p-sortIcon field="code" /></small>
+            </th>
+            <th class="text-center" pSortableColumn="code" style="width:8%">
+                <small> Registry <br> date <p-sortIcon field="code" /></small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> RP <p-sortIcon field="name" /></small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small>Settlecurry <p-sortIcon field="name" /></small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Volume</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small>Vintage</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Price canopia</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Project gross income</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Final CAPEX approved by assembly</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Final annual cost deduction</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:8%">
+                <small> Project net income</small>
+            </th>
+            <th class="text-center" pSortableColumn="name" style="width:4%">
+                <small> Status</small>
+            </th>
+            <th style="width:4%"></th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-product>
+        <tr>
+            <td>{{product.code }}</td>
+            <td>{{product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.name }}</td>
+            <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                    (click)="visible = true" /></td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+<!--modal inicial-->
+
+<p-dialog [modal]="true" [(visible)]="visible" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [maximizable]="true">
+    <ng-template #header>
+        <div class="inline-flex">
+            <h5 class="pr-2">Settlement</h5>
+            <p-button icon="pi pi-trash" size="small" [rounded]="true" severity="danger" pTooltip="Delete registred"
+                tooltipPosition="top" />
+        </div>
+    </ng-template>
+
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <p-floatlabel>
+                <p-select formControlName="rp" inputId="rp" [options]="" optionLabel="rp" styleClass="w-full" />
+                <label for="rp">RP</label>
+            </p-floatlabel>
+            <small class="p-error">RP is required.</small>
+        </div>
+        <div>
+            <div class="flex inline-flex">
+                <div class="mr-2">
+                    <p class="m-0 text-center font-bold">Pending</p><small
+                       >Operations status</small>
+                </div>
+                <div class="">
+                    <p class="m-0 text-center font-bold">Pending</p><small
+                       >Director status</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--settlement details-->
+    <div>
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Settlement details</h5>
+        </div>
+
+        <div class="grid">
+            <div class="col">
+                <p-floatlabel>
+                    <input pInputText formControlName="volume" id="volume" type="text" />
+                    <label for="volume">Settlement volume</label>
+                </p-floatlabel>
+                <small class="p-error">Settlement volume is required.</small>
+            </div>
+            <div class="col">
+                <p-floatlabel>
+                    <p-datepicker formControlName="vintage" styleClass="w-full" inputId="vintage" showIcon
+                        iconDisplay="input" />
+                    <label for="vintage">Vintage</label>
+                </p-floatlabel>
+                <small class="p-error">Vintage is required.</small>
+            </div>
+            <div class="col">
+                <p-floatlabel>
+                    <p-select formControlName="payment" inputId="payment" [options]="" optionLabel="payment"
+                        styleClass="w-full" />
+                    <label for="payment">Payment type</label>
+                </p-floatlabel>
+                <small class="p-error">Payment type is required.</small>
+            </div>
+            <div class="col">
+                <p-floatlabel>
+                    <p-inputnumber inputId="price" formControlName="price" />
+                    <label for="price">Market price (USD)</label>
+                </p-floatlabel>
+                <small class="p-error">Market price is required.</small>
+            </div>
+            <div class="col-1">
+                <p-button severity="secondary" styleClass="w-full" label="Add" [rounded]="true" />
+            </div>
+        </div>
+
+        <p-table [value]="products" [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [rows]="10" [filterDelay]="0"
+            size="small" [globalFilterFields]="['code', 'products.name']">
+            <ng-template #header>
+                <tr>
+                    <th class="text-center">
+                        <small>Settlement volume</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Vintage</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Payment type</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Mtk price USD</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Mtk price %</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Price canopia</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Total</small>
+                    </th>
+                    <th style="width:4%"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td>{{product.code }}</td>
+                    <td>{{product.code }}</td>
+                    <td>{{ product.name }}</td>
+                    <td class="text-right">{{ product.name }}</td>
+                    <td class="text-right">{{ product.name }}</td>
+                    <td class="text-right">{{ product.name }}</td>
+                    <td class="text-right">{{ product.name }}</td>
+                    <td><p-button icon="pi pi-trash" severity="danger" variant="text" [rounded]="true" /></td>
+                </tr>
+            </ng-template>
+            <ng-template #footer>
+                <tr>
+                    <td colspan="6" class="font-bold text-right">Project gross income</td>
+                    <td class="font-bold">$00</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!--deduction details-->
+    <div>
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Deductions details</h5>
+        </div>
+
+        <div class="grid">
+            <div class="col-4">
+                <p-floatlabel>
+                    <p-select formControlName="deduction" inputId="deduction" [options]="" optionLabel="deduction"
+                        styleClass="w-full" />
+                    <label for="deduction">Type deduction</label>
+                </p-floatlabel>
+                <small class="p-error">Type deduction is required.</small>
+            </div>
+            <div class="col-4">
+                <p-floatlabel>
+                    <p-inputnumber inputId="cost" formControlName="cost" />
+                    <label for="cost">Cost (USD)</label>
+                </p-floatlabel>
+                <small class="p-error">Cost is required.</small>
+            </div>
+            <div class="col-1">
+                <p-button severity="secondary" styleClass="w-full" label="Add" [rounded]="true" />
+            </div>
+        </div>
+
+        <p-table [value]="products" [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [rows]="10" [filterDelay]="0"
+            size="small" [globalFilterFields]="['code', 'products.name']">
+            <ng-template #header>
+                <tr>
+                    <th class="text-center">
+                        <small>Deduction type</small>
+                    </th>
+                    <th class="text-center">
+                        <small> Account</small>
+                    </th>
+                    <th class="text-center">
+                        <small>Cost USD</small>
+                    </th>
+                    <th style="width:4%"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-product>
+                <tr>
+                    <td>{{product.code }}</td>
+                    <td>{{product.code }}</td>
+                    <td class="text-right">{{ product.name }}</td>
+                    <td><p-button icon="pi pi-trash" severity="danger" variant="text" [rounded]="true" /></td>
+                </tr>
+            </ng-template>
+            <ng-template #footer>
+                <tr>
+                    <td colspan="2" class="font-bold text-right">Final capex approved by assembly</td>
+                    <td class="font-bold text-right">$00</td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="font-bold text-right">Final annual cost deduction</td>
+                    <td class="font-bold text-right">$00</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+    <!--adjustments-->
+    <div>
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Adjustments</h5>
+        </div>
+
+        <div class="grid">
+            <div class="col-4">
+                <p-floatlabel>
+                    <p-select formControlName="adjustments" inputId="adjustments" [options]="" optionLabel="adjustments"
+                        styleClass="w-full" />
+                    <label for="adjustments">Type of adjustments</label>
+                </p-floatlabel>
+                <small class="p-error">Type of adjustments is required.</small>
+            </div>
+            <div class="col-4">
+                <p-floatlabel>
+                    <p-inputnumber inputId="amount" formControlName="amount" />
+                    <label for="amount">Amount (USD)</label>
+                </p-floatlabel>
+                <small class="p-error">Amount is required.</small>
+            </div>
+        </div>
+    </div>
+    <!--resume-->
+    <div>
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Resume</h5>
+        </div>
+        <div class="grid">
+            <div class="col-4">
+                <p-table [value]="products" size="small">
+                    <ng-template #header>
+                        <tr>
+                            <th class="text-center">
+                                <small>Result</small>
+                            </th>
+                            <th class="text-center">
+                                <small>Total (USD)</small>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{product.code }}</td>
+                            <td class="text-right">{{product.code }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-4">
+                <p-table [value]="products" size="small">
+                    <ng-template #header>
+                        <tr>
+                            <th class="text-center">
+                                <small>Account capex</small>
+                            </th>
+                            <th class="text-center">
+                                <small>Cost (USD)</small>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{product.code }}</td>
+                            <td class="text-right">{{product.code }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="col-4">
+                <p-table [value]="products" size="small">
+                    <ng-template #header>
+                        <tr>
+                            <th class="text-center">
+                                <small>Account opex</small>
+                            </th>
+                            <th class="text-center">
+                                <small>Cost (USD)</small>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-product>
+                        <tr>
+                            <td>{{product.code }}</td>
+                            <td class="text-right">{{product.code }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <ng-template #footer>
+        <div class="flex justify-content-between flex-wrap">
+            <div>
+
+            </div>
+            <div>
+                <p-button label="Cancel" [text]="true" severity="secondary" (click)="visible = false" />
+                <p-button label="Save" [rounded]="true" (click)="visible = false" />
+            </div>
+        </div>
+
+    </ng-template>
+</p-dialog>

@@ -7,7 +7,6 @@ import { TddDocumentComponent } from './tdd-document/tdd-document.component';
   selector: 'app-technical-due-diligence',
   imports: [SHARED_IMPORTS, TddCbaComponent, TddDocumentComponent],
   templateUrl: './technical-due-diligence.component.html',
-  styleUrl: './technical-due-diligence.component.scss'
 })
 export class TechnicalDueDiligenceComponent {
 

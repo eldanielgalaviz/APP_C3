@@ -103,6 +103,7 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { DrawerModule } from 'primeng/drawer';
 import { RouterModule } from '@angular/router';
+import { PermissionDirective } from '../directives/PermissionDirective.directive';
 
 export const SHARED_IMPORTS = [
     RouterModule,
@@ -209,6 +210,7 @@ export const SHARED_IMPORTS = [
     InputIconModule,
     AutoFocusModule,
     OverlayBadgeModule,
+    PermissionDirective
 ]
 
 

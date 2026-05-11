@@ -59,4 +59,44 @@ export class UtilApiService {
         });
       return this._http.get<any>(url, { headers: headers });
   } 
+
+  sendPostTokenRequestWithMultipleFiles(jsonBody: any, files: File[], url: string, token: string): Observable<any> {
+       const formData: FormData = new FormData();
+        
+      files.forEach((file) => {
+          formData.append('files', file);  
+      });
+        
+      formData.append('data', JSON.stringify(jsonBody));  
+
+      const headers = new HttpHeaders({
+          'Authorization': `Bearer ${token}` 
+      });
+
+      return this._http.post(url, formData, { headers });
+  }
+
+  sendPostTokenRequestWithNamedFiles(jsonBody: any, namedFiles: { key: string, file: File }[], url: string, token: string): Observable<any> {
+    const formData: FormData = new FormData();
+
+    namedFiles.forEach(({ key, file }) => {
+      formData.append(key, file);
+    });
+
+    formData.append('data', JSON.stringify(jsonBody));
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this._http.post(url, formData, { headers });
+  }
+
+  sendPostBlobRequest(url: string, body: any, token: string): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    return this._http.post(url, body, { headers, responseType: 'blob' });
+  }
 }

@@ -134,12 +134,12 @@ const AppTheme = definePreset(Aura, {
             colorScheme: {
                 light: {
                     root: {
-                        background: 'transparent',
+                        background: '#fff',
 
                         borderColor: '0px',
                         item: {
                             color: '#163029',
-                      
+
                             focus: {
                                 background: '#E3F0EA',
                             }
@@ -277,8 +277,11 @@ const AppTheme = definePreset(Aura, {
                 light: {
                     root: {
                         header: {
+
                             cell: {
                                 background: " #F8FAFB",
+                                padding: " 0.2rem 0.1rem",
+                                color:"#596864",
                             }
                         }
                     }
@@ -338,6 +341,7 @@ const AppTheme = definePreset(Aura, {
                         },
                         tab: {
                             color: '#6B7280',
+                            border: '4px',
                             active: {
                                 color: "#163029",
                             }

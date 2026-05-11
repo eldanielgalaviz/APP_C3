@@ -5,7 +5,7 @@ import { SecureYamlConfig } from "../config/SecureYamlConfig";
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import "isomorphic-fetch";
+
 
 export async function configMails(){
     const DECRYPTION_KEY = process.env.CONFIG_DECRYPTION_KEY;

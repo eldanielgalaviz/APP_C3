@@ -1,1 +1,419 @@
-<p>perfiles-tls works!</p>
+<p-toast></p-toast>
+<p-confirmDialog />
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Roles</h4>
+        </div>
+        <div>
+            <p-button label="New" [rounded]="true" [raised]="true" (click)="openNewDrawer()" />
+        </div>
+    </div>
+
+    <p>This catalog defines system access levels by module and user role. Records are interconnected and cannot be deleted, only edited or created. 
+    </p>
+
+    <p-tabs [(value)]="activeTab">
+        <p-tablist>
+            <p-tab value="0">Roles</p-tab>
+            <p-tab value="1">Rol-User</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+
+            <!-- TAB 0: Rol-Permission -->
+            <p-tabpanel value="0">
+                <p-table #dt0 [value]="roles" [rowsPerPageOptions]="[10, 20, 50]" [paginator]="true" [rows]="10"
+                    [globalFilterFields]="['short_role_desc', 'short_status_desc']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search"
+                                    (input)="dt0.filterGlobal($any($event.target).value, 'contains')" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="short_role_desc">Role <p-sortIcon field="short_role_desc" /></th>
+                            <th>Permissions</th>
+                            <th pSortableColumn="short_status_desc">Status <p-sortIcon field="short_status_desc" /></th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.short_role_desc }}</td>
+                            <td>
+                                <div class="flex flex-wrap gap-1">
+                                    <span *ngFor="let p of item.permissions; let last = last">
+                                        {{ p.permission }}{{ !last ? ', ' : '' }}
+                                    </span>
+                                </div>
+                            </td>
+                            <td>
+                                {{ item.short_status_desc }}
+                            </td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="openEditRole(item)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+
+            <!-- TAB 1: Rol-User -->
+            <p-tabpanel value="1">
+                <p-table styleClass="pt-3"
+                    [value]="userRoles"
+                    sortMode="single"
+                    [scrollable]="true"
+                    rowGroupMode="subheader"
+                    sortField="full_name"
+                    dataKey="Iduser"
+                    groupRowsBy="full_name">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center flex-wrap">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th>User</th>
+                            <th>Roles</th>
+                            <th>Status</th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #groupheader let-item let-expanded="expanded">
+                        <tr>
+                            <td colspan="3">
+                                <span class="font-bold">{{ item.full_name }}</span>
+                            </td>
+                            <td class="inline-flex">
+                                <button type="button" pButton pRipple [pRowToggler]="item"
+                                    text rounded plain class="mr-2"
+                                    [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'">
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                    <ng-template #expandedrow let-item>
+                        <tr>
+                            <td>{{ item.full_name }}</td>
+                            <td>
+                                <span *ngFor="let r of item.roles; let last = last">
+                                    {{ r.role_desc }}{{ !last ? ', ' : '' }}
+                                </span>
+                            </td>
+                            <td>{{ item.short_status_desc }}</td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="openEditUserRole(item)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+
+
+        </p-tabpanels>
+    </p-tabs>
+</div>
+
+<p-drawer [header]="drawerTitle" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+
+            <!-- TAB 0: Role Form -->
+            <ng-container *ngIf="activeTab === '0'">
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="roleShortDesc" class="w-full"
+                            [(ngModel)]="roleForm.shortDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !roleForm.shortDescription.trim()}" />
+                        <label for="roleShortDesc">Role name</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !roleForm.shortDescription.trim()">
+                        Role name is required.
+                    </small>
+                </div>
+                <div class="col-12 mt-3">
+                    <p-floatlabel>
+                        <p-multiselect
+                            inputId="rolePermissions"
+                            [options]="permissionsCatalog"
+                            optionLabel="permission"
+                            dataKey="Id"
+                            styleClass="w-full"
+                            display="chip"
+                            [(ngModel)]="roleForm.selectedPermissions"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !roleForm.selectedPermissions.length}" />
+                        <label for="rolePermissions">Permissions</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !roleForm.selectedPermissions.length">
+                        At least one permission is required.
+                    </small>
+                </div>
+            </ng-container>
+
+            <!-- TAB 1  -->
+            <ng-container *ngIf="activeTab === '1'"></ng-container>
+
+        </div>
+    </div>
+    <ng-template #footer>
+        <div class="flex gap-2 w-full justify-content-end">
+            <p-button
+                *ngIf="selectedRole"
+                label="Delete"
+                severity="danger"
+                [rounded]="true"
+                styleClass="flex-1"
+                (click)="deleteRole()" />
+            <p-button
+                label="Save"
+                [rounded]="true"
+                styleClass="flex-1"
+                (click)="saveRole()" />
+        </div>
+    </ng-template>
+</p-drawer>
+
+<p-drawer [header]="drawerTitle" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+
+            <!-- TAB 0: Role Form -->
+            <ng-container *ngIf="activeTab === '0'">
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="roleShortDesc" class="w-full"
+                            [(ngModel)]="roleForm.shortDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !roleForm.shortDescription.trim()}" />
+                        <label for="roleShortDesc">Role name</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !roleForm.shortDescription.trim()">
+                        Role name is required.
+                    </small>
+                </div>
+                <div class="col-12 mt-3">
+                    <p-floatlabel>
+                        <p-multiselect
+                            inputId="rolePermissions"
+                            [options]="permissionsCatalog"
+                            optionLabel="permission"
+                            dataKey="Id"
+                            styleClass="w-full"
+                            display="chip"
+                            [(ngModel)]="roleForm.selectedPermissions"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !roleForm.selectedPermissions.length}" />
+                        <label for="rolePermissions">Permissions</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !roleForm.selectedPermissions.length">
+                        At least one permission is required.
+                    </small>
+                </div>
+            </ng-container>
+
+            <!-- TAB 1: User-Role Form -->
+            <ng-container *ngIf="activeTab === '1'">
+
+                <!-- Radio button: tipo de edición -->
+                <div class="col-12 mb-3">
+                    <div class="flex gap-4">
+                        <div class="flex align-items-center gap-2">
+                            <p-radiobutton
+                                inputId="editRole"
+                                value="role"
+                                [(ngModel)]="userRoleForm.editType" />
+                            <label for="editRole">User - Role</label>
+                        </div>
+                        <div class="flex align-items-center gap-2">
+                            <p-radiobutton
+                                inputId="editModule"
+                                value="module"
+                                [(ngModel)]="userRoleForm.editType" />
+                            <label for="editModule">User - Module</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edición User-Role -->
+                <ng-container *ngIf="userRoleForm.editType === 'role'">
+                    <div class="col-12">
+                        <p-floatlabel>
+                            <p-multiselect
+                                inputId="userRoles"
+                                [options]="roles"
+                                optionLabel="short_role_desc"
+                                dataKey="Idrole"
+                                styleClass="w-full"
+                                display="chip"
+                                [(ngModel)]="userRoleForm.selectedRoles"
+                                [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !userRoleForm.selectedRoles.length}" />
+                            <label for="userRoles">Roles</label>
+                        </p-floatlabel>
+                        <small class="p-error" *ngIf="formSubmitted && !userRoleForm.selectedRoles.length">
+                            At least one role is required.
+                        </small>
+                    </div>
+                </ng-container>
+
+                <!-- Edición User-Module (pendiente) -->
+                <ng-container *ngIf="userRoleForm.editType === 'module'">
+                    <div class="col-12">
+                        <p class="text-color-secondary">User-Module configuration coming soon.</p>
+                    </div>
+                </ng-container>
+
+            </ng-container>
+
+        </div>
+    </div>
+    <ng-template #footer>
+        <div class="flex gap-2 w-full justify-content-end">
+            <p-button
+                *ngIf="selectedRole && activeTab === '0'"
+                label="Delete"
+                severity="danger"
+                [rounded]="true"
+                styleClass="flex-1"
+                (click)="deleteRole()" />
+            <p-button
+                label="Save"
+                [rounded]="true"
+                styleClass="flex-1"
+                (click)="activeTab === '0' ? saveRole() : saveUserRole()" />
+        </div>
+    </ng-template>
+</p-drawer>
+
+<!-- <div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Roles</h4>
+        </div>
+        <div>
+            <p-button label="New rol" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+    <p>This catalog defines system access levels by module and user role. Records are interconnected and cannot be deleted, only edited or created. 
+    </p>
+
+    <p-table styleClass="pt-3" [value]="customers" sortMode="single" [scrollable]="true" rowGroupMode="subheader"
+        sortField="representative.name" dataKey="representative.name" groupRowsBy="representative.name">
+        <ng-template #caption>
+            <div class="flex justify-content-center flex-wrap">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input pInputText type="text" placeholder="Global search" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th>User</th>
+                <th>Rol</th>
+                <th>Module</th>
+                <th width="3rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+            <tr>
+                <td colspan="3">
+                    <span class="font-bold">[name_user]</span>
+                </td>
+                <td class="inline-flex">
+                    <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain class="mr-2"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template #expandedrow let-customer>
+            <tr>
+                <td>
+                    {{customer.name}}
+                </td>
+                <td>
+                    {{customer.name}}
+                </td>
+                <td>
+                    {{customer.name}}
+                </td>
+                <td>
+                    <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                        (click)="visible2 = true" />
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div> -->
+
+<!--inicia drawer generador nuevos-->
+
+<!-- <p-drawer header="Create New Role" [(visible)]="visible2" position="right" [style]="{ width: '450px' }" [modal]="true" [closable]="true">
+    <div class="px-3">
+        <p class="pb-3">Complete the following information to create a new record.</p>
+        <div class="grid">
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="user" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="user">User type</label>
+                </p-floatlabel>
+                <small class="p-error">Process is required.</small>
+            </div>
+            <div class="flex flex-wrap gap-4 pb-2">
+                <div class="flex items-center">
+                    <p-radiobutton inputId="ingredient1" value="Pepperoni" [(ngModel)]="selectedValue" />
+                    <label for="ingredient1" class="ml-2">General Menu</label>
+                </div>
+
+                <div class="flex items-center">
+                    <p-radiobutton inputId="ingredient2" value="Pepperoni" [(ngModel)]="selectedValue" />
+                    <label for="ingredient2" class="ml-2">Portfolio</label>
+                </div>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-multiselect [options]="groupedCities" [group]="true"
+                        scrollHeight="250px" display="chip" styleClass="w-full">
+                        <ng-template let-group #group>
+                            <div class="flex items-center">
+                                <span>{{ group.label }}</span>
+                            </div>
+                        </ng-template>
+                    </p-multiselect>
+                    <label for="subprocess">Module</label>
+                </p-floatlabel>
+                <small class="p-error">Module is required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="rol" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="rol">Role</label>
+                </p-floatlabel>
+                <small class="p-error">Role is required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="newrol" />
+                    <label for="newrol">New role name</label>
+                </p-floatlabel>
+                <small class="p-error">Role is required.</small>
+            </div>
+        </div>
+    </div>
+</p-drawer> -->

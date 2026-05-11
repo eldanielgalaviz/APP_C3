@@ -1,0 +1,37 @@
+<p-menu #menu [model]="items" [popup]="true" />
+
+
+
+<div class="flex justify-content-between flex-wrap">
+    <div class="inline-flex">
+        <h4 class="tit-subcu font-bold">Execution and monitoring</h4>
+        <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" [rounded]="true" [text]="true"/>
+    </div>
+    <div>
+     <p-selectbutton [options]="paymentOptions" [(ngModel)]="value" [multiple]="true" optionLabel="name" optionValue="value" size="small"/>
+    </div>
+</div>
+
+<p-tabs value="0">
+    <p-tablist>
+        <p-tab value="0">By accounts</p-tab>
+        <p-tab value="1">By activities</p-tab>
+        <p-tab value="2">By benefit distribution</p-tab>
+        <p-tab value="3">By transaction</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="0">
+            <by-accounts></by-accounts>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+            <by-activities></by-activities>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+            <by-benefit-distribution></by-benefit-distribution>
+        </p-tabpanel>
+        <p-tabpanel value="3">
+            <by-transaction></by-transaction>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>
+

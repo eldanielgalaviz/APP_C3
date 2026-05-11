@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core';
 import { Project } from '../../app/interfaces/projects/projects.interface';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-const initProyecto  : Project =  {
-    idprojects      : 0 ,
-    Folio_project   : '', 
-    ProjectName     : '', 
-    Aggregation     : 0, 
-    idAggregation: 0,
-    Counterpart     : '', 
-    NucleoAgrario   : '', 
-    TipoPropiedad   : '', 
-    Municipio       : '', 
-    Estado          : '', 
-    Status           : 0
+const initProyecto: Project = {
+  Id_projects:           0,
+  folio_project:         '',
+  project_name:          '',
+  id_aggregation:        0,
+  project_counterpart:   '',
+  id_agrarian_nucleus:     0,
+  link_property_polygon: null,
+  Id_land_tenure:        null,
+  id_status_project:     0,
+  status:                0
 }
 
 @Injectable({

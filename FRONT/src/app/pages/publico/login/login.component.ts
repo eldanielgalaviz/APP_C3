@@ -69,12 +69,16 @@ export class LoginComponent implements OnInit {
       next: (response) => {
         if (response.success || response.valido === 1) {
           
-          this.authGuardService.setToken(response.accessToken);
+          this.authGuardService.setToken(response.token); 
           
-          if (response.user) {
-            this.authGuardService.setUser(response.user);
+          if (response.result?.user) {
+            this.authGuardService.setUser(response.result.user);
           }
           
+          if (response.result?.permissions) {
+            this.authGuardService.setPermissions(response.result.permissions);
+          }
+
           this.typeSeverity = "success";
           this.message = response.message || "Login successful";
           this.showMessage();

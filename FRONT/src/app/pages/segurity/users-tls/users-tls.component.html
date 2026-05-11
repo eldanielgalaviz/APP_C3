@@ -1,1 +1,126 @@
-<p>users-tls works!</p>
+<p-toast></p-toast>
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Users</h4>
+        </div>
+        <div>
+            <p-button label="New user" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+    <p>Users cannot be deleted until all assigned roles are removed in the Roles section.</p>
+
+    <p-table [value]="users" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5" [filterDelay]="0"
+        [globalFilterFields]="['Name', 'AP', 'AM', 'Email','short_department_desc', 'short_position_desc']">
+        <ng-template #caption>
+            <div class="flex justify-content-center flex-wrap">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input pInputText type="text" placeholder="Global search" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="Name">
+                    User <p-sortIcon field="Name" />
+                </th>
+                <th pSortableColumn="short_department_desc">
+                    Department <p-sortIcon field="short_department_desc" />
+                </th>
+                <th pSortableColumn="short_position_desc">
+                    Position <p-sortIcon field="short_position_desc" />
+                </th>
+                <th pSortableColumn="Email">
+                    E-mail<p-sortIcon field="Email" />
+                </th>
+                <th style="width:3rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-user>
+            <tr>
+                <td>{{ user.Name + ' ' + user.AP + ' ' + user.AM }}</td>
+                <td>{{ user.short_department_desc }}</td>
+                <td>{{ user.short_position_desc }}</td>
+                <td>{{ user.Email }}</td>
+                <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                        (click)="onRowSelected(user)" /></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!--inicia drawer generador nuevos-->
+
+<p-drawer header="Create New User" [(visible)]="visible2" position="right" (onHide)="onHide()">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid" [formGroup]="form">
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="user" formControlName="Name" [ngClass]="{'ng-invalid ng-dirty': isInvalid('Name')}" />
+                    <label for="user">First name</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('Name')">First name required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="user" formControlName="AP" [ngClass]="{'ng-invalid ng-dirty': isInvalid('AP')}" />
+                    <label for="user">Last name</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('AP')">Last name required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="user" formControlName="AM" [ngClass]="{'ng-invalid ng-dirty': isInvalid('AM')}" />
+                    <label for="user">Second last name</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('AM')">Second last name required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="email" formControlName="Email" [ngClass]="{'ng-invalid ng-dirty': isInvalid('Email')}" />
+                    <label for="email">Email</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('Email')">Email required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-password  formControlName="PasswordHash" [feedback]="false" [toggleMask]="true"autocomplete="off" />
+                    <label for="email">Password</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-password  formControlName="confirmPassword" [feedback]="false" [toggleMask]="true"autocomplete="off" />
+                    <label for="email">Confirm password</label>
+                </p-floatlabel>
+                <small *ngIf="form.get('confirmPassword')?.hasError('passwordMismatch')" class="p-error">Passwords do not match.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select [ngClass]="{'ng-invalid ng-dirty': isInvalid('departamento')}" formControlName="departamento" [options]="departments" optionLabel="short_department_desc" optionValue="Iddepartment"
+                        styleClass="w-full" />
+                    <label for="departament">Departament</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('departamento')">Departament required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select [ngClass]="{'ng-invalid ng-dirty': isInvalid('puesto')}" formControlName="puesto" [options]="positions" optionLabel="short_position_desc" optionValue="Idpositionuser"
+                        styleClass="w-full" />
+                    <label for="puesto">Position</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('puesto')">Position required.</small>
+            </div>
+
+        </div>
+    </div>
+    <ng-template #footer>
+        <p-button label="Save" [rounded]="true" styleClass="w-full mb-3" (onClick)="save()" />
+        <p-button label="Delete" severity="danger" [rounded]="true" styleClass="w-full" />
+    </ng-template>
+</p-drawer>

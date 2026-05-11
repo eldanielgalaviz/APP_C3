@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   standalone: true,
   providers: [ProductService],
   templateUrl: './tdd-document.component.html',
-  styleUrl: './tdd-document.component.scss'
 })
 export class TddDocumentComponent implements OnInit {
 

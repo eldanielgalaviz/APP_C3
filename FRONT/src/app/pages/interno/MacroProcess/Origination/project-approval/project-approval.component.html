@@ -1,4 +1,5 @@
 
+<p-toast></p-toast>
 <h4 class="tit-subcu font-bold">Project Approval</h4>
 <form [formGroup]="form">
 <div class="col-12 pb-5">
@@ -11,33 +12,33 @@
             <p-floatlabel>
                 <p-datepicker formControlName="ddPackToMercuriaSubmissionDate" styleClass="w-full" inputId="ddPackToMercuriaSubmissionDate" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackToMercuriaSubmissionDate')}" />
-                <label for="ddPackToMercuriaSubmissionDate">DD pack to Mercuria Submission Date</label>
+                <label for="ddPackToMercuriaSubmissionDate">DD pack to Mercuria submission date</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('ddPackToMercuriaSubmissionDate')">DD pack to Mercuria Submission Date is required</small>
+            <small class="p-error" *ngIf="isInvalid('ddPackToMercuriaSubmissionDate')">DD pack to Mercuria submission date is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
                 <p-datepicker formControlName="informalAssemblyToPresentProjectDone" styleClass="w-full" inputId="informalAssemblyToPresentProjectDone" showIcon iconDisplay="input"
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('informalAssemblyToPresentProjectDone')}" />
-                <label for="informalAssemblyToPresentProjectDone">Informal Assembly to Present Project Done</label>
+                <label for="informalAssemblyToPresentProjectDone">Informal assembly to present project done</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('informalAssemblyToPresentProjectDone')">Informal Assembly to Present Project Done is required</small>
+            <small class="p-error" *ngIf="isInvalid('informalAssemblyToPresentProjectDone')">Informal assembly to present project done is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
                 <p-datepicker formControlName="mercuriaQuestionsAnswered" styleClass="w-full" inputId="mercuriaQuestionsAnswered" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('mercuriaQuestionsAnswered')}" />
-                <label for="mercuriaQuestionsAnswered">Mercuria Questions Answered</label>
+                <label for="mercuriaQuestionsAnswered">Mercuria questions answered</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('mercuriaQuestionsAnswered')">Mercuria Questions Answered is required</small>
+            <small class="p-error" *ngIf="isInvalid('mercuriaQuestionsAnswered')">Mercuria questions answered is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
                 <p-datepicker formControlName="ddPackApprovedByMercuria" styleClass="w-full" inputId="ddPackApprovedByMercuria" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('ddPackApprovedByMercuria')}" />
-                <label for="ddPackApprovedByMercuria">DD Pack Approved by Mercuria</label>
+                <label for="ddPackApprovedByMercuria">DD pack approved by Mercuria</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('ddPackApprovedByMercuria')">DD Pack Approved by Mercuria is required</small>
+            <small class="p-error" *ngIf="isInvalid('ddPackApprovedByMercuria')">DD pack approved by Mercuria is required</small>
         </div>
    
     </div>
@@ -45,7 +46,14 @@
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveForm()"/>
+            <!-- Sin registro: solo aparece si tiene CREATE -->
+        <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+            <!-- Con registro y tiene EDIT: muestra Edit -->
+        <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+            <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
+        <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
     </div>
 </div>
 </form>

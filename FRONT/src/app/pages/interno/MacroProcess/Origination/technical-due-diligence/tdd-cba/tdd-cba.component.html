@@ -1,8 +1,9 @@
-<div class="flex justify-content-between">
+<p-toast></p-toast>
+<div  class="flex justify-content-between pb-3">
     <div>
         <p>Method for evaluating the financial viability of a project or investment by comparing its costs with its
             expected benefits. <br>
-            If you haven't tried this method, <a href="">Download the template.</a> </p>
+            If you haven't tried this method, <a class="font-bold template" href="">Download the template.</a> </p>
     </div>
     <div>
         <p-button styleClass="w-full" class="col-6" label="Import document" [rounded]="true"
@@ -14,93 +15,96 @@
     <img src="./import-document.png" alt="" width="35%">
 </div>
 <!--PASO 2 visualizacion de la importacion-->
-<div>
+<div class="pb-5" *ngIf="!mostrarImage">
     <div class="pb-3">
         <hr class="m-0 p-0">
         <h5>ERs From Restoration</h5>
     </div>
-    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+    <p-table [value]="cbatables.ersFromRestoration.tabla" size='small' [scrollable]="true" scrollHeight="400px">
         <ng-template #header>
             <tr>
                 <th class="text-center"></th>
-                <th class="text-center"><small>TOTAL</small></th>
-                <th class="text-center"><small>RP1</small></th>
-                <th class="text-center"><small>RP2</small></th>
+                <th class="text-center" *ngFor="let col of cbatables.ersFromRestoration.columnas">
+                    {{ col.header }}
+                </th>
                 <th></th>
             </tr>
         </ng-template>
-        <ng-template #body let-product>
+        <ng-template #body let-ers>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ ers.account }}</td>
+                <!-- AQUI PUEDES EDITAR LAS COLUMNAS DINAMICAS  -->
+                <td *ngFor="let col of cbatables.ersFromRestoration.columnas">
+                    {{ ers[col.field] | currency }}
+                </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
 
-<div>
+<div class="pb-5" *ngIf="!mostrarImage">
     <div class="pb-3">
         <hr class="m-0 p-0">
         <h5>Initial Investment</h5>
     </div>
-    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+    <p-table [value]="cbatables.initialInvestment.tabla" size='small' [scrollable]="true" scrollHeight="400px">
         <ng-template #header>
             <tr>
                 <th class="text-center"><small>Initial Investment</small></th>
-                <th class="text-center"><small>TOTAL</small></th>
-                <th class="text-center"><small>RP1</small></th>
-                <th class="text-center"><small>RP2</small></th>
+                <th class="text-center" *ngFor="let col of cbatables.initialInvestment.columnas">
+                    {{ col.header }}
+                </th>
             </tr>
         </ng-template>
-        <ng-template #body let-product>
+        <ng-template #body let-investment>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ investment.account }}</td>
+                <!-- AQUI PUEDES EDITAR LAS COLUMNAS DINAMICAS  -->
+                <td *ngFor="let col of cbatables.initialInvestment.columnas">
+                    {{ investment[col.field] | currency }}
+                </td>
             </tr>
         </ng-template>
         <ng-template #footer>
         <tr>
             <td class="font-bold">TOTAL</td>
-            <td class="font-bold">$1,902,000</td>
-            <td class="font-bold">$1,902,000</td>
-            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold" *ngFor="let col of cbatables.initialInvestment.columnas">
+                {{ cbatables.initialInvestment.totales[col.field] | currency }}
+            </td>
         </tr>
     </ng-template>
     </p-table>
 </div>
 
-<div>
+<div class="pb-5" *ngIf="!mostrarImage">
     <div class="pb-3">
         <hr class="m-0 p-0">
         <h5>Project Costs</h5>
     </div>
-    <p-table [value]="products" size='small' [scrollable]="true" scrollHeight="400px">
+    <p-table [value]="cbatables.projectCosts.tabla" size='small' [scrollable]="true" scrollHeight="400px">
         <ng-template #header>
             <tr>
                 <th class="text-center"><small>Project Costs</small></th>
-                <th class="text-center"><small>TOTAL</small></th>
-                <th class="text-center"><small>RP1</small></th>
-                <th class="text-center"><small>RP2</small></th>
+                <th class="text-center" *ngFor="let col of cbatables.projectCosts.columnas">
+                    {{ col.header }}
+                </th>
             </tr>
         </ng-template>
-        <ng-template #body let-product>
+        <ng-template #body let-pcost>
             <tr>
-                <td>{{ product.code }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.category }}</td>
+                <td>{{ pcost.account }}</td>
+                <!-- AQUI PUEDES EDITAR LAS COLUMNAS DINAMICAS  -->
+                <td *ngFor="let col of cbatables.projectCosts.columnas">
+                    {{ pcost[col.field] | currency }}
+                </td>
             </tr>
         </ng-template>
           <ng-template #footer>
         <tr>
             <td class="font-bold">TOTAL</td>
-            <td class="font-bold">$1,902,000</td>
-            <td class="font-bold">$1,902,000</td>
-            <td class="font-bold">$1,902,000</td>
+            <td class="font-bold" *ngFor="let col of cbatables.projectCosts.columnas">
+                {{ cbatables.projectCosts.totales[col.field] | currency }}
+            </td>
         </tr>
     </ng-template>
     </p-table>
@@ -109,7 +113,7 @@
 
 <!--PASO 1 INICIA MODAL DE IMPORTACION-->
 <p-dialog header="Import document" [modal]="true" [(visible)]="importdoc" [maximizable]="true" [position]="position"
-    [style]="{ width: '50rem' }">
+    [style]="{ width: '50rem' }" (onHide)="hideImport()">
     <p>
         If your CBA is already prepared, please make sure your file includes three sheets with the following names:
     </p>
@@ -133,7 +137,7 @@
                         <i *ngIf="Uploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
                         <p-fileupload *ngIf="!Uploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
                             chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
-                            (onSelect)="onUpload($event)">
+                            (onSelect)="onFileChange($event)">
                         </p-fileupload>
                     </div>
                 </div>
@@ -141,12 +145,11 @@
     </div>
 
     <hr>
-    <small>The file must comply with the required structure or an error will occur. If you don’t have the template, <a
-            href="">download it here.</a> </small>
+    <small>The file must comply with the required structure or an error will occur. If you don’t have the template, <a class="font-bold template" href="">download it here.</a> </small>
 
 
     <ng-template #footer>
         <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
-        <p-button label="import document" [rounded]="true" severity="primary" (click)="showImage()" />
+        <p-button label="import document" [rounded]="true" severity="primary" (click)="save()" />
     </ng-template>
 </p-dialog>

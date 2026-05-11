@@ -15,7 +15,7 @@ export class AccountsTlsComponent {
 
   visible2: boolean = false;
   products!: Product[];
-
+  selectedValue: any;
   constructor(private productService: ProductService) { }
 
   ngOnInit() {

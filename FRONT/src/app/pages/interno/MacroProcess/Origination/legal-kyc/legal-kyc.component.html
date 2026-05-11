@@ -1,5 +1,6 @@
+<p-toast></p-toast>
 <h4 class="tit-subcu font-bold">Legal KYC</h4>
-
+<form [formGroup]="form">
 <div class="col-12 pb-5">
       <div class="pb-3">
         <hr class="m-0 p-0">
@@ -10,25 +11,25 @@
             <p-floatlabel>
                 <p-datepicker formControlName="dateKycPackPrepared" styleClass="w-full" inputId="dateKycPackPrepared" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('dateKycPackPrepared')}" />
-                <label for="dateKycPackPrepared">Date KYC Pack Prepared</label>
+                <label for="dateKycPackPrepared">Date KYC Pack prepared</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('dateKycPackPrepared')">Date KYC Pack Prepared is required</small>
+            <small class="p-error" *ngIf="isInvalid('dateKycPackPrepared')">Date KYC Pack prepared is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
                 <p-datepicker formControlName="dateKycSentToMercuria" styleClass="w-full" inputId="dateKycSentToMercuria" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('dateKycSentToMercuria')}" />
-                <label for="dateKycSentToMercuria">Date KYC  Sent to Mercuria</label>
+                <label for="dateKycSentToMercuria">Date KYC  sent to Mercuria</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('dateKycSentToMercuria')">Date KYC Sent to Mercuria is required</small>
+            <small class="p-error" *ngIf="isInvalid('dateKycSentToMercuria')">Date KYC sent to Mercuria is required</small>
         </div>
         <div class="col-12 md:col-4">
             <p-floatlabel>
-                <p-datepicker formControlName="dateKycApprovedByMercuria" styleClass="w-full" inputId="dateKycApprovedByMercuria" showIcon iconDisplay="input" 
-                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('dateKycApprovedByMercuria')}" />
-                <label for="dateKycApprovedByMercuria">Date KYC approval by Mercuria</label>
+                <p-datepicker formControlName="dateKycApprovalByMercuria" styleClass="w-full" inputId="dateKycApprovalByMercuria" showIcon iconDisplay="input" 
+                  [ngClass]="{'ng-invalid ng-dirty': isInvalid('dateKycApprovalByMercuria')}" />
+                <label for="dateKycApprovalByMercuria">Date KYC approval by Mercuria</label>
             </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('dateKycApprovedByMercuria')">Date KYC approval by Mercuria is required</small>
+            <small class="p-error" *ngIf="isInvalid('dateKycApprovalByMercuria')">Date KYC approval by Mercuria is required</small>
         </div>
    
     </div>
@@ -36,6 +37,14 @@
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-        <p-button styleClass="w-full" class="col-4" label="Save" [rounded]="true" (click)="saveForm()"/>
+            <!-- Sin registro: solo aparece si tiene CREATE -->
+        <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+            <!-- Con registro y tiene EDIT: muestra Edit -->
+        <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+            <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
+        <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
     </div>
 </div>
+</form>
