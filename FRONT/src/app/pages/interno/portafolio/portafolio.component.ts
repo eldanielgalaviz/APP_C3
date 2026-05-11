@@ -12,6 +12,10 @@ import { ListPlanVeriComponent } from './ListPlanKeymiles/list-plan-veri/list-pl
 import { Router,NavigationEnd  } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ObservableService } from '../../../../service/observable/Observable.service';
+import { Project } from '../../../interfaces/projects/projects.interface';
+import { userService } from '../../../../service/user.service';
+import { authGuardService } from '../../../../service/authGuard.service';
 
 
 interface Rp {
@@ -55,9 +59,18 @@ export class PortafolioComponent {
   hideTitle = false;
   form!: FormGroup;
   state: any[] | undefined;
+  countries: any[] | undefined;
+  selectedCountry?: Project;
+  projectName: string = '';
 
-        showDialog() {
-        this.visible = true;
+  token: any;
+  user: any;
+  projects: Project[] = [];
+  project: Project | null = null; 
+
+
+    showDialog() {
+      this.visible = true;
     }
 
   projectLog(position: 'bottom') {
@@ -68,10 +81,32 @@ export class PortafolioComponent {
     constructor(
       private fb: FormBuilder,
       private router: Router,
-  ) {}
+      private readonly serviceObsProject$: ObservableService,
+      private _authGuardService: authGuardService,
+      private _userService: userService
+  ) {
+    this.token = this._authGuardService.getToken();
+  }
+
   isInvalid(field: string): boolean {
     const control = this.form.get(field);
     return !!(control?.invalid && control?.touched);
+  }
+
+  observaProjectSelected() {
+    this.serviceObsProject$.selectedProject$.subscribe((project: Project) => {
+      this.project = project ?? null;  
+      if (project) {
+        this.selectedCountry = this.projects.find(x => x.Id_projects == project.Id_projects);
+        this.projectName = project.project_name || '';
+      }
+      this.updateHideTitle();  
+    });
+  }
+
+  updateHideTitle() {
+    const isProspectRoute = this.router.url.includes('/portafolio/prospect');
+    this.hideTitle = isProspectRoute && !this.project;
   }
 
   saveForm() {
@@ -80,145 +115,18 @@ export class PortafolioComponent {
       return;
     }
   }
+
   ngOnInit() {
-    this.hideTitle = this.router.url.includes('/portafolio/prospect');
+    this.updateHideTitle();
+    this.observaProjectSelected();
 
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.hideTitle = event.urlAfterRedirects.includes('/portafolio/prospect');
+      this.updateHideTitle();
     });
-    this.MenuProject = [
-      {
-        label: 'Dashboard project',
-        items: [
-          {
-            label: 'Home',
-            command: () => {
-              this.router.navigate(['/portafolio']);
-            }
-          },
-        ]
-      },
-        //-----------------------------------------------------------------------
-            //inicia origination
-      {
-        label: 'Origination',
-        items: [
-          {
-            label: 'Prospect Onboarding',
-            command: () => {
-              this.router.navigate(['portafolio/prospect']);
-            }
-          },
-          {
-            label: 'Feasibility',
-            command: () => {
-              this.router.navigate(['portafolio/feasibility']);
-            }
-          },
-          {
-            label: 'Legal Due Diligence',
-            command: () => {
-              this.router.navigate(['portafolio/legal']);
-            }
-          },
-          {
-            label: 'Technical Due Diligence',
-            command: () => {
-              this.router.navigate(['portafolio/technical']);
-            }
-          },
-          {
-            label: 'Project Approval',
-            command: () => {
-              this.router.navigate(['portafolio/approval']);
-            }
-          },
-          {
-            label: 'Legal KYC',
-            command: () => {
-              this.router.navigate(['portafolio/kyc']);
-            }
-          },
-          {
-            label: 'Transaction Approval',
-            command: () => {
-              this.router.navigate(['portafolio/transaction']);
-            }
-          },
-          {
-            label: 'Contracting',
-            command: () => {
-              this.router.navigate(['portafolio/contrating']);
-            }
-          },
-        ]
-      },
-         //-----------------------------------------------------------------------
-            //inicia Implementation
-      {
-        label: 'Implementation',
-        items: [
-          {
-            label: 'Assign PM to Project',
-          },
-          {
-            label: 'Listing',
-          },
-          {
-            label: 'Baseline',
-          },
-          {
-            label: 'Strategic planning',
-          },
-          {
-            label: 'Annual planning',
-          },
-          {
-            label: 'Execution and monitoring',
-          },
-          {
-            label: 'Trainning',
-          },
-          {
-            label: 'Review',
-          },
-        ]
-      },
-       //-----------------------------------------------------------------------
-            //inicia reporting
-      {
-        label: 'Reporting',
-        items: [
-           {
-            label: 'Reporting periods',
-          },
-           {
-            label: 'Project Log',
-          },
-          {
-            label: 'Incidences',
-          },
-        ]
-      },
-      {
-        label: 'Settlement',
-        items: [
-          {
-            label: 'Settlement planning',
-          },
-        ]
-      },
-      {
-        label: 'Commercialization',
-        items: [
-          {
-            label: 'Marketing',
-          },
-        ]
-      },
-    ];
+
+    this.getUserMenu();
 
     this.Calendar = [
       {
@@ -261,4 +169,12 @@ export class PortafolioComponent {
     });
   }
 
+  getUserMenu(){
+    this._userService.getUserMenu(this.token).subscribe(resp => {
+      if(resp.valido === 1){
+        this.MenuProject = resp.result[0]?.Menus
+        this._authGuardService.setUserMenu(resp.result[0]?.Menus);
+      }
+    })
+  }
 }

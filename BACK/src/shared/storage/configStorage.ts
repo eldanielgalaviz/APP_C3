@@ -1,23 +1,31 @@
-import { BlobServiceClient } from "@azure/storage-blob";
-import { SecureYamlConfig } from "../config/SecureYamlConfig";
-import * as dotenv from 'dotenv';
-dotenv.config();
+import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
+import { SecureYamlConfig } from '../config/SecureYamlConfig';
 
+let containerClient: ContainerClient;
 
-export async function configStorage(){
-    const DECRYPTION_KEY = process.env.CONFIG_DECRYPTION_KEY;
-    if (!DECRYPTION_KEY) {
-      throw new Error('CONFIG_DECRYPTION_KEY no está definida. Revisa tu archivo .env');
-    }
-    
-    const config = new SecureYamlConfig(DECRYPTION_KEY);
-    
-    const AccountName = config.ACCOUNT_NAME;
-    const ContainerName = config.CONTAINER_NAME;
-    const SASToken = config.SAS_TOKEN;
-    
-    const blobServiceClient = new BlobServiceClient(`https://${AccountName}.blob.core.windows.net/?${SASToken}`);
-    const containerClient = blobServiceClient.getContainerClient(ContainerName);
+export const initBlobStorage = async (): Promise<void> => {
+  const DECRYPTION_KEY = process.env.CONFIG_DECRYPTION_KEY;
 
-    return containerClient;
-}
+  if (!DECRYPTION_KEY) {
+    throw new Error('CONFIG_DECRYPTION_KEY no está definida');
+  }
+
+  const config = new SecureYamlConfig(DECRYPTION_KEY);
+
+  const AccountName = config.ACCOUNT_NAME;
+  const ContainerName = config.CONTAINER_NAME;
+  const SASToken = config.SAS_TOKEN;
+
+  const blobServiceClient = new BlobServiceClient(
+    `https://${AccountName}.blob.core.windows.net/?${SASToken}`
+  );
+
+  containerClient = blobServiceClient.getContainerClient(ContainerName);
+};
+
+export const getContainerClient = (): ContainerClient => {
+  if (!containerClient) {
+    throw new Error('BlobStorage no inicializado');
+  }
+  return containerClient;
+};

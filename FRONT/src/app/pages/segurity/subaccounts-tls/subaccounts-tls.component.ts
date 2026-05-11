@@ -21,8 +21,9 @@ export class SubaccountsTlsComponent {
 
   visible2: boolean = false;
   customers!: Customer[];
-   state: any[] | undefined;
-
+  state: any[] | undefined;
+  selectedValue: any;
+  
   constructor(private customerService: CustomerService) { }
 
   ngOnInit() {

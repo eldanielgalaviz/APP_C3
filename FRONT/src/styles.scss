@@ -102,6 +102,10 @@ footer {
     padding: 16px 50px;
 }
 
+.template{
+     color: #21B6A8;   
+    }
+
 .p-inputtext,
 .p-password {
     width: 100%;
@@ -191,4 +195,41 @@ section {
     color: #D1410D !important;
     font-size: 10px !important;
     font-weight: 400 !important;
+}
+
+//inicia estilos de monitoring
+
+
+.table-monitor {
+    border-spacing: 4px 0px !important;
+
+    tr {
+        th:nth-child(odd),
+        td:nth-child(odd) {
+            background-color: #F8FAFB;
+        }
+
+        th:nth-child(even),
+        td:nth-child(even) {
+            background-color: #EEF2F5;
+
+        }
+    }
+
+    tr {
+        th{
+            padding-top: 8px;
+            padding-bottom: 8px;
+            color: #088F83;
+  
+        }
+        td {
+            text-align: end;
+                      padding-right: 8px;
+        }
+    }
+}
+
+.p-datatable-thead > tr > th{
+    font-size: 12px !important;
 }

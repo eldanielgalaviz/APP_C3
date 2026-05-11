@@ -6,6 +6,8 @@ import { PedComponent } from './ped/ped.component';
 import { PrePinComponent } from './pre-pin/pre-pin.component';
 import { ProjectAreaComponent } from './project-area/project-area.component';
 import { TeamAndPlanComponent } from './team-and-plan/team-and-plan.component';
+import { Router } from '@angular/router';
+import { authGuardService } from '../../../../../../service/authGuard.service';
 
 @Component({
   selector: 'app-feasibility',
@@ -18,8 +20,14 @@ import { TeamAndPlanComponent } from './team-and-plan/team-and-plan.component';
     TeamAndPlanComponent
   ],
   templateUrl: './feasibility.component.html',
-  styleUrl: './feasibility.component.scss'
 })
 export class FeasibilityComponent {
 
+  constructor(private router: Router, private authService: authGuardService){
+
+  }
+
+  ngOnInit() {
+
+  }
 }

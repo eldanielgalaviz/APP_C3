@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class ProjectsService {
 
-  ApiUrl: string = environment.url
+  ApiUrl: string = environment.url + 'api/';
 
   constructor(private _apiService : UtilApiService) {
 
   }
 
-  getProjects(token: string): Observable<any[]> {
-    return this._apiService.sendGetRequest(this.ApiUrl + "proyectos/get_projects/", token);
+  getProjects(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'origination/getProjects', token);
   }
 
 }

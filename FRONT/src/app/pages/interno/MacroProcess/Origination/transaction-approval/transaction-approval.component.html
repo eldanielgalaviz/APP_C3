@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <h4 class="tit-subcu font-bold">Transaction Approval</h4>
 <form [formGroup]="form">
     <div class="grid">
@@ -11,9 +12,9 @@
                     <p-datepicker formControlName="erpaApprovalByBuyer" styleClass="w-full"
                         inputId="erpaApprovalByBuyer" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaApprovalByBuyer')}" />
-                    <label for="erpaApprovalByBuyer">ERPA Approval by Buyer</label>
+                    <label for="erpaApprovalByBuyer">ERPA approval by buyer</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('erpaApprovalByBuyer')">ERPA Approval by Buyer is
+                <small class="p-error" *ngIf="isInvalid('erpaApprovalByBuyer')">ERPA approval by buyer is
                     required</small>
             </div>
         </div>
@@ -27,32 +28,31 @@
                     <p-datepicker formControlName="projectApproval" styleClass="w-full" inputId="projectApproval"
                         showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectApproval')}" />
-                    <label for="projectApproval">Project Approval</label>
+                    <label for="projectApproval">Project approval</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('projectApproval')">Project Approval is required</small>
+                <small class="p-error" *ngIf="isInvalid('projectApproval')">Project approval is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
                     <p-datepicker formControlName="erpaApprovedByProjectCounterpart" styleClass="w-full"
                         inputId="erpaApprovedByProjectCounterpart" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaApprovedByProjectCounterpart')}" />
-                    <label for="erpaApprovedByProjectCounterpart">ERPA Approved by Project Counterpart</label>
+                    <label for="erpaApprovedByProjectCounterpart">ERPA approved by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('erpaApprovedByProjectCounterpart')">ERPA Approved by Project
-                    Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('erpaApprovedByProjectCounterpart')">ERPA approved by project counterpart is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
-                    <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
-                    <label for="over_label">Approved Buyer</label>
+                    <p-select formControlName="approvedBuyer" inputId="approvedBuyer" [options]="approvedBuyers" optionLabel="approved_buyer" optionValue="id_approved_buyer" styleClass="w-full" />
+                    <label for="approvedBuyer">Approved buyer</label>
                 </p-floatlabel>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
                     <input pInputText formControlName="percentageMktPrice" />
-                    <label for="percentageMktPrice">Percentage Mkt Price</label>
+                    <label for="percentageMktPrice">Percentage Mkt price</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('percentageMktPrice')">Percentage Mkt Price is required</small>
+                <small class="p-error" *ngIf="isInvalid('percentageMktPrice')">Percentage Mkt price is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
@@ -60,22 +60,19 @@
                         styleClass="w-full" inputId="projectDeveloperContractApprovedByProjectCounterpart" showIcon
                         iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectDeveloperContractApprovedByProjectCounterpart')}" />
-                    <label for="projectDeveloperContractApprovedByProjectCounterpart">Project Developer Contract
-                        Approved by Project Counterpart</label>
+                    <label for="projectDeveloperContractApprovedByProjectCounterpart">Project developer contract approved by project counterpart</label>
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('projectDeveloperContractApprovedByProjectCounterpart')">Project
-                    Developer Contract Approved by Project Counterpart is required</small>
+                    Project developer contract approved by project counterpart is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
                     <p-datepicker formControlName="aggregationApprovalByProjectCounterpart" styleClass="w-full"
                         inputId="aggregationApprovalByProjectCounterpart" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('aggregationApprovalByProjectCounterpart')}" />
-                    <label for="aggregationApprovalByProjectCounterpart">Aggregation Approval by Project
-                        Counterpart</label>
+                    <label for="aggregationApprovalByProjectCounterpart">Aggregation approval by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('aggregationApprovalByProjectCounterpart')">Aggregation Approval
-                    by Project Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('aggregationApprovalByProjectCounterpart')">Aggregation approval by project counterpart is required</small>
             </div>
         </div>
 
@@ -89,17 +86,22 @@
                     <p-datepicker formControlName="projectDeveloperContractApprovedByCanopia" styleClass="w-full"
                         inputId="projectDeveloperContractApprovedByCanopia" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectDeveloperContractApprovedByCanopia')}" />
-                    <label for="projectDeveloperContractApprovedByCanopia">Project Developer Contract Approved by
-                        Canopia</label>
+                    <label for="projectDeveloperContractApprovedByCanopia">Project developer contract approved by Canopia</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractApprovedByCanopia')">Project Developer
-                    Contract Approved by Canopia is required</small>
+                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractApprovedByCanopia')">Project developer contract approved by Canopia is required</small>
             </div>
         </div>
     </div>
     <div class="flex justify-content-center flex-wrap pt-3">
         <div class="col-4">
-            <p-button styleClass="w-full" label="Save" [rounded]="true" />
+                <!-- Sin registro: solo aparece si tiene CREATE -->
+            <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+                <!-- Con registro y tiene EDIT: muestra Edit -->
+            <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+
+                <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
+            <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
         </div>
     </div>
     <form>

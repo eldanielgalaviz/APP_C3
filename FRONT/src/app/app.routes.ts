@@ -11,7 +11,7 @@ import { ProspectOnboardingComponent } from './pages/interno/MacroProcess/Origin
 import { FeasibilityComponent } from './pages/interno/MacroProcess/Origination/feasibility/feasibility.component';
 import { LegalDueDiligenceComponent } from './pages/interno/MacroProcess/Origination/legal-due-diligence/legal-due-diligence.component';
 import { ProjectApprovalComponent } from './pages/interno/MacroProcess/Origination/project-approval/project-approval.component';
-import { LegalKYCComponent } from './pages/interno/MacroProcess/Origination/legal-kyc/legal-kyc.component';
+import { LegalKycComponent } from './pages/interno/MacroProcess/Origination/legal-kyc/legal-kyc.component';
 import { TransactionApprovalComponent } from './pages/interno/MacroProcess/Origination/transaction-approval/transaction-approval.component';
 import { ContractingComponent } from './pages/interno/MacroProcess/Origination/contracting/contracting.component';
 import { TechnicalDueDiligenceComponent } from './pages/interno/MacroProcess/Origination/technical-due-diligence/technical-due-diligence.component';
@@ -20,7 +20,6 @@ import { ToolsComponent } from './pages/interno/tools/tools.component';
 import { AccountsTlsComponent } from './pages/segurity/accounts-tls/accounts-tls.component';
 import { ActivitiesTlsComponent } from './pages/segurity/activities-tls/activities-tls.component';
 import { AdjtypesTlsComponent } from './pages/segurity/adjtypes-tls/adjtypes-tls.component';
-import { EvSettlementTlsComponent } from './pages/segurity/ev-settlement-tls/ev-settlement-tls.component';
 import { EvSubacountsTlsComponent } from './pages/segurity/ev-subacounts-tls/ev-subacounts-tls.component';
 import { EvidencesTlsComponent } from './pages/segurity/evidences-tls/evidences-tls.component';
 import { IndicadorsTlsComponent } from './pages/segurity/indicadors-tls/indicadors-tls.component';
@@ -30,6 +29,17 @@ import { SopTlsComponent } from './pages/segurity/sop-tls/sop-tls.component';
 import { SubaccountsTlsComponent } from './pages/segurity/subaccounts-tls/subaccounts-tls.component';
 import { SubprocessTlsComponent } from './pages/segurity/subprocess-tls/subprocess-tls.component';
 import { UsersTlsComponent } from './pages/segurity/users-tls/users-tls.component';
+import { AnnualPlanningComponent } from './pages/interno/MacroProcess/implementation/annual-planning/annual-planning.component';
+import { AssignPMToProjectComponent } from './pages/interno/MacroProcess/implementation/assign-pm-to-project/assign-pm-to-project.component';
+import { BaselineComponent } from './pages/interno/MacroProcess/implementation/baseline/baseline.component';
+import { ExecutionAndMonitoringComponent } from './pages/interno/MacroProcess/implementation/execution-and-monitoring/execution-and-monitoring.component';
+import { ListingComponent } from './pages/interno/MacroProcess/implementation/listing/listing.component';
+import { ReviewComponent } from './pages/interno/MacroProcess/implementation/review/review.component';
+import { StrategicPlanningComponent } from './pages/interno/MacroProcess/implementation/strategic-planning/strategic-planning.component';
+import { TrainningComponent } from './pages/interno/MacroProcess/implementation/trainning/trainning.component';
+import { MenuGuard } from '../service/guards/menu.guard';
+import { MenusTlsComponent } from './pages/segurity/menus.tls/menus.tls.component';
+import { PlanningSttComponent } from './pages/interno/MacroProcess/settlement/planning-stt/planning-stt.component';
 
 export const routes: Routes = [
 
@@ -69,10 +79,6 @@ export const routes: Routes = [
                         component: AdjtypesTlsComponent,
                     },
                     {
-                        path: 'ToolsEvSettlement',
-                        component: EvSettlementTlsComponent,
-                    },
-                    {
                         path: 'ToolsEvSubacounts',
                         component: EvSubacountsTlsComponent,
                     },
@@ -105,6 +111,10 @@ export const routes: Routes = [
                         component: SubprocessTlsComponent,
                     },
                     {
+                        path: 'ToolsMenu',
+                        component: MenusTlsComponent
+                    },
+                    {
                         path: 'ToolsUsers',
                         component: UsersTlsComponent
                     },
@@ -114,12 +124,14 @@ export const routes: Routes = [
             //inicia el compartido del menu de portafolio
             {
                 path: 'portafolio', component: PortafolioComponent,
+                // canActivateChild: [MenuGuard],
                 children: [
-                    //origination
+                    //dash project
                     {
                         path: '',
                         component: DashboardProjectComponent,
                     },
+                    //origination
                     {
                         path: 'prospect',
                         component: ProspectOnboardingComponent,
@@ -142,7 +154,7 @@ export const routes: Routes = [
                     },
                     {
                         path: 'kyc',
-                        component: LegalKYCComponent,
+                        component: LegalKycComponent,
                     },
                     {
                         path: 'transaction',
@@ -152,8 +164,46 @@ export const routes: Routes = [
                         path: 'contrating',
                         component: ContractingComponent,
                     },
+                    //implementation
+                    {
+                        path: 'pm-project',
+                        component: AssignPMToProjectComponent,
+                    },
+                    {
+                        path: 'listing',
+                        component: ListingComponent,
+                    },
+                    {
+                        path: 'baseline',
+                        component: BaselineComponent,
+                    },
+                    {
+                        path: 'strategic-planning',
+                        component: StrategicPlanningComponent,
+                    },
+                    {
+                        path: 'annual-planning',
+                        component: AnnualPlanningComponent,
+                    },
+                    {
+                        path: 'execution-monitoring',
+                        component: ExecutionAndMonitoringComponent,
+                    },
+                    {
+                        path: 'trainning',
+                        component: TrainningComponent,
+                    },
+                    {
+                        path: 'review',
+                        component: ReviewComponent,
+                    },
+                    //settlement
+                    {
+                          path: 'settlement-planning',
+                        component: PlanningSttComponent,
+                    }
+                ],
 
-                ]
             },
 
         ],

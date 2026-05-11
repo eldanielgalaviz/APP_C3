@@ -1,1 +1,64 @@
-<p>sop-tls works!</p>
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">SOP</h4>
+        </div>
+        <div>
+            <p-button label="New SOP" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+    <p>This catalog feeds the <b> “Activities” </b> modules. Because these
+        sections are interconnected, records cannot be deleted and may only be edited.
+    </p>
+
+    <p-table styleClass="pt-3" [value]="products" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5"
+        [filterDelay]="0" [globalFilterFields]="['code', 'products.name']">
+
+        <ng-template #caption>
+            <div class="flex justify-content-center flex-wrap">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input pInputText type="text" placeholder="Global search" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th pSortableColumn="code">
+                    SOP <p-sortIcon field="code" />
+                </th>
+                <th style="width:3rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td>{{product.code }}</td>
+                <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                        (click)="visible2 = true" /></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!--inicia drawer generador nuevos-->
+
+<p-drawer header="Create New SOP" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="newcompaq" />
+                    <label for="newcompaq">New SOP name </label>
+                </p-floatlabel>
+                <small class="p-error">SOP is required.</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #footer>
+        <p-button label="Save" [rounded]="true" styleClass="w-full" />
+    </ng-template>
+</p-drawer>

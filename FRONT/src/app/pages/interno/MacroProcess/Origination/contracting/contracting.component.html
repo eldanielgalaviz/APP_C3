@@ -1,3 +1,4 @@
+<p-toast></p-toast>
 <h4 class="tit-subcu font-bold">Contrating</h4>
 <form [formGroup]="form">
     <div class="grid">
@@ -11,9 +12,9 @@
                     <p-datepicker formControlName="erpaSignedByBuyer" styleClass="w-full" inputId="erpaSignedByBuyer"
                         showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaSignedByBuyer')}" />
-                    <label for="erpaSignedByBuyer">ERPA Signed by Buyer</label>
+                    <label for="erpaSignedByBuyer">ERPA signed by buyer</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('erpaSignedByBuyer')">ERPA Signed by Buyer is required</small>
+                <small class="p-error" *ngIf="isInvalid('erpaSignedByBuyer')">ERPA signed by buyer is required</small>
             </div>
         </div>
         <div class="col-4">
@@ -26,10 +27,9 @@
                     <p-datepicker formControlName="erpaSignedByProjectCounterpart" styleClass="w-full"
                         inputId="erpaSignedByProjectCounterpart" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('erpaSignedByProjectCounterpart')}" />
-                    <label for="erpaSignedByProjectCounterpart">ERPA Signed by Project Counterpart</label>
+                    <label for="erpaSignedByProjectCounterpart">ERPA signed by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('erpaSignedByProjectCounterpart')">ERPA Signed by Project
-                    Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('erpaSignedByProjectCounterpart')">ERPA signed by project counterpart is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
@@ -37,11 +37,9 @@
                         styleClass="w-full" inputId="projectDeveloperContractSignedByProjectCounterpart" showIcon
                         iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectDeveloperContractSignedByProjectCounterpart')}" />
-                    <label for="projectDeveloperContractSignedByProjectCounterpart">Project Developer Contract Signed by
-                        Project Counterpart</label>
+                    <label for="projectDeveloperContractSignedByProjectCounterpart">Project developer contract signed by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractSignedByProjectCounterpart')">Project
-                    Developer Contract Signed by Project Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractSignedByProjectCounterpart')">Project developer contract signed by project counterpart is required</small>
             </div>
 
             <div class="col-12 md:col-12">
@@ -49,11 +47,9 @@
                     <p-datepicker formControlName="aggregationApprovalSignedByProjectCounterpart" styleClass="w-full"
                         inputId="aggregationApprovalSignedByProjectCounterpart" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('aggregationApprovalSignedByProjectCounterpart')}" />
-                    <label for="aggregationApprovalSignedByProjectCounterpart">Aggregation Approval Signed by Project
-                        Counterpart</label>
+                    <label for="aggregationApprovalSignedByProjectCounterpart">Aggregation approval signed by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('aggregationApprovalSignedByProjectCounterpart')">Aggregation
-                    Approval Signed by Project Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('aggregationApprovalSignedByProjectCounterpart')">Aggregation approval signed by project counterpart is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
@@ -61,20 +57,18 @@
                         inputId="authorityDesignationFormatSigned" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('authorityDesignationFormatSigned')}" />
 
-                    <label for="authorityDesignationFormatSigned">Authority Designation Format Signed</label>
+                    <label for="authorityDesignationFormatSigned">Authority designation format signed</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('authorityDesignationFormatSigned')">Authority Designation
-                    Format Signed is required</small>
+                <small class="p-error" *ngIf="isInvalid('authorityDesignationFormatSigned')">Authority designation format signed is required</small>
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
                     <p-datepicker formControlName="termsOfUseSignedByProjectCounterpart" styleClass="w-full"
                         inputId="termsOfUseSignedByProjectCounterpart" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('termsOfUseSignedByProjectCounterpart')}" />
-                    <label for="termsOfUseSignedByProjectCounterpart">Terms of Use Signed by Project Counterpart</label>
+                    <label for="termsOfUseSignedByProjectCounterpart">Terms of use signed by project counterpart</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('termsOfUseSignedByProjectCounterpart')">Terms of Use Signed by
-                    Project Counterpart is required</small>
+                <small class="p-error" *ngIf="isInvalid('termsOfUseSignedByProjectCounterpart')">Terms of use signed by project counterpart is required</small>
             </div>
         </div>
 
@@ -88,18 +82,16 @@
                     <p-datepicker formControlName="projectDeveloperContractSignedByCanopia" styleClass="w-full"
                         inputId="projectDeveloperContractSignedByCanopia" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('projectDeveloperContractSignedByCanopia')}" />
-                    <label for="projectDeveloperContractSignedByCanopia">Project Developer Contract Signed by
-                        Canopia</label>
+                    <label for="projectDeveloperContractSignedByCanopia">Project developer contract signed by Canopia</label>
                 </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractSignedByCanopia')">Project Developer
-                    Contract Signed by Canopia is required</small>
+                <small class="p-error" *ngIf="isInvalid('projectDeveloperContractSignedByCanopia')">Project developer contract signed by Canopia is required</small>
             </div>
         </div>
     </div>
 
     <div class="flex justify-content-center flex-wrap pt-3">
         <div class="col-4">
-            <p-button styleClass="w-full" label="Save" [rounded]="true" />
+            <p-button styleClass="w-full" label="Save" [rounded]="true" appPermission="CREATE" (click)="saveForm()" />
         </div>
     </div>
     </form>

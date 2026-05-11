@@ -37,22 +37,16 @@ export class CreateUserRequest {
   @MaxLength(255, { message: 'El correo no puede superar los 255 caracteres' })
   Email: string = '';
 
-  @IsNotEmpty({ message: 'La contraseña es obligatoria' })
-  @IsString()
-  @MinLength(8, { message: 'La contraseña debe tener al menos 8 caracteres' })
   PasswordHash: string = '';
 
   @IsNotEmpty({ message: 'El puesto es obligatorio' })
   @IsString()
-  @MinLength(2, { message: 'El puesto debe tener al menos 2 caracteres' })
+  @MinLength(1, { message: 'El puesto debe tener al menos 1 caracter' })
   @MaxLength(100, { message: 'El puesto no puede superar los 100 caracteres' })
   puesto: string = '';
 
   @IsNotEmpty({ message: 'El departamento es obligatorio' })
-  @IsString()
-  @MinLength(2, { message: 'El departamento debe tener al menos 2 caracteres' })
-  @MaxLength(100, { message: 'El departamento no puede superar los 100 caracteres' })
-  departamento: string = '';
+  departamento!: number;
 
   // @IsInt({ message: 'Idlocationkey debe ser un número entero' })
   // @IsNotEmpty({ message: 'Idlocationkey es obligatorio' })

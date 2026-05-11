@@ -1,1 +1,92 @@
-<p>activities-tls works!</p>
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Activities</h4>
+        </div>
+        <div>
+            <p-button label="New activities" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+    <p>This catalog feeds the <b> “Planning” and “Activities” </b> modules. Records are interconnected and cannot be deleted, only edited. 
+    </p>
+
+        <p-table styleClass="pt-3" [value]="customers" sortMode="single" [scrollable]="true" rowGroupMode="subheader" sortField="representative.name" dataKey="representative.name" groupRowsBy="representative.name">
+                <ng-template #caption>
+                        <div class="flex justify-content-center flex-wrap">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>       
+            <ng-template #header>
+                        <tr>
+                            <th>Activity name</th>
+                            <th width="3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #groupheader let-customer let-rowIndex="rowIndex" let-expanded="expanded">
+                        <tr>
+                            <td>
+                                <span class="font-bold">[process_name] > [subprocess_name]</span>
+                            </td>
+                            <td>  
+                                <button type="button" pButton pRipple [pRowToggler]="customer" text rounded plain
+                                    class="mr-2" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                                </td>
+                        </tr>
+                    </ng-template>
+
+                    <ng-template #expandedrow let-customer>
+                        <tr>
+                            <td>
+                                {{customer.name}}
+                            </td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="visible2 = true" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+</div>
+
+<!--inicia drawer generador nuevos-->
+
+<p-drawer header="Create New Activity" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+     
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="process" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="process">Macroprocess</label>
+                </p-floatlabel>
+                <small class="p-error">Macroprocess selection required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="subprocess" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="subprocess">Subprocess</label>
+                </p-floatlabel>
+                <small class="p-error">Subprocess selection required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="newcompaq" />
+                    <label for="newcompaq">New Activity name</label>
+                </p-floatlabel>
+                <small class="p-error">New Activity name required.</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #footer>
+        <p-button label="Save" [rounded]="true" styleClass="w-full" />
+    </ng-template>
+</p-drawer>

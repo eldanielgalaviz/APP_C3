@@ -1,0 +1,279 @@
+<p-toast></p-toast>
+<p-confirmDialog />
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Menu</h4>
+        </div>
+        <div>
+            <p-button label="New menu" [rounded]="true" [raised]="true" (click)="openNewMenuDrawer()" />
+        </div>
+    </div>
+
+    <p>This catalog feeds the <b>"menu of navegation"</b> modules. Records are interconnected and cannot be deleted, only edited.</p>
+
+    <p-tabs [(value)]="activeTab">
+        <p-tablist>
+            <p-tab value="0">Menu general</p-tab>
+            <p-tab value="1">Menu portfolio</p-tab>
+            <p-tab value="2">Sub menu</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+
+            <!-- TAB 0: Menu General -->
+            <p-tabpanel value="0">
+                <p-table #dt0 [value]="modules" [rowsPerPageOptions]="[10, 20, 50]" [paginator]="true" [rows]="10"
+                    [globalFilterFields]="['short_module_dec', 'long_module_desc', 'short_status_desc']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search"
+                                    (input)="dt0.filterGlobal($any($event.target).value, 'contains')" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="short_module_dec">Short description <p-sortIcon field="short_module_dec" /></th>
+                            <th pSortableColumn="long_module_desc">Long description <p-sortIcon field="long_module_desc" /></th>
+                            <th pSortableColumn="short_status_desc">Status <p-sortIcon field="short_status_desc" /></th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.short_module_dec }}</td>
+                            <td>{{ item.long_module_desc }}</td>
+                            <td>{{ item.short_status_desc }}</td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="openEditModule(item)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+
+            <!-- TAB 1: Menu Portfolio -->
+            <p-tabpanel value="1">
+                <p-table #dt1 [value]="mainMenus" [rowsPerPageOptions]="[10, 20, 50]" [paginator]="true" [rows]="10"
+                    [globalFilterFields]="['short_main_desc', 'long_main_desc', 'order_index', 'related_modules']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search"
+                                    (input)="dt1.filterGlobal($any($event.target).value, 'contains')" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="short_main_desc">Short description <p-sortIcon field="short_main_desc" /></th>
+                            <th pSortableColumn="long_main_desc">Long description <p-sortIcon field="long_main_desc" /></th>
+                            <th pSortableColumn="order_index">Order <p-sortIcon field="order_index" /></th>
+                            <th pSortableColumn="related_modules">Menu general <p-sortIcon field="related_modules" /></th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.short_main_desc }}</td>
+                            <td>{{ item.long_main_desc }}</td>
+                            <td>{{ item.order_index }}</td>
+                            <td>{{ item.related_modules }}</td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="openEditMainMenu(item)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+
+            <!-- TAB 2: Sub Menu -->
+            <p-tabpanel value="2">
+                <p-table #dt2 [value]="subMenus" [rowsPerPageOptions]="[10, 20, 50]" [paginator]="true" [rows]="10"
+                    [globalFilterFields]="['short_submenu_desc', 'long_submenu_desc', 'router_link', 'order_index', 'related_main_menus']">
+                    <ng-template #caption>
+                        <div class="flex justify-content-center">
+                            <p-iconField iconPosition="left">
+                                <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                                <input pInputText type="text" placeholder="Global search"
+                                    (input)="dt2.filterGlobal($any($event.target).value, 'contains')" />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="short_submenu_desc">Short description <p-sortIcon field="short_submenu_desc" /></th>
+                            <th pSortableColumn="long_submenu_desc">Long description <p-sortIcon field="long_submenu_desc" /></th>
+                            <th pSortableColumn="router_link">Route <p-sortIcon field="router_link" /></th>
+                            <th pSortableColumn="order_index">Order <p-sortIcon field="order_index" /></th>
+                            <th pSortableColumn="related_main_menus">Menu portfolio <p-sortIcon field="related_main_menus" /></th>
+                            <th style="width:3rem"></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-item>
+                        <tr>
+                            <td>{{ item.short_submenu_desc }}</td>
+                            <td>{{ item.long_submenu_desc }}</td>
+                            <td>{{ item.router_link }}</td>
+                            <td>{{ item.order_index }}</td>
+                            <td>{{ item.related_main_menus }}</td>
+                            <td>
+                                <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
+                                    (click)="openEditSubMenu(item)" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabpanel>
+
+        </p-tabpanels>
+    </p-tabs>
+</div>
+
+<p-drawer [header]="drawerTitle" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+
+            <!-- TAB 0: Menu General Form -->
+            <ng-container *ngIf="activeTab === '0'">
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="mgShortDesc" class="w-full"
+                            [(ngModel)]="menuGeneralForm.shortDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuGeneralForm.shortDescription.trim()}" />
+                        <label for="mgShortDesc">Short description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuGeneralForm.shortDescription.trim()">Short description is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <textarea pInputTextarea id="mgLongDesc" class="w-full" rows="4"
+                            [(ngModel)]="menuGeneralForm.longDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuGeneralForm.longDescription.trim()}"></textarea>
+                        <label for="mgLongDesc">Long description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuGeneralForm.longDescription.trim()">Long description is required.</small>
+                </div>
+            </ng-container>
+
+            <!-- TAB 1: Menu Portfolio Form -->
+            <ng-container *ngIf="activeTab === '1'">
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="mpShortDesc" class="w-full"
+                            [(ngModel)]="menuPortfolioForm.shortDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuPortfolioForm.shortDescription.trim()}" />
+                        <label for="mpShortDesc">Short description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuPortfolioForm.shortDescription.trim()">Short description is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <textarea pInputTextarea id="mpLongDesc" class="w-full" rows="4"
+                            [(ngModel)]="menuPortfolioForm.longDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuPortfolioForm.longDescription.trim()}"></textarea>
+                        <label for="mpLongDesc">Long description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuPortfolioForm.longDescription.trim()">Long description is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <p-inputNumber inputId="mpOrder" class="w-full"
+                            [(ngModel)]="menuPortfolioForm.order"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuPortfolioForm.order}" />
+                        <label for="mpOrder">Order</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuPortfolioForm.order">Order is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <p-multiselect inputId="mpModules" [options]="modules"
+                            optionLabel="short_module_dec" dataKey="Idmodule"
+                            styleClass="w-full" display="chip"
+                            [(ngModel)]="menuPortfolioForm.moduleIds"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !menuPortfolioForm.moduleIds.length}" />
+                        <label for="mpModules">Menu general</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !menuPortfolioForm.moduleIds.length">At least one module is required.</small>
+                </div>
+            </ng-container>
+
+            <!-- TAB 2: Sub Menu Form -->
+            <ng-container *ngIf="activeTab === '2'">
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="smShortDesc" class="w-full"
+                            [(ngModel)]="subMenuForm.shortDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.shortDescription.trim()}" />
+                        <label for="smShortDesc">Short description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.shortDescription.trim()">Short description is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <textarea pInputTextarea id="smLongDesc" class="w-full" rows="4"
+                            [(ngModel)]="subMenuForm.longDescription"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.longDescription.trim()}"></textarea>
+                        <label for="smLongDesc">Long description</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.longDescription.trim()">Long description is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <input pInputText id="smRoute" class="w-full"
+                            [(ngModel)]="subMenuForm.route"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.route.trim()}" />
+                        <label for="smRoute">Route</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.route.trim()">Route is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <p-inputNumber inputId="smOrder" class="w-full"
+                            [(ngModel)]="subMenuForm.order"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.order}" />
+                        <label for="smOrder">Order</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.order">Order is required.</small>
+                </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <p-select inputId="smMainMenu" [options]="mainMenus"
+                            optionLabel="short_main_desc" dataKey="Idmainmenu"
+                            styleClass="w-full"
+                            [(ngModel)]="subMenuForm.mainMenuId"
+                            [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.mainMenuId}" />
+                        <label for="smMainMenu">Menu portfolio</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.mainMenuId">Menu portfolio is required.</small>
+                </div>
+            </ng-container>
+
+        </div>
+    </div>
+    <ng-template #footer>
+    <div class="flex gap-2 w-full justify-content-end">
+
+        <p-button
+        *ngIf="selectedModule || selectedMainMenu || selectedSubMenu"
+        label="Delete"
+        severity="danger"
+        [rounded]="true"
+        styleClass="flex-1"
+        (click)="activeTab === '0' ? deleteMenuGeneral() : activeTab === '1' ? deleteMenuPortfolio() : deleteSubMenu()" />
+
+        <p-button
+        label="Save"
+        [rounded]="true"
+        styleClass="flex-1"
+        (click)="activeTab === '0' ? saveMenuGeneral() : activeTab === '1' ? saveMenuPortfolio() : saveSubMenu()" />
+
+    </div>
+    </ng-template>
+</p-drawer>

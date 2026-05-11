@@ -4,7 +4,7 @@ import jwt, { SignOptions, VerifyOptions } from 'jsonwebtoken';
 export class JwtService {
   private static readonly ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || process.env.CONFIG_DECRYPTION_KEY || 'access-token-secret';
   private static readonly REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || process.env.CONFIG_DECRYPTION_KEY || 'refresh-token-secret';
-  private static readonly ACCESS_TOKEN_EXPIRES_IN = process.env.ACCESS_TOKEN_EXPIRES_IN || '15m';
+  private static readonly ACCESS_TOKEN_EXPIRES_IN = process.env.ACCESS_TOKEN_EXPIRES_IN || '1d';
   private static readonly REFRESH_TOKEN_EXPIRES_IN = process.env.REFRESH_TOKEN_EXPIRES_IN || '7d';
 
   // Generate an access token with a short expiration time

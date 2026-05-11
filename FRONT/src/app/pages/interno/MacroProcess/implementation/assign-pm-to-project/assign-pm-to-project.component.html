@@ -1,0 +1,96 @@
+<p-toast></p-toast>
+<section [formGroup]="planTeamForm">
+    <h4 class="tit-subcu font-bold">Plan & team</h4>
+    <div class="grid">
+
+        <div class="col-12">
+            <div class="pb-3">
+                <hr class="m-0 p-0">
+                <h5>Assign PM to project</h5>
+            </div>
+            <div class="grid pb-5">
+                <div class="col-12 md:col-4">
+                    <p-floatlabel>
+                        <p-select [ngClass]="{'ng-invalid ng-dirty': isInvalid('p_project_manager_id')}" formControlName="p_project_manager_id" [options]="projectManagers" optionLabel="Name" optionValue="Iduser" styleClass="w-full" />
+                        <label>Select PM name</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('p_project_manager_id')">This field is required</small>
+                </div>
+                <div class="col-12 md:col-8">
+                    <p-floatlabel>
+                        <p-multiselect [ngClass]="{'ng-invalid ng-dirty': isInvalid('smes')}" formControlName="smes" [options]="smes" optionLabel="name" optionValue="Iduser" [maxSelectedLabels]="5" styleClass="w-full" />
+                        <label>Select SMEs</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('smes')">This field is required</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="pb-3">
+                <hr class="m-0 p-0">
+                <h5>Handover to project manager</h5>
+            </div>
+            <div class="grid pb-5">
+                <div class="col-12 md:col-4">
+                    <p-floatlabel>
+                        <p-datepicker [ngClass]="{'ng-invalid ng-dirty': isInvalid('p_document_preparation_date')}" formControlName="p_document_preparation_date" dateFormat="yy-mm-dd" styleClass="w-full" [showIcon]="true" />
+                        <label for="erpaSignedByBuyer">Document preparation date</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('p_document_preparation_date')">This field is required</small>
+                </div>
+                <div class="col-12 md:col-4">
+                    <p-floatlabel>
+                        <p-datepicker [ngClass]="{'ng-invalid ng-dirty': isInvalid('p_presentation_assembly_date')}" formControlName="p_presentation_assembly_date" dateFormat="yy-mm-dd" styleClass="w-full" [showIcon]="true" />
+                        <label>Presentation assembly to the DF date</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('p_presentation_assembly_date')">This field is required</small>
+                </div>
+                <div class="col-12 md:col-4">
+                    <p-floatlabel>
+                        <p-select formControlName="p_project_log_id"  optionLabel="name" styleClass="w-full" />
+                        <label>Project log</label>
+                    </p-floatlabel>
+                    <!-- <small class="p-error" *ngIf="isInvalid('p_project_log_id')">This field is required</small> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="pb-3">
+                <hr class="m-0 p-0">
+                <h5>Assign other roles</h5>
+            </div>
+            <div class="">
+                <p-floatlabel>
+                    <p-select [options]="originationPromoter" formControlName="p_implementation_partner_id" optionLabel="origination_promoter" optionValue="Id_origination_promoter" styleClass="w-full" />
+                    <label>Implementation partner</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('p_implementation_partner_id')">This field is required</small>
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="pb-3">
+                <hr class="m-0 p-0">
+                <h5>Status implementation</h5>
+            </div>
+            <div class="">
+                <p-floatlabel>
+                    <p-select formControlName="p_status_project" [options]="statusProject" optionLabel="status_project" optionValue="Id_status_project" styleClass="w-full" />
+                    <label>Status</label>
+                </p-floatlabel>
+                    <small class="p-error" *ngIf="isInvalid('p_status_project')">This field is required</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex justify-content-center flex-wrap">
+        <div class="col-3">
+            <p-button styleClass="w-full" label="Save" (onClick)="save()" [rounded]="true"  />
+            <!-- appPermission="CREATE" -->
+        </div>
+    </div>
+
+
+</section>

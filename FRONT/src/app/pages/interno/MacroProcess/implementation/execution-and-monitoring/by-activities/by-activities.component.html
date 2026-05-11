@@ -1,0 +1,91 @@
+<!--tabla de cantidades totales-->
+<table class="w-full pb-5 table-monitor">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Approved</th>
+            <th>Planned</th>
+            <th>Actual <i pTooltip="Enter your username" tooltipPosition="top" class="fa-solid fa-calendar-day" style="font-size: 0.8rem"></i></th>
+            <th>Provisional <i pTooltip="Enter your username" tooltipPosition="top" class="fa-solid fa-calendar-day" style="font-size: 0.8rem"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row"><small>Capex</small></th>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>MXN</small></td>
+        </tr>
+        <tr>
+            <th scope="row"><small>Opex</small></th>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>USD</small></td>
+            <td>$166,848 <small>MXN</small></td>
+        </tr>
+        <tr>
+            <th scope="row"><small>Totals</small></th>
+            <td class="font-bold">$166,848 <small>USD</small></td>
+            <td class="font-bold">$166,848 <small>USD</small></td>
+            <td class="font-bold">$166,848 <small>USD</small></td>
+            <td class="font-bold">$166,848 <small>MXN</small></td>
+        </tr>
+    </tbody>
+</table>
+
+<!--tabla de desglose-->
+
+<p-table [value]="customers" sortField="representative.name" sortMode="single" [scrollable]="true" scrollHeight="600px"
+    rowGroupMode="subheader" groupRowsBy="representative.name">
+    <ng-template #caption>
+        <div class="flex justify-content-between flex-wrap">
+            <div class="inline-flex">
+                <h5 class="pr-5">By activities</h5>
+                   <p-message severity="info">31/07/2022 - 29/05/2026</p-message>
+            </div>
+            <div>
+                <p-iconfield>
+                    <p-inputicon styleClass="pi pi-search" />
+                    <input pInputText type="text" placeholder="Search..." />
+                </p-iconfield>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #header>
+        <tr>
+            <th>Activity name</th>
+            <th>Planned</th>
+            <th>Actual</th>
+            <th>Provisional</th>
+        </tr>
+    </ng-template>
+    <ng-template #groupheader let-customer>
+        <tr pRowGroupHeader>
+            <td colspan="4">
+                <div class="flex items-center gap-2">
+                    <!--lleva el nombre de capex y opex para el scroll-->
+                    <span class="font-bold">{{ customer.representative.name }}</span>
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template #body let-customer let-rowIndex="rowIndex">
+        <tr>
+            <td>
+                {{customer.name}}
+            </td>
+            <td>
+                {{customer.name}}
+            </td>
+            <td>
+                {{customer.name}}
+            </td>
+            <td>
+                {{customer.name}}
+            </td>
+
+        </tr>
+    </ng-template>
+</p-table>

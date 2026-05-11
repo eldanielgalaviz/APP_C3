@@ -10,17 +10,17 @@
     <ng-template pTemplate="end">
         <div class="inline-flex align-items-center flex-wrap">
             <div class="pr-5">
-                <p-select [options]="projects" (onChange)="onProjectSelected(selectedCountry)"
-                    [(ngModel)]="selectedCountry" optionLabel="ProjectName" [filter]="true" filterBy="ProjectName"
+                <p-select [options]="projects" (onChange)="onProjectSelected($event.value)"
+                    [(ngModel)]="selectedCountry" optionLabel="project_name" [filter]="true" filterBy="project_name"
                     [showClear]="true" placeholder="Select a project">
                     <ng-template #selectedItem let-selectedOption>
                         <div class="flex items-center gap-2" *ngIf="selectedOption">
-                            <div>{{ selectedOption.ProjectName }}</div>
+                            <div>{{ selectedOption.project_name }}</div>
                         </div>
                     </ng-template>
-                    <ng-template let-country #item>
+                    <ng-template let-project #item>
                         <div class="flex items-center gap-2">
-                            <div>{{ country.ProjectName }}</div>
+                            <div>{{ project.project_name }}</div>
                         </div>
                     </ng-template>
                     <ng-template #dropdownicon>
@@ -51,7 +51,7 @@
 <p-drawer [(visible)]="sidebarPerfil" position="right">
     <ng-template pTemplate="header" stlyleClass="fondo">
         <div class=" align-items-center gap-2">
-            <p>Administrador general</p>
+            <p>{{user?.puesto}}</p>
 
         </div>
     </ng-template>

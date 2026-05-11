@@ -1,1 +1,101 @@
-<p>ev-subacounts-tls works!</p>
+<div>
+    <div class="flex justify-content-between flex-wrap">
+        <div>
+            <h4 class="tit-subcu font-bold">Expenses review evaluators</h4>
+        </div>
+        <div>
+            <p-button label="New assign" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+        </div>
+    </div>
+
+  <p>This catalog feeds the <b>“Financial Monitoring”</b> modules. Because these
+        sections are interconnected, records cannot be deleted and may only be edited.
+    </p>
+
+    <p-table styleClass="pt-3" [value]="products" [(selection)]="selectedProducts" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5"
+        [filterDelay]="0" [globalFilterFields]="['code', 'products.name']">
+
+        <ng-template #caption>
+            <div class="flex justify-content-center flex-wrap">
+                <p-iconField iconPosition="left">
+                    <p-inputIcon>
+                        <i class="pi pi-search"></i>
+                    </p-inputIcon>
+                    <input pInputText type="text" placeholder="Search global" />
+                </p-iconField>
+            </div>
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th style="width:3rem"><p-tableHeaderCheckbox /></th>
+                <th pSortableColumn="code">
+                    Type <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code">
+                    Subaccount <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code">
+                    Manager evaluator <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code">
+                    Technical evaluator <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code">
+                    Financial evaluator <p-sortIcon field="code" />
+                </th>
+                <th pSortableColumn="code">
+                    For user <p-sortIcon field="code" />
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td> <p-tableCheckbox [value]="product" /></td>
+                <td>{{product.code }}</td>
+                <td>{{product.code }}</td>
+                <td>{{product.code }}</td>
+                <td>{{product.code }}</td>
+                <td>{{product.code }}</td>
+                <td>{{product.code }}</td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<!--inicia drawer generador nuevos-->
+
+<p-drawer header="New assign" [(visible)]="visible2" position="right">
+    <div class="px-3">
+        <p class="pb-5">Complete the following information to create a new record.</p>
+        <div class="grid">
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="manager" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="manager">Manager</label>
+                </p-floatlabel>
+                <small class="p-error">Manager is required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="technical" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="technical">Technical</label>
+                </p-floatlabel>
+                <small class="p-error">Technical is required.</small>
+            </div>
+            <div class="col-12">
+                <p-floatlabel>
+                    <p-select inputId="financial" [options]="state" optionLabel="name"
+                        styleClass="w-full" />
+                    <label for="financial">Financial</label>
+                </p-floatlabel>
+                <small class="p-error">Financial is required.</small>
+            </div>
+        </div>
+    </div>
+    <ng-template #footer>
+        <p-button label="Save" [rounded]="true" styleClass="w-full" />
+    </ng-template>
+</p-drawer>

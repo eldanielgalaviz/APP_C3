@@ -1,7 +1,8 @@
 // src/modules/User/infrastructure/routes/UserRoutes.ts
 import { Router } from 'express';
+import { UserController } from '../../../../controllers/UserControllers/UserControllers';
 import { asyncWrapper } from '../../../../utils/asyncWrapper';
-import { UserController } from '../../../../controllers/UserControllers';
+import { AuthMiddleware } from '../../../../shared/middleware/AuthMiddleware';
 
 export class UserRoutes {
   static register(router: Router): void {
@@ -11,7 +12,8 @@ export class UserRoutes {
 
     const controller = new UserController();
 
-    userRouter.get('/getUsers', asyncWrapper(controller.getUsers));
-    userRouter.post('/setUsers', asyncWrapper(controller.setUsers));
+    userRouter.get('/getUsers', AuthMiddleware.authenticate,asyncWrapper(controller.getUsers));
+    userRouter.post('/setUsers', AuthMiddleware.authenticate, asyncWrapper(controller.setUsers));
+    userRouter.get('/getUserMenu', AuthMiddleware.authenticate, asyncWrapper(controller.getUserMenu));
   }
 }

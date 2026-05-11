@@ -7,4 +7,5 @@ export interface UserRepository {
   saveRefreshToken(Iduser: number, refreshToken: string): Promise<void>;
   userPermissions(Iduser: number): Promise<void>;
   invalidateRefreshToken(refreshToken: string): Promise<void>;
+  getUserMenu(userId: number): Promise<any[]>;
 }

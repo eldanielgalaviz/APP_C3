@@ -4,12 +4,12 @@
             <h4 class="tit-subcu font-bold">Accounts</h4>
         </div>
         <div>
-            <p-button label="New accounts" [rounded]="true" [raised]="true" (click)="visible2 = true" />
+            <p-button label="New account" [rounded]="true" [raised]="true" (click)="visible2 = true" />
         </div>
     </div>
 
-    <p>This catalog feeds the “Annual planning, Financial monitoring, settlement” sections. Since the sections are
-        interconnected, options cannot be deleted—only edited.
+    <p>This catalog feeds the <b> “Annual Planning”, “Financial Monitoring”, and “Settlement” </b> modules. Because these
+        sections are interconnected, records cannot be deleted and may only be edited.
     </p>
 
     <p-tabs value="0">
@@ -27,7 +27,7 @@
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
-                                <input pInputText type="text" placeholder="Search global" />
+                                <input pInputText type="text" placeholder="Global search" />
                             </p-iconField>
                         </div>
                     </ng-template>
@@ -37,7 +37,7 @@
                                 Compaq <p-sortIcon field="code" />
                             </th>
                             <th pSortableColumn="name">
-                                Name account <p-sortIcon field="name" />
+                                Account Name <p-sortIcon field="name" />
                             </th>
                             <th style="width:3rem"></th>
                         </tr>
@@ -61,7 +61,7 @@
                                 <p-inputIcon>
                                     <i class="pi pi-search"></i>
                                 </p-inputIcon>
-                                <input pInputText type="text" placeholder="Search global" />
+                                <input pInputText type="text" placeholder="Global search" />
                             </p-iconField>
                         </div>
                     </ng-template>
@@ -71,7 +71,7 @@
                                 Compaq <p-sortIcon field="code" />
                             </th>
                             <th pSortableColumn="name">
-                                Name account <p-sortIcon field="name" />
+                                Account Name <p-sortIcon field="name" />
                             </th>
                             <th style="width:3rem"></th>
                         </tr>
@@ -92,34 +92,34 @@
 
 <!--inicia drawer generador nuevos-->
 
-<p-drawer header="New account" [(visible)]="visible2" position="right">
+<p-drawer header="Create New Account" [(visible)]="visible2" position="right">
     <div class="px-3">
         <p class="pb-5">Complete the following information to create a new record.</p>
         <div class="grid">
             <div class="flex flex-wrap gap-4 pb-2">
                 <div class="flex items-center">
-                    <p-radiobutton inputId="ingredient1" />
+                    <p-radiobutton name="pizza" value="Cheese" [(ngModel)]="selectedValue" inputId="ingredient1" />
                     <label for="ingredient1" class="ml-2">Capex</label>
                 </div>
 
                 <div class="flex items-center">
-                    <p-radiobutton inputId="ingredient2" />
+                    <p-radiobutton name="pizza" value="Pepperoni" [(ngModel)]="selectedValue" inputId="ingredient2" />
                     <label for="ingredient2" class="ml-2">Opex</label>
                 </div>
             </div>
             <div class="col-12">
                 <p-floatlabel>
                     <input pInputText id="newcompaq" />
-                    <label for="newcompaq">New compaq</label>
+                    <label for="newcompaq">New Compaq number</label>
                 </p-floatlabel>
-                <small class="p-error">compaq is required.</small>
+                <small class="p-error">New Compaq number is required.</small>
             </div>
             <div class="col-12">
                 <p-floatlabel>
                     <input pInputText id="newcompaq" />
-                    <label for="newcompaq">New name</label>
+                    <label for="newcompaq">New Account name</label>
                 </p-floatlabel>
-                <small class="p-error">name is required.</small>
+                <small class="p-error">Account name is required.</small>
             </div>
         </div>
     </div>

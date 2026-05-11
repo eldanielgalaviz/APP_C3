@@ -45,7 +45,7 @@ export class LoginController {
       }
 
       const tokens: AuthTokens = await ServiceContainer.auth.loginUseCase.execute(credentials);
-
+      const userPermissions =  tokens.userPermissions[0];
       res.cookie('refreshToken', tokens.refreshToken, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
@@ -55,7 +55,8 @@ export class LoginController {
       });
 
       return res.status(200).json({
-        success: true,
+        token: tokens.accessToken,
+        result: userPermissions,
         message: 'Login successful',
         valido: 1 
       });
