@@ -1,0 +1,88 @@
+<p-menu #menu [model]="items" [popup]="true" />
+<p-toast />
+
+<div class="flex justify-content-between flex-wrap">
+    <div class="inline-flex">
+        <h4 class="tit-subcu font-bold">Mantenimiento / rehabilitación de brechas cortafuego</h4>
+        <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" [rounded]="true" [text]="true" />
+    </div>
+    <div class="flex">
+        <div class="pr-2">
+            <p-floatlabel>
+                <p-select inputId="over_label" [options]="status" optionLabel="name" styleClass="w-full">
+                    <!-- ITEM SELECCIONADO -->
+                    <ng-template #selectedItem let-selectedOption>
+                        <span class="status" [ngClass]="selectedOption?.styleClass">
+                            {{ selectedOption?.name }}
+                        </span>
+                    </ng-template>
+                    <!-- ITEMS DEL DROPDOWN -->
+                    <ng-template let-item #item>
+                        <span class="status" [ngClass]="item.styleClass">
+                            {{ item.name }}
+                        </span>
+                    </ng-template>
+                </p-select>
+
+                <label for="over_label">
+                    Status
+                </label>
+
+            </p-floatlabel>
+        </div>
+        <div>
+            <!--caso 1-->
+            <p-button styleClass="w-full" label="Save" [rounded]="true" />
+        </div>
+    </div>
+</div>
+
+<div class="flex align-content-center flex-wrap align-items-center">
+       <div class="fondo-cards">
+            <p>01</p>
+            <small>RP</small>
+        </div>
+        <div class="fondo-cards">
+            <p>PAD00123</p>
+            <small>Folio paddi</small>
+        </div>
+        <div class="fondo-cards">
+            <p>PAD00123</p>
+            <small>Folio activity</small>
+        </div>
+        <div class="fondo-cards">
+            <p>$66,686.00</p>
+            <small>Total inversion</small>
+        </div>
+        <div class="fondo-cards">
+            <p>$66,686.00</p>
+            <small>Total por gastar</small>
+        </div>
+        <div class="fondo-cards">
+            <p class="font-bold status correction">Correction</p>
+            <small>Status</small>
+        </div>
+</div>
+
+
+
+<p-tabs value="0">
+    <p-tablist>
+
+        <p-tab value="0">Reporting activity</p-tab>
+        <p-tab value="1">Activity planned details</p-tab>
+
+    </p-tablist>
+
+    <p-tabpanels>
+
+        <p-tabpanel value="0">
+         <app-report-activity></app-report-activity>
+        </p-tabpanel>
+
+        <p-tabpanel value="1">
+        <app-pl-view-activity></app-pl-view-activity>
+        </p-tabpanel>
+
+    </p-tabpanels>
+</p-tabs>

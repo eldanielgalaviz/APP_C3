@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_DATA } from '../../../../../shared/imports';
 
 @Component({
   selector: 'app-strategic-planning',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_DATA],
   templateUrl: './strategic-planning.component.html',
   styleUrl: './strategic-planning.component.scss'
 })

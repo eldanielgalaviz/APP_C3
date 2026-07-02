@@ -1,0 +1,306 @@
+<div class="flex justify-content-between align-items-center mb-3">
+    <div><h4 class="tit-subcu font-bold">New activity planning</h4></div>
+    <div class="inline flex">
+           <p-floatlabel class="pr-2">
+                <p-select inputId="over_label" [options]="status" optionLabel="name" styleClass="w-full">
+                    <!-- ITEM SELECCIONADO -->
+                    <ng-template #selectedItem let-selectedOption>
+                        <span class="status" [ngClass]="selectedOption?.styleClass">
+                            {{ selectedOption?.name }}
+                        </span>
+                    </ng-template>
+                    <!-- ITEMS DEL DROPDOWN -->
+                    <ng-template let-item #item>
+                        <span class="status" [ngClass]="item.styleClass">
+                            {{ item.name }}
+                        </span>
+                    </ng-template>
+                </p-select>
+
+                <label for="over_label">
+                    Status
+                </label>
+
+            </p-floatlabel>
+               <p-button styleClass="w-full" label="Save" [rounded]="true" />
+    </div>
+</div>
+
+
+<div class="grid">
+    <div class="col-12 md;col-12">
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Objetive</h5>
+        </div>
+        <p-floatlabel>
+            <textarea pTextarea id="over_label" rows="5" cols="10" class="w-full"></textarea>
+            <label for="over_label">Objetive description</label>
+        </p-floatlabel>
+    </div>
+    <div class="col-12 md:col-4">
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>General information</h5>
+        </div>
+
+        <div class="grid">
+            <div class="col-12 md:col-12">
+                <p-inputgroup>
+                    <p-floatlabel>
+                        <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                        <label for="over_label">RP</label>
+                    </p-floatlabel>
+                    <p-inputgroup-addon>
+                        <p-button icon="pi pi-pencil" severity="secondary" variant="text" />
+                    </p-inputgroup-addon>
+                </p-inputgroup>
+            </div>
+
+            <div class="col-12 md:col-12">
+                <form action="" [formGroup]="myForm">
+                <div class="flex flex-wrap gap-4" >
+                    <div class="flex items-center">
+                        <p-radiobutton formControlName="a"/>
+                        <label class="ml-2">CAPEX Accounts</label>
+                    </div>
+
+                    <div class="flex items-center">
+                        <p-radiobutton formControlName="a"/>
+                        <label class="ml-2">OPEX Accounts</label>
+                    </div>
+                </div>
+                </form>
+            </div>
+
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                    <label for="over_label">Select accounts</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                    <label for="over_label">Select activity</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                    <label for="over_label">Select SOP</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-12">
+                <div class="flex items-center">
+                    <p-radiobutton name="pizza" value="Cheese" inputId="ingredient3" />
+                    <label for="ingredient3" class="ml-2">Use available funds from previous RP</label>
+                </div>
+            </div>
+            <div class="col-12 md:col-12">
+                <div class="grid fondo-cards">
+                    <div class="col-12 md:col-8">
+                        <p-floatlabel>
+                            <p-inputnumber inputId="integeronly"  styleClass="w-full" />
+                            <label for="over_label">$ Budget Estimated (USD)*</label>
+                        </p-floatlabel>
+                    </div>
+                    <div class="col-12 md:col-4 text-center">
+                        <h4 class="font-bold m-0 p-0">$10,000</h4>
+                        <small class="m-0 p-0">Dinero disponible</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-inputnumber inputId="integeronly"  styleClass="w-full" />
+                    <label for="over_label">$ Budget Estimated (USD)*</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-datepicker [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" styleClass="w-full" />
+                    <label for="over_label">Period start*</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-12">
+                <p-floatlabel>
+                    <p-datepicker [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false" styleClass="w-full" />
+                    <label for="over_label">Period end*</label>
+                </p-floatlabel>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-12 md:col-8">
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Quantitative indicators</h5>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-4">
+                <div class="grid">
+                    <div class="col-12 md:col-12">
+                        <p-floatlabel>
+                            <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                            <label for="over_label">Quantitative indicator</label>
+                        </p-floatlabel>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <p-floatlabel>
+                            <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                            <label for="over_label">Select KPI</label>
+                        </p-floatlabel>
+                    </div>
+                        <div class="col-12 md:col-12">
+                        <p-floatlabel>
+                            <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                            <label for="over_label">Select ODS</label>
+                        </p-floatlabel>
+                    </div>
+                    <div class="col-12 md:col-12">
+                        <p-floatlabel>
+                            <p-inputnumber inputId="integeronly"  styleClass="w-full" />
+                            <label for="over_label">amount</label>
+                        </p-floatlabel>
+                    </div>
+                    <div class="col-12 md:col-12">
+                    <p-button  styleClass="w-full" label="Add" [rounded]="true" severity="secondary"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 md:col-8">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="300px" [virtualScroll]="true"
+                    [virtualScrollItemSize]="46" size="small">
+                    <ng-template #header>
+                        <tr>
+                            <th>QI</th>
+                            <th>KPI</th>
+                             <th>ODS</th>
+                            <th>Amount</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-customer let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{customer.company}}</td>
+                            <td>{{customer.company}}</td>
+                            <td>{{customer.company}}</td>
+                            <td>{{customer.company}}</td>
+                            <td><p-button icon="pi pi-trash" severity="secondary" variant="text" [rounded]="true" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Reporting</h5>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-4">
+                <div class="col-12 md:col-12">
+                    <p-floatlabel>
+                        <input pInputText id="over_label" autocomplete="off" />
+                        <label for="over_label">Who?</label>
+                    </p-floatlabel>
+                </div>
+                <div class="col-12 md:col-12">
+                    <p-floatlabel>
+                        <input pInputText id="over_label" autocomplete="off" />
+                        <label for="over_label">How?</label>
+                    </p-floatlabel>
+                </div>
+                <div class="col-12 md:col-12">
+                    <p-floatlabel>
+                        <p-datepicker [showIcon]="true" inputId="buttondisplay" [showOnFocus]="false"
+                            styleClass="w-full" />
+                        <label for="over_label">When?</label>
+                    </p-floatlabel>
+                </div>
+                <div class="col-12 md:col-12">
+                        <p-button  styleClass="w-full" label="Add" [rounded]="true" severity="secondary"/>
+                </div>
+            </div>
+            <div class="col-12 md:col-8">
+                <p-table [value]="customers" [scrollable]="true" scrollHeight="300px" [virtualScroll]="true"
+                    [virtualScrollItemSize]="46" size="small">
+                    <ng-template #header>
+                        <tr>
+                            <th>Who?</th>
+                            <th>How?</th>
+                            <th>When?</th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-customer let-rowIndex="rowIndex">
+                        <tr>
+                            <td>{{customer.company}}</td>
+                            <td>{{customer.company}}</td>
+                            <td>{{customer.company}}</td>
+                            <td><p-button icon="pi pi-trash" severity="secondary" variant="text" [rounded]="true" />
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 md;col-12">
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Information</h5>
+        </div>
+
+        <p-floatlabel>
+            <textarea pTextarea id="over_label" rows="5" cols="10" class="w-full"></textarea>
+            <label for="over_label">Observations </label>
+        </p-floatlabel>
+
+    </div>
+    <div class="col-12 md;col-12">
+        <div class="pb-3">
+            <hr class="m-0 p-0">
+            <h5>Roles</h5>
+        </div>
+        <div class="grid">
+            <div class="col-12 md:col-4">
+                <p-floatlabel>
+                    <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                    <label for="over_label">Manager</label>
+                </p-floatlabel>
+            </div>
+            <div class="col-12 md:col-4">
+                <p-floatlabel>
+                    <p-select inputId="over_label" [options]="cities" optionLabel="name" styleClass="w-full" />
+                    <label for="over_label">Evaluator</label>
+                </p-floatlabel>
+            </div>
+               <div class="col-12 md:col-4">
+                <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                    <div class="flex align-items-center gap-2">
+                        <small>Upload Image Choose your file location</small>
+                        <a  target="_blank" style="text-decoration: underline; cursor: pointer;">
+                            <small>Image Choose your file location</small>
+                        </a>
+                    </div>
+                    <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                        <i class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                        <ng-container>
+                         
+                            <p-button icon="pi pi-trash" [text]="true" severity="danger">
+                            </p-button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="flex justify-content-center flex-wrap pt-3">
+    <div class="col-4">
+        <p-button  styleClass="w-full" label="Save" [rounded]="true"/>
+    </div>
+</div>

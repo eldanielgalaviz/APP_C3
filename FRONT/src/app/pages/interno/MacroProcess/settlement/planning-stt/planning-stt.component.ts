@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../../../../domain/product';
 import { ProductService } from '../../../../../../service/productservice';
-import { SHARED_IMPORTS } from '../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY, PRIMENG_NAVIGATION } from '../../../../../shared/imports';
 import { MenuItem } from 'primeng/api';
 
 interface state {
@@ -10,7 +10,7 @@ interface state {
 
 @Component({
   selector: 'app-planning-stt',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY, ...PRIMENG_NAVIGATION],
   providers: [ProductService],
   standalone: true,
   templateUrl: './planning-stt.component.html',

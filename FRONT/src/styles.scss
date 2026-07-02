@@ -28,7 +28,7 @@ body {
     margin: 0px;
     width: 100%;
     background-color: #ffffff;
-    color: #374151;
+    color: #163029;
     font-size: 16px;
     @extend .Font-P-RedHatDisplay;
 }
@@ -54,7 +54,7 @@ h6 {
     @extend .Font-H-playfair;
     margin-block-end: 8px;
     margin-block-start: 8px;
-    color: #374151;
+    color: #163029;
 }
 
 h1 {
@@ -74,7 +74,11 @@ h4 {
 }
 
 h5 {
-    font-size: 20px;
+    font-size: 14px;
+font-weight: 700;
+letter-spacing: .08em;
+text-transform: uppercase;
+color: #163029;
 }
 
 h6 {
@@ -102,9 +106,71 @@ footer {
     padding: 16px 50px;
 }
 
-.template{
-     color: #21B6A8;   
-    }
+//LISTA ESTANDAR DE ESTATUS
+
+.status {
+
+  //NEUTRAL
+
+  &.pending {
+    color: #A8A8A8;
+  }
+
+  &.draft {
+    color: #C6CDD2;
+  }
+
+  &.cancel {
+    color: #616161;
+  }
+
+// WARNING
+
+  &.evaluation {
+    color: #FF8B13;
+  }
+
+  &.review {
+    color: #F2B94B;
+  }
+
+  //ERROR
+
+  &.correction {
+    color: #D1410D;
+  }
+
+  &.rejected {
+    color: #B3261E;
+  }
+
+  //SUCCESS
+
+  &.approved {
+    color: #088F83;
+  }
+
+  &.approved-asam {
+    color: #3DB87B;
+  }
+
+  &.completed {
+    color: #00946E;
+  }
+
+  //PROGRESS
+
+  &.in-progress {
+    color: #21B6A8;
+  }
+
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+
+.template {
+    color: #21B6A8;
+}
 
 .p-inputtext,
 .p-password {
@@ -197,6 +263,13 @@ section {
     font-weight: 400 !important;
 }
 
+.fondo-acciones{
+   background: white;
+border-radius: 999px;
+padding: 4px;
+border: 1px solid #E5E7EB;
+}
+
 //inicia estilos de monitoring
 
 
@@ -204,6 +277,7 @@ section {
     border-spacing: 4px 0px !important;
 
     tr {
+
         th:nth-child(odd),
         td:nth-child(odd) {
             background-color: #F8FAFB;
@@ -217,19 +291,79 @@ section {
     }
 
     tr {
-        th{
+        th {
             padding-top: 8px;
             padding-bottom: 8px;
             color: #088F83;
-  
+
         }
+
         td {
             text-align: end;
-                      padding-right: 8px;
+            padding-right: 8px;
         }
     }
 }
 
-.p-datatable-thead > tr > th{
+.p-datatable-thead>tr>th {
     font-size: 12px !important;
+}
+
+//inicia estilos de planning implementation
+.fondo-cards {
+    background-color: #F8FAFB;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 0px 10px;
+}
+
+.planned {
+    width: 100%;
+    height: 8px;
+    margin: 4px 0;
+    background-color: #088F83;
+}
+
+.card-border {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 16px;
+ border: 1px solid #E8ECEF;
+box-shadow:
+  0 1px 2px rgba(0,0,0,0.03),
+  0 8px 20px rgba(0,0,0,0.04);
+    transition: all 0.2s ease;
+}
+
+.card-border:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.05),
+        0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.card-border.active {
+  border-left: 4px solid #3DB87B;
+  background: #FAFCFB;
+}
+
+.kpi-badge {
+margin: 4px;
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 16px;
+ background: #F8FAFB;
+  color: #163029;
+}
+
+.fa-circle-info{
+color: #21B6A8;
+}
+
+.fa-solid{
+
+    &.fa-calendar-day, &.fa-dollar-sign, &.fa-user{
+        color: #A8A8A8;
+    }
 }

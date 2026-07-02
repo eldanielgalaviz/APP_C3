@@ -4,12 +4,13 @@
             <div class="grid m-0 flex align-items-center">
                 <div class="col-12 md:col-6 ">
                     <div class="login-present">
-                        <img class="pb-5" src="../../../../..//public/logo-white.png" alt="" width="250px">
-                        <h1>HELLO,<br>
-                            <b>Welcome</b>!
+                        <img class="pb-5" src="logo-white.png" alt="" width="250px">
+                        <h1>
+                            <span class="typing hello">All in,</span><br>
+                            <span class="typing welcome"><b>one platform</b>!</span>
                         </h1>
-                        <h5>Manage your reforestation projects and monitor environmental impact in real time.
-                        </h5>
+                        <h4 class="font-bold">Manage your reforestation projects and monitor environmental impact in real time.
+                        </h4>
                     </div>
                 </div>
                 <div class="col-12 md:col-6">
@@ -52,7 +53,7 @@
 
                                 <div class="col-12 px-5">
                                     <p-button styleClass="w-full" severity="success" [rounded]="true" label="Access"
-                                        (onClick)="login()" />
+                                        [disabled]="isSaving" [loading]="isSaving" (onClick)="login()" />
                                 </div>
                             </div>
 
@@ -63,8 +64,9 @@
                             </div>
 
                         </p-card>
-                        
-                    <small class="py-3 text-center">By logging in, you agree to our Terms of Service and Privacy Policy</small>
+
+                        <small class="py-3 text-center">By logging in, you agree to our Terms of Service and Privacy
+                            Policy</small>
                     </div>
                 </div>
             </div>

@@ -1,28 +1,33 @@
 <section *ngIf="!hideTitle" class="flex justify-content-between flex-wrap portafolio">
     <div *ngIf="!hideTitle" class="align-items-center justify-content-center">
-        <div class="flex-inline">
-            <h3 class="font-bold">{{projectName}}</h3>
-            <!--este se pinta de color dependiendo del estatus-->
-            <p-message>
-               [Subprocess] Project Alive: [status]
-            </p-message>
+        <div class="inline-flex align-items-center">
+            <p-button size="small" icon="pi pi-bars" [rounded]="true" pTooltip="Menu Project" tooltipPosition="top"
+                severity="primary" variant="text" (click)="MenuGlobal = true" />
+            <h3 class="font-bold pl-3">{{projectName}}
+                <!--este se pinta de color dependiendo del estatus-->
+
+                <span pTooltip="[Subprocess] Status: [status]" tooltipPosition="top">
+                    <i class="fa-solid fa-leaf status evaluation" (click)="openProjectStatus()"></i>
+                </span>
+            </h3>
         </div>
     </div>
     <div *ngIf="hideTitle" class="flex align-items-center justify-content-center">
     </div>
-    <div class="flex align-items-center justify-content-center">
+    <div class="flex align-items-center justify-content-center fondo-acciones">
         <div class="flex gap-2">
             <p-button size="small" icon="pi pi-eye" [rounded]="true" pTooltip="Project Overview" tooltipPosition="top"
-                severity="success" (click)="overview = true" />
+                severity="primary" [text]="true" (click)="openOverview()" />
+            <p-button size="small" icon="pi pi-cloud-download" [rounded]="true" pTooltip="Download Documents"
+                tooltipPosition="top" severity="primary" [text]="true"  />
             <p-button size="small" icon="pi pi-users" [rounded]="true" pTooltip="Forest owner" tooltipPosition="top"
-                severity="success" />
+                severity="primary" [text]="true" />
             <p-button size="small" icon="pi pi-calendar" [rounded]="true" pTooltip="KeyMilestones" tooltipPosition="top"
-                severity="success" (click)="menu.toggle($event)" />
-
+                severity="primary" [text]="true" (click)="menu.toggle($event)" />
+            <!--la ruta vendra del componente original de project log cuando se genere-->
             <p-button size="small" icon="pi pi-clipboard" [rounded]="true" pTooltip="Project Log" tooltipPosition="top"
-                severity="success" (click)="projectLog('bottom')" />
-            <p-button size="small" icon="pi pi-bars" [rounded]="true" pTooltip="Menu Project" tooltipPosition="top"
-                severity="success" (click)="MenuGlobal = true" />
+                severity="primary" [text]="true" />
+
         </div>
     </div>
 </section>
@@ -32,11 +37,11 @@
     <router-outlet></router-outlet>
 </section>
 
-<!--menu-->
+<!--menu del proyecto-->
 
-<p-drawer [(visible)]="MenuGlobal" [closable]="false">
+<p-drawer [(visible)]="MenuGlobal" [closable]="true" [style]="{ width: '240px' }">
     <ng-template #header>
-        <h3>Menu Project</h3>
+        <h5>Menu Project</h5>
     </ng-template>
     <p-menu [model]="MenuProject" icon="false" />
     <ng-template #footer>
@@ -45,308 +50,12 @@
     </ng-template>
 </p-drawer>
 
-<!--project overview-->
-
-<p-drawer [(visible)]="overview" position="right">
-    <ng-template #header>
-        <h3>Project Overview</h3>
-    </ng-template>
-    <table>
-        <tbody>
-            <tr>
-                <td><small>ID CAR</small></td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <small>ID CANOPIA</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>STATE</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>AGGREGATION</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>MINICIPALITY</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>AGRARIAN NUCLEUS</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>LAND TENURE TYPE</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>PROJECT COUNTERPART</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>PROJECT TYPE</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>START AND END DATE</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>CURRENT RP</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>CDRs ISSUED TO DATE</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>EXPECTED CDRs CURRENT RP</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>PMs</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>SME (OPEN SPRINTS)</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>SIL</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-            <tr>
-                <td>
-                    <small>PROJECT COORDINATOR</small>
-                </td>
-                <td>
-                    <p>[titulo]</p>
-                </td>
-
-            </tr>
-        </tbody>
-    </table>
-
-</p-drawer>
-
-<!--menu del button calendar-->
+<!--menu del planeacion keymilestones-->
 <p-menu #menu [model]="Calendar" [popup]="true" />
 
-<!--planning Keymilestones-->
-<p-dialog header="Planning Keymilestones" [modal]="true" [(visible)]="planning" [maximizable]="true" [resizable]="false"
-    [position]="position">
-    <form [formGroup]="form">
-        <div class="col-2">
-            <p-floatlabel>
-                <p-select formControlName="rp" inputId="rp" [options]="rp" optionLabel="name" styleClass="w-full"
-                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('rp')}" />
-                <label for="rp">RP</label>
-            </p-floatlabel>
-            <small class="p-error" *ngIf="isInvalid('rp')">RP is required</small>
-        </div>
-    </form>
-    <p-tabs value="0">
-        <p-tablist>
-            <p-tab value="0">Origination</p-tab>
-            <p-tab value="1">Implementation</p-tab>
-            <p-tab value="2">Reporting</p-tab>
-            <p-tab value="3">Verification</p-tab>
-            <p-tab value="4">Registration/issuance</p-tab>
-            <p-tab value="5">Settlement</p-tab>
-            <p-tab value="6">Benefit Distribution</p-tab>
-            <p-tab value="7">Commercialisation</p-tab>
-        </p-tablist>
-        <p-tabpanels>
-            <p-tabpanel value="0">
-                <app-list-plan-origin></app-list-plan-origin>
-            </p-tabpanel>
-            <p-tabpanel value="1">
-                <app-list-plan-imple></app-list-plan-imple>
-            </p-tabpanel>
-            <p-tabpanel value="2">
-                <app-list-plan-repo></app-list-plan-repo>
-            </p-tabpanel>
-            <p-tabpanel value="3">
-                <app-list-plan-veri></app-list-plan-veri>
-            </p-tabpanel>
-            <p-tabpanel value="4">
-                <app-list-plan-regis></app-list-plan-regis>
-            </p-tabpanel>
-            <p-tabpanel value="5">
-                <app-list-plan-sett></app-list-plan-sett>
-            </p-tabpanel>
-            <p-tabpanel value="6">
-                <app-list-plan-bene></app-list-plan-bene>
-            </p-tabpanel>
-            <p-tabpanel value="7">
-                <app-list-plan-comm></app-list-plan-comm>
-            </p-tabpanel>
 
-        </p-tabpanels>
-    </p-tabs>
-    <ng-template #footer>
-        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" [rounded]="true" severity="primary" (click)="visible = false" />
-    </ng-template>
-</p-dialog>
-<!--diagrama de gann Keymilestones-->
-<p-dialog header="Gann Keymilestones" [modal]="true" [(visible)]="gann" [style]="{ width: '50rem' }"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }" [maximizable]="true" [position]="position">
-    <div>
-        <div class="footer flex justify-content-between flex-wrap">
-            <div>
-                <p-floatlabel class="w-full md:w-56">
-                    <p-select inputId="over_label" [options]="rp" optionLabel="name" styleClass="w-full" />
-                    <label for="over_label">RP</label>
-                </p-floatlabel>
-            </div>
-            <div>
-                <i class="pi pi-circle-on p-1 green">&nbsp;Fecha planeada</i>
-                <i class="pi pi-circle-on p-1 orange">&nbsp;Fecha asignada</i>
 
-            </div>
-        </div>
-        <br>
-
-        <table class="gann-milestone">
-            <thead>
-                <tr>
-                    <th>[PROCESS]</th>
-                    <th>JAN</th>
-                    <th>FEB</th>
-                    <th>MAR</th>
-                    <th>APR</th>
-                    <th>MAY</th>
-                    <th>JUN</th>
-                    <th>JUL</th>
-                    <th>AUG</th>
-                    <th>SEP</th>
-                    <th>OCT</th>
-                    <th>NOV</th>
-                    <th>DEZ</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-center">
-                    <td>[mileston]</td>
-                    <td><i class="pi pi-circle-on p-1 green" pTooltip="25 / Jan / 2025" tooltipPosition="bottom"></i>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><i class="pi pi-circle-on p-1 orange" pTooltip="12 / Dez / 2025" tooltipPosition="bottom"></i>
-                    </td>
-                </tr>
-                <tr class="text-center">
-                    <td>[mileston]</td>
-                    <td></td>
-                    <td></td>
-                    <td><i class="pi pi-circle-on p-1 green" pTooltip="01 / Mar / 2025" tooltipPosition="bottom"></i><i
-                            class="pi pi-circle-on p-1 orange" pTooltip="30 / Mar / 2025" tooltipPosition="bottom"></i>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</p-dialog>
-
-<!--Project log-->
-
+<!--Project log se eliminara de este componente para crear un componente especifico para el log del proyecto, se dejo aqui solo para mostrar la vista previa del modal
 <p-dialog header="Project Log" [modal]="true" [(visible)]="projectlog" [maximizable]="true" [position]="position">
     <form [formGroup]="form">
         <div class="grid">
@@ -467,3 +176,4 @@
         </ng-template>
     </form>
 </p-dialog>
+-->

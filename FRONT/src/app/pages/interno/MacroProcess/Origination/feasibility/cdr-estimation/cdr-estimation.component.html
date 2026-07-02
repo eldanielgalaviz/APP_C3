@@ -3,15 +3,21 @@
     <div class="col-12 pb-5">
         <div class="pb-3">
             <hr class="m-0 p-0">
-            <h5>Estimation</h5>
+            <div class="flex align-items-center justify-content-between pb-3">
+                <h5>Estimation</h5>
+                <div class="flex justify-content-end ">
+                    <small>Last date modification: {{ data?.Date }} by {{ data?.NameUser }} </small>
+                </div>
+            </div>
         </div>
         <div class="grid">
             <div class="col-12 md:col-4">
                 <p-floatlabel>
-                    <p-select formControlName="ErsCalculatorResult" inputId="ErsCalculatorResult" [options]="ersCalculators"
-                        optionLabel="ers_calculator_version" optionValue="Id_ers_calculator_version" styleClass="w-full"
+                    <p-select formControlName="ErsCalculatorResult" inputId="ErsCalculatorResult"
+                        [options]="ersCalculators" optionLabel="ers_calculator_version"
+                        optionValue="Id_ers_calculator_version" styleClass="w-full"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('ErsCalculatorResult')}" />
-                    <label for="ErsCalculatorResult">ERs calculator version</label>
+                    <label for="ErsCalculatorResult">ERs calculator version *</label>
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('ErsCalculatorResult')">This is required.</small>
             </div>
@@ -20,7 +26,7 @@
                     <p-datepicker formControlName="ProjectStartDate" inputId="ProjectStartDate"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('ProjectStartDate')}" styleClass="w-full"
                         [iconDisplay]="'input'" [showIcon]="true" inputId="icondisplay" dateFormat="yy-mm-dd" />
-                    <label for="ProjectStartDate">Project Start Date</label>
+                    <label for="ProjectStartDate">Project Start Date *</label>
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('ProjectStartDate')">Total is required.</small>
             </div>
@@ -32,14 +38,8 @@
 
         <div class="flex justify-content-center flex-wrap">
             <div class="col-3">
-                <!-- Sin registro: solo aparece si tiene CREATE -->
-                <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="save()" />
-
-                    <!-- Con registro y tiene EDIT: muestra Edit -->
-                <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="save()" />
-
-                    <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-                <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="save()" />
+                <p-button *ngIf="permissions['CREATE-MRV'] || permissions['EDIT-MRV']" styleClass="w-full" label="Save" [disabled]="(hasData && !formChanged)" 
+                    [rounded]="true" (click)="save()" />
             </div>
         </div>
     </div>
@@ -47,17 +47,31 @@
     <div class="col-12">
         <div class="pb-3">
             <hr class="m-0 p-0">
-            <h5>Annual CDRs year</h5>
+                <div class="flex align-items-center justify-content-between pb-3">
+                   <h5>Annual CDRs year</h5>
+                <div class="flex justify-content-end ">
+                    <small *ngIf="data?.Date || data?.NameUser">
+                        Last date modification:
+                        <span *ngIf="data?.Date">{{ data?.Date }}</span>
+                        <span *ngIf="data?.Date && data?.NameUser"> by </span>
+                        <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+                    </small>
+                </div>
+            </div>
         </div>
         <div class="grid">
             <div class="col-6">
                 <p>Method for evaluating the financial viability of a project or investment by comparing its costs with
                     its
                     expected benefits. <br>
-                    If you haven't tried this method, <a href="" class="font-bold template">Download the template.</a> </p>
+                    If you haven't tried this method, <a class="font-bold template"
+                        href="templates/xlsx/plantilla de importacion - CDRs.xlsx" download>Download the template.</a>
+                </p>
                 <div class="flex justify-content-center flex-wrap pt-3">
                     <div class="col-8">
-                        <p-fileupload styleClass="w-full" mode="basic" chooseLabel="Import document" chooseIcon="pi pi-upload" (onSelect)="onFileChange($event)" [auto]="true" chooseLabel="Browse" />
+                        <p-fileupload *ngIf="permissions['UPLOAD-MRV']" styleClass="w-full" mode="basic"
+                            chooseLabel="Import document" chooseIcon="pi pi-upload" (onSelect)="onFileChange($event)"
+                            [auto]="true" chooseLabel="Browse" />
                         <!-- <p-button styleClass="w-full" label="Import document" [rounded]="true" (click)="saveForm()" /> -->
                     </div>
                 </div>
@@ -66,7 +80,8 @@
                 <div *ngIf="dataImported.length == 0" class="text-center">
                     <img src="./import-document.png" alt="" width="45%">
                 </div>
-                <p-table *ngIf="dataImported.length > 0" [value]="dataImported" size="small" [scrollable]="true" scrollHeight="400px">
+                <p-table *ngIf="dataImported.length > 0" [value]="dataImported" size="small" [scrollable]="true"
+                    scrollHeight="400px">
                     <ng-template #header>
                         <tr>
                             <th>Year</th>

@@ -1,0 +1,26 @@
+<form [formGroup]="form">
+<div class="grid">
+<div>
+    <div class="grid">
+        <div class="col-12">
+            <small>Execution</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-datepicker formControlName="settlementAssemblyAndBenefitDistributionFollowUp" styleClass="w-full" inputId="settlementAssemblyAndBenefitDistributionFollowUp" showIcon iconDisplay="input"
+                 [ngClass]="{'ng-invalid ng-dirty': isInvalid('settlementAssemblyAndBenefitDistributionFollowUp')}" />
+                <label for="settlementAssemblyAndBenefitDistributionFollowUp">Settlement Assembly & benefit distribution follow up</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('settlementAssemblyAndBenefitDistributionFollowUp')">Settlement Assembly & benefit distribution follow up is required</small>
+        </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
+                <p-datepicker formControlName="benefitDistributionEndedOfRp" styleClass="w-full" inputId="benefitDistributionEndedOfRp" showIcon iconDisplay="input"
+                 [ngClass]="{'ng-invalid ng-dirty': isInvalid('benefitDistributionEndedOfRp')}" />
+                <label for="benefitDistributionEndedOfRp">Benefit Distribution Ended of RP </label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('benefitDistributionEndedOfRp')">Benefit Distribution Ended of RP is required</small>
+        </div>
+    </div>
+</div>
+<form>

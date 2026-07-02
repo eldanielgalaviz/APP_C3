@@ -29,6 +29,7 @@ export interface SubMenuForm {
   route: string;
   order: number | null;
   mainMenuId: MainMenuItem | null;
+  permissionIds: number[];        
 }
 
 export interface Step1Form {
@@ -71,6 +72,8 @@ export interface SubMenuItem {
   router_link: string;
   order_index: number;
   related_main_menus: string;
+  permission_ids: string | null;   
+  permission_names: string | null;  
 }
 
 // ─── SET ─────────────────────────────────────────────────────────
@@ -99,4 +102,12 @@ export interface SetSubMenuPayload {
   p_Idmainmenu: number | null;
   isDeleted: number;
   p_order_index: number | null;
+  p_permission_ids: string;         
+}
+
+// ── Catálogo de permisos ───────────────────────────────────────────────────
+export interface PermissionUser {
+  Idpermissionuser: number;
+  short_permission_desc: string;
+  long_permission_desc: string;
 }

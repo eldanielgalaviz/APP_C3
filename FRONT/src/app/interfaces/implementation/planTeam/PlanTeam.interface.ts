@@ -16,3 +16,22 @@ export interface SmesByPlanAndTeam {
     id_sme:                number;
     date_created:          Date;
 }
+
+export interface SmePayload {
+  p_id_smes_rel_plan_team: number;
+  p_plan_team_id:          number;
+  p_id_sme:                number;
+  p_status:                number; 
+}
+
+export interface SetPlanTeamPayload {
+  p_id_plan_team:                number;
+  p_projects_id:                 number;
+  p_project_manager_id:          string | null | undefined;
+  p_document_preparation_date:   string | null;
+  p_presentation_assembly_date:  string | null;
+  p_project_log_id:              number;
+  p_implementation_partner_id:   string | null | undefined;
+  p_status_project:              string | null | undefined;
+  smes:                          SmePayload[];
+}

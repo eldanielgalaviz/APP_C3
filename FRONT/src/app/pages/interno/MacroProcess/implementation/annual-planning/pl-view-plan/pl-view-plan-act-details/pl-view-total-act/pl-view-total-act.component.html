@@ -1,0 +1,59 @@
+<div class="flex flex-and-center justify-content-between">
+    <div>
+        <h6 class="m-0 p-0">Activities registred</h6>
+        <small class="font-bold">24 registered activities</small>
+    </div>
+    <div>
+        <p-button icon="pi pi-arrow-right-arrow-left" [rounded]="true" severity="success" size="small"
+            (click)="showDialog()" />
+    </div>
+</div>
+
+<p-scrollpanel [style]="{ width: '100%', height: '400px' }">
+    <div class="card-border active">
+        <small>ADACT001</small>
+        <p class="font-bold pb-2">Mantenimiento / rehabilitación de brechas cortafuego</p>
+        <div class="grid">
+
+            <small class="col-8"><i class="fa-solid fa-calendar-day"></i> 15/05/2024 - 28/05/2024</small>
+            <small class="col-4"><i class="fa-solid fa-dollar-sign"></i> 5,000.00</small>
+        </div>
+    </div>
+    <div class="card-border">
+        <small>ADACT001</small>
+        <p class="font-bold pb-2">Mantenimiento / rehabilitación de brechas cortafuego</p>
+        <div class="grid">
+            <small class="col-8"><i class="fa-solid fa-calendar-day"></i> 15/05/2024 - 28/05/2024</small>
+            <small class="col-4"><i class="fa-solid fa-dollar-sign"></i> 5,000.00</small>
+        </div>
+    </div>
+
+</p-scrollpanel>
+
+<!--INICIA MODAL DE MOVIMIENTOS-->
+
+<p-dialog header="Planning Activity Management" [modal]="true" [(visible)]="visible" [maximizable]="true">
+    <p> <i class="fa fa-circle-info"></i> Only <b>activities approved</b> in <b>[RP1]</b> can be added to the PADDI.</p>
+    <p class="pb-3">Manage the activities associated with the PADDI. You can add new activities or remove existing ones.
+    </p>
+    <p-picklist [source]="sourceProducts" [target]="targetProducts" [showSourceControls]="false"
+        [showTargetControls]="false" [dragdrop]="true" [responsive]="true" filterBy="name"
+        sourceFilterPlaceholder="Global Search" targetFilterPlaceholder="Global Search" breakpoint="false"
+        scrollHeight="30rem">
+        <ng-template let-item #item>
+            <div class="flex flex-and-center justify-content-between w-full">
+                <p>actividad 1</p>
+                <p>$4,000</p>
+            </div>
+        </ng-template>
+    </p-picklist>
+    <div class="flex justify-content-between mt-3">
+        <p class="font-bold"> Available Total: $66666</p>
+        <p class="font-bold"> PADDI Total: $6666</p>
+    </div>
+
+    <ng-template #footer>
+        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" />
+        <p-button label="Save" [rounded]="true" severity="primary" />
+    </ng-template>
+</p-dialog>

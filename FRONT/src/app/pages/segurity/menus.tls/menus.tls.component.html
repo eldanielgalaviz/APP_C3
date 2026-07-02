@@ -112,6 +112,7 @@
                             <th pSortableColumn="router_link">Route <p-sortIcon field="router_link" /></th>
                             <th pSortableColumn="order_index">Order <p-sortIcon field="order_index" /></th>
                             <th pSortableColumn="related_main_menus">Menu portfolio <p-sortIcon field="related_main_menus" /></th>
+                            <th pSortableColumn="permission_names">Permissions <p-sortIcon field="permission_names" /></th>
                             <th style="width:3rem"></th>
                         </tr>
                     </ng-template>
@@ -122,6 +123,7 @@
                             <td>{{ item.router_link }}</td>
                             <td>{{ item.order_index }}</td>
                             <td>{{ item.related_main_menus }}</td>
+                            <td>{{ item.permission_names ?? '—' }}</td>
                             <td>
                                 <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
                                     (click)="openEditSubMenu(item)" />
@@ -253,6 +255,21 @@
                     </p-floatlabel>
                     <small class="p-error" *ngIf="formSubmitted && !subMenuForm.mainMenuId">Menu portfolio is required.</small>
                 </div>
+                <div class="col-12">
+                    <p-floatlabel>
+                        <p-multiselect
+                        inputId="smPermissions"
+                        [options]="permissions"
+                        optionLabel="short_permission_desc"
+                        optionValue="Idpermissionuser"
+                        styleClass="w-full"
+                        display="chip"
+                        [(ngModel)]="subMenuForm.permissionIds"
+                        [ngClass]="{'ng-invalid ng-dirty': formSubmitted && !subMenuForm.permissionIds}" />
+                        <label for="smPermissions">Permissions</label>
+                    </p-floatlabel>
+                    <small class="p-error" *ngIf="formSubmitted && !subMenuForm.permissionIds">Permissions is required.</small>
+                </div>
             </ng-container>
 
         </div>
@@ -272,6 +289,8 @@
         label="Save"
         [rounded]="true"
         styleClass="flex-1"
+        [disabled]="isSaving"
+        [loading]="isSaving"
         (click)="activeTab === '0' ? saveMenuGeneral() : activeTab === '1' ? saveMenuPortfolio() : saveSubMenu()" />
 
     </div>

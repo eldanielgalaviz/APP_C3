@@ -1,15 +1,66 @@
-.fondo{
- border-bottom: 1px solid #dee2e6;
+.fondo {
+    border-bottom: 1px solid #dee2e6;
 }
 
-.avatar{
-    border-radius: 100%;
+.avatar {
+    border-radius: 50%;
     width: 100px;
     height: 100px;
-    background-color: #D9D9D9;
-    border: 1px solid #811515;
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+    object-position: top;
+    object-fit: cover;
 }
 
-.venta{
+.avatar img {
+    width: 100%;
+    height: 100%;
+}
+
+.hover-avatar {
+    background: rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    width: 100px;
+    height: 100px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    small {
+        color: white !important;
+    }
+}
+
+.avatar-mini {
+    background: #00946E;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    object-position: top;
+    object-fit: cover;
+}
+
+.avatar-mini p {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.venta {
     color: #747474;
 }

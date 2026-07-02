@@ -1,1 +1,13 @@
 <router-outlet></router-outlet>
+<p-dialog
+  header="Session Expired"
+  [modal]="true"
+  [(visible)]="sessionExpiredVisible"
+  [closable]="false">
+
+  <div class="flex flex-column align-items-center gap-3 py-2">
+    <i class="pi pi-lock"></i>
+    <p class="text-center m-0">Your session has expired..</p>
+    <p class="text-center m-0">You will be redirected to the login page in {{ countdown }}s</p>
+  </div>
+</p-dialog>

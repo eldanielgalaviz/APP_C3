@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY } from '../../../../../../shared/imports';
 import { Customer } from '../../../../../../../domain/customer';
 import { CustomerService } from '../../../../../../../service/customerservice';
 
 @Component({
   selector: 'by-accounts',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY],
   standalone: true,
   providers: [CustomerService],
   templateUrl: './by-accounts.component.html',

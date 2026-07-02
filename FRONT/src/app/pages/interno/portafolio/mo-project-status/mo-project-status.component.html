@@ -1,0 +1,20 @@
+<!--INICIA MODAL DE PROYECT ALIVE-->
+<p class="pb-5">Record the current status of the project and its corresponding execution stage.</p>
+<div class="grid">
+    <div class="col-12">
+        <p-floatlabel>
+            <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
+            <label for="over_label">Subprocess</label>
+        </p-floatlabel>
+    </div>
+    <div class="col-12">
+        <p-floatlabel>
+            <p-select inputId="over_label" [options]="state" optionLabel="name" styleClass="w-full" />
+            <label for="over_label">Status</label>
+        </p-floatlabel>
+    </div>
+</div>
+<ng-template #footer>
+    <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" />
+    <p-button label="Save" [rounded]="true" severity="primary" />
+</ng-template>

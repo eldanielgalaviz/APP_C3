@@ -23,13 +23,13 @@ export class MenuGuard implements CanActivateChild  {
     const allowedRoutes = this.authService.getAllowedRoutes();
 
     if (!allowedRoutes.length) {
-      return this.router.createUrlTree(['/portafolio']);
+      return this.router.createUrlTree(['/Inicio']);
     }
 
     const hasAccess = this.authService.hasAccess(currentUrl);
 
     if (!hasAccess) {
-      return this.router.createUrlTree(['/portafolio']);
+      return this.router.createUrlTree(['/Inicio']);
     }
 
     return true;

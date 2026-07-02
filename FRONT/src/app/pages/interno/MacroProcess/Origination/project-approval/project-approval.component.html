@@ -46,14 +46,13 @@
 
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-            <!-- Sin registro: solo aparece si tiene CREATE -->
-        <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro y tiene EDIT: muestra Edit -->
-        <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-        <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+        <p-button  *ngIf="permissions['CREATE-ORIGINATION'] || permissions['EDIT-ORIGINATION']"  styleClass="w-full" label="Save" [rounded]="true" [disabled]="isSaving || (hasData && !formChanged)" [loading]="isSaving"  (click)="saveForm()" />
+            <small *ngIf="data?.Date || data?.NameUser">
+                Last date modification:
+                <span *ngIf="data?.Date">{{ data?.Date }}</span>
+                <span *ngIf="data?.Date && data?.NameUser"> by </span>
+                <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+            </small>
     </div>
 </div>
 </form>

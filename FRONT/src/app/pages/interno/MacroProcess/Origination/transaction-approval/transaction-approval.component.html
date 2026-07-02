@@ -49,7 +49,13 @@
             </div>
             <div class="col-12 md:col-12">
                 <p-floatlabel>
-                    <input pInputText formControlName="percentageMktPrice" />
+                    <p-inputnumber 
+                        formControlName="percentageMktPrice" 
+                        inputId="percentageMktPrice"
+                        [maxFractionDigits]="2"
+                        [min]="0"
+                        [max]="100" 
+                        styleClass="w-full"/>
                     <label for="percentageMktPrice">Percentage Mkt price</label>
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('percentageMktPrice')">Percentage Mkt price is required</small>
@@ -94,14 +100,13 @@
     </div>
     <div class="flex justify-content-center flex-wrap pt-3">
         <div class="col-4">
-                <!-- Sin registro: solo aparece si tiene CREATE -->
-            <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-                <!-- Con registro y tiene EDIT: muestra Edit -->
-            <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-                <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-            <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+            <p-button *ngIf="permissions['CREATE-LEGAL'] || permissions['EDIT-LEGAL']" styleClass="w-full" label="Save" [rounded]="true" [disabled]="isSaving || (hasData && !formChanged)" (click)="saveForm()" />
+            <small *ngIf="data?.Date || data?.NameUser">
+                Last date modification:
+                <span *ngIf="data?.Date">{{ data?.Date }}</span>
+                <span *ngIf="data?.Date && data?.NameUser"> by </span>
+                <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+            </small>
         </div>
     </div>
-    <form>
+<form>

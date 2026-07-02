@@ -18,15 +18,6 @@
 
             <div class="col-12 md:col-4">
                 <p-floatlabel>
-                    <input pInputText formControlName="kycCompleted" type="text"
-                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycCompleted')}" />
-                    <label for="kycCompleted">KYC completed?</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('kycCompleted')">KYC completed is required</small>
-            </div>
-
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
                     <p-datepicker formControlName="cbRequestedToRanDate" styleClass="w-full"
                         inputId="cbRequestedToRanDate" showIcon iconDisplay="input"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('cbRequestedToRanDate')}" />
@@ -39,7 +30,7 @@
 
             <div class="col-12 md:col-4">
                 <p-floatlabel>
-                    <p-select formControlName="cbCompleted" inputId="cbCompleted" [options]="state" optionLabel="name"
+                    <p-select formControlName="cbCompleted" inputId="cbCompleted" [options]="yesNoOptions" optionLabel="name"
                         optionValue="value" styleClass="w-full"
                         [ngClass]="{'ng-invalid ng-dirty': isInvalid('cbCompleted')}" />
                     <label for="cbCompleted">CB completed?</label>
@@ -104,36 +95,6 @@
                     required</small>
             </div>
 
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
-                    <p-datepicker formControlName="kycToMeSubmissionDate" styleClass="w-full"
-                        inputId="kycToMeSubmissionDate" showIcon iconDisplay="input"
-                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycToMeSubmissionDate')}" />
-                    <label for="kycToMeSubmissionDate">KYC to ME submission date</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('kycToMeSubmissionDate')">KYC to ME submission date is
-                    required</small>
-            </div>
-
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
-                    <p-select formControlName="meKycStatus" inputId="meKycStatus" [options]="mekycStatus"
-                        optionLabel="mekyc_status" optionValue="Id_mekyc_status" styleClass="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('meKycStatus')}" />
-                    <label for="meKycStatus">ME KYC status</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('meKycStatus')">ME KYC status is required</small>
-            </div>
-
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
-                    <input pInputText formControlName="kyc" type="text"
-                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('kyc')}" />
-                    <label for="kyc">KYC</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('kyc')">KYC is required</small>
-            </div>
-
             <div class="col-12 md:col-12">
                 <p-floatlabel>
                     <textarea pTextarea formControlName="specificConditionsPrescendent"
@@ -151,39 +112,18 @@
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('notesLegalTeam')">Legal team notes is required</small>
             </div>
-            <!--NO EXISTEN
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
-                    <p-select formControlName="legalLead" inputId="legalLead" [options]="leadLegal"
-                        optionLabel="lead_legal" optionValue="Id_lead_legal" styleClass="w-full"
-                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('legalLead')}" />
-                    <label for="legalLead">Legal lead</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('legalLead')">Legal lead is required</small>
-            </div>
-            <div class="col-12 md:col-4">
-                <p-floatlabel>
-                    <p-select formControlName="legalDueDiligenceStatus" inputId="legalDueDiligenceStatus"
-                        [options]="legalDDStatus" optionLabel="legal_dd_status" optionValue="Id_legal_dd_status"
-                        styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('legalDueDiligenceStatus')}" />
-                    <label for="legalDueDiligenceStatus">Legal DD Status</label>
-                </p-floatlabel>
-                <small class="p-error" *ngIf="isInvalid('legalDueDiligenceStatus')">Legal DD Status is required</small>
-            </div>
--->
         </div>
     </div>
 
     <div class="flex justify-content-center flex-wrap">
         <div class="col-3">
-            <!-- Sin registro: solo aparece si tiene CREATE -->
-        <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro y tiene EDIT: muestra Edit -->
-        <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-        <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+            <p-button  *ngIf="permissions['CREATE-LEGAL'] || permissions['EDIT-LEGAL']"  styleClass="w-full" label="Save" [rounded]="true" [disabled]="isSaving || (hasData && !formChanged)" [loading]="isSaving" (click)="saveForm()" />
+            <small *ngIf="data?.Date || data?.NameUser">
+                Last date modification:
+                <span *ngIf="data?.Date">{{ data?.Date }}</span>
+                <span *ngIf="data?.Date && data?.NameUser"> by </span>
+                <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+            </small>
         </div>
     </div>
 </form>

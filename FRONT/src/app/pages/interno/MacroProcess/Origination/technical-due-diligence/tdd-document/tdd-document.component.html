@@ -1,41 +1,41 @@
+<p-toast></p-toast>
 <div class="pb-5">
-
     <form [formGroup]="form">
-
         <div class="grid">
             <div class="col-12 md:col-4">
                 <div class="col-12 pb-3">
                     <hr class="m-0 p-0">
-                    <h5>New registro document</h5>
+                    <h5>New document</h5>
                 </div>
                 <div class="col-12">
                     <p-floatlabel>
-                        <p-select formControlName="milestone" inputId="milestone" [options]="state" optionLabel="name"
-                            styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('milestone')}" />
-                        <label for="milestone">Milestone</label>
+                        <p-select formControlName="milestone" inputId="milestone" [options]="milestonesTDD" optionLabel="large_description"
+                            optionValue="Id_hito_proceso" styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('milestone')}" />
+                        <label for="milestone">Milestone *</label>
                     </p-floatlabel>
                     <small class="p-error" *ngIf="isInvalid('milestone')">Milestone is required.</small>
                 </div>
                 <div class="col-12">
                     <p-floatlabel>
-                        <p-select optionLabel="name" styleClass="w-full" />
-                        <label for="status">Document name</label>
+                        <input pInputText formControlName="documentName" inputId="documentName" styleClass="w-full" 
+                            [ngClass]="{'ng-invalid ng-dirty': isInvalid('documentName')}" />
+                        <label for="documentName">Document name *</label>
                     </p-floatlabel>
-                    <small class="p-error">Document name is required.</small>
+                    <small class="p-error" *ngIf="isInvalid('documentName')">Document name is required.</small>
                 </div>
                 <div class="col-12">
                     <p-floatlabel>
                         <p-datepicker formControlName="generateDate" styleClass="w-full" inputId="generateDate" showIcon
-                            iconDisplay="input" [ngClass]="{'ng-invalid ng-dirty': isInvalid('generateDate')}" />
-                        <label for="generateDate">Generated date</label>
+                            iconDisplay="input" dateFormat="yy-mm-dd" [ngClass]="{'ng-invalid ng-dirty': isInvalid('generateDate')}" />
+                        <label for="generateDate">Generated date *</label>
                     </p-floatlabel>
                     <small class="p-error" *ngIf="isInvalid('generateDate')">Generated date is required.</small>
                 </div>
                 <div class="col-12">
                     <p-floatlabel>
-                        <p-select formControlName="status" inputId="status" [options]="state" optionLabel="name"
-                            styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('status')}" />
-                        <label for="status">Status</label>
+                        <p-select formControlName="status" inputId="status" [options]="statusTDD" optionLabel="status_document"
+                            optionValue="id_status_document" styleClass="w-full" [ngClass]="{'ng-invalid ng-dirty': isInvalid('status')}" />
+                        <label for="status">Status *</label>
                     </p-floatlabel>
                     <small class="p-error" *ngIf="isInvalid('status')">Status is required.</small>
                 </div>
@@ -43,14 +43,14 @@
                 <div class="col-12">
                     <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
                         <div class="flex align-items-center">
-                            <small *ngIf="!Uploaded">Upload new file</small>
+                            <small *ngIf="!Uploaded">Upload new file *</small>
                             <small *ngIf="Uploaded">{{ File?.name }}</small>
                         </div>
                         <div class="flex align-items-center justify-content-center"
                             style="width: 2.5rem; height: 2.5rem;">
                             <i *ngIf="Uploading" class="pi pi-spinner-dotted pi-spin green"
                                 style="font-size: 1.5rem;"></i>
-                            <p-fileupload *ngIf="!Uploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            <p-fileupload *ngIf="permissions['UPLOAD-ORIGINATION'] && (!Uploading)" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
                                 chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
                                 (onSelect)="onUpload($event)">
                             </p-fileupload>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="flex justify-content-center flex-wrap">
                     <div class="col-6 pt-5">
-                        <p-button styleClass="w-full" label="Add" [rounded]="true" (click)="saveDocument()" />
+                        <p-button *ngIf="permissions['CREATE-ORIGINATION'] || permissions['EDIT-ORIGINATION']" styleClass="w-full" label="Add" [disabled]="isSaving" [rounded]="true" (click)="saveDocument()" />
                     </div>
                 </div>
             </div>
@@ -67,17 +67,16 @@
             <div class="col-12 md:col-8">
                 <hr class="m-0 p-0">
                 <div>
-                    <p-table [value]="products" size='small'>
+                    <p-table #dt1 [value]="documents" size='small' [globalFilterFields]="['large_description', 'document_names', 'approved_by', 'status_document']">
                         <ng-template #caption>
                             <div class="flex justify-content-between pb-3">
-
-                                <h5>Regist document</h5>
+                                <h5>Register document</h5>
                                 <div>
                                     <p-iconfield iconPosition="left" class="ml-auto">
                                         <p-inputicon>
                                             <i class="pi pi-search"></i>
                                         </p-inputicon>
-                                        <input pInputText type="text" placeholder="Global search" />
+                                        <input pInputText (input)="dt1.filterGlobal($any($event.target).value, 'contains')" type="text" placeholder="Global search" />
                                     </p-iconfield>
                                 </div>
 
@@ -85,10 +84,10 @@
                         </ng-template>
                         <ng-template #header>
                             <tr>
-                                <th class="text-center" pSortableColumn="code"><small>Milestone<p-sortIcon field="code" /></small></th>
+                                <th class="text-center" pSortableColumn="large_description"><small>Milestone<p-sortIcon field="large_description" /></small></th>
                                 <th class="text-center"><small>Document</small></th>
-                                <th class="text-center" pSortableColumn="code"><small>Generate date<p-sortIcon field="code" /></small></th>
-                                <th class="text-center" pSortableColumn="code"><small>Approved date<p-sortIcon field="code" /></small></th>
+                                <th class="text-center" pSortableColumn="generate_date"><small>Generate date<p-sortIcon field="generate_date" /></small></th>
+                                <th class="text-center" pSortableColumn="approved_date"><small>Approved date<p-sortIcon field="approved_date" /></small></th>
                                 <th class="text-center"><small>Approved user</small></th>
                                 <th class="text-center"><small>Status</small></th>
                                 <th></th>
@@ -96,15 +95,33 @@
                         </ng-template>
                         <ng-template #body let-product>
                             <tr>
-                                <td>{{ product.code }}</td>
-                                <td> <a href=""> {{ product.name }} </a></td>
-                                <td>{{ product.name }}</td>
-                                <td>{{ product.category }}</td>
-                                <td>{{ product.category }}</td>
-                                <td><p-tag [value]="product.inventoryStatus"
-                                        [severity]="getSeverity(product.inventoryStatus)" /></td>
-                                <td><p-button icon="fa-solid fa-pen" [rounded]="true" [text]="true"
-                                        severity="secondary" /></td>
+                                <td>{{ product.large_description }}</td>
+                                <td> 
+                                    @if (product.document_url) {
+                                        <p-button [label]="product.document_names"(click)="loadFileUrl(product)" styleClass="p-button-link"></p-button>
+                                    } @else {
+                                        <span>No document</span>
+                                    }
+                                </td>
+                                <td>{{ product.generate_date | date: 'dd/MM/yyyy' }}</td>
+                                <td>
+                                    @if (product.approved_date) {
+                                        {{ product.approved_date | date: 'dd/MM/yyyy' }}
+                                    } @else {
+                                        <span>Not approved</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (product.approved_by) {
+                                    {{ product.approved_by }}
+                                    } @else {
+                                        <span>Not approved</span>
+                                    }
+                                </td>
+                                <td><p-tag [value]="product.status_document"
+                                        [severity]="getSeverity(product.status_document)" /></td>
+                                <td><p-button *ngIf="permissions['CREATE-ORIGINATION'] || permissions['EDIT-ORIGINATION']" icon="fa-solid fa-pen" [rounded]="true" [text]="true"
+                                        severity="secondary" (click)="onRowSelected(product)"/></td>
                             </tr>
                         </ng-template>
                     </p-table>

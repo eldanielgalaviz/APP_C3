@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY, PRIMENG_NAVIGATION, PRIMENG_LAYOUT, PRIMENG_MISC } from '../../../shared/imports';
 import { CustomerService } from '../../../../service/customerservice';
 import { Customer } from '../../../../domain/customer';
 import { MenuItem } from 'primeng/api';
@@ -15,7 +15,7 @@ interface Column {
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY, ...PRIMENG_NAVIGATION, ...PRIMENG_LAYOUT, ...PRIMENG_MISC],
   providers: [CustomerService, ProductService],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.scss'

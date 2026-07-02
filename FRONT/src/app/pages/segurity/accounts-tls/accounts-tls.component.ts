@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY, PRIMENG_NAVIGATION } from '../../../shared/imports';
 import { ProductService } from '../../../../service/productservice';
 import { Product } from '../../../../domain/product';
 
 @Component({
   selector: 'app-accounts-tls',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY, ...PRIMENG_NAVIGATION],
   providers: [ProductService],
   standalone: true,
   templateUrl: './accounts-tls.component.html',

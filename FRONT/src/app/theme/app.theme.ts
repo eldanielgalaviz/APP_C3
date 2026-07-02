@@ -3,6 +3,7 @@ import Aura from '@primeng/themes/aura';
 import { lib } from 'crypto-js';
 import { Breadcrumb } from 'primeng/breadcrumb';
 import { ColorPicker } from 'primeng/colorpicker';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { InputText } from 'primeng/inputtext';
 import { Textarea } from 'primeng/textarea';
 import { Tooltip } from 'primeng/tooltip';
@@ -63,14 +64,16 @@ const AppTheme = definePreset(Aura, {
                             background: '#D1410D',
                         },
                     },
+
+                   
                 },
             }
         },
+
         floatlabel: {
             colorScheme: {
                 light: {
                     root: {
-                        color: '#5E6C84',
                         invalidColor: '#D1410D',
                         over: {
                             active: {
@@ -87,6 +90,10 @@ const AppTheme = definePreset(Aura, {
                     root: {
                         invalidBorderColor: '#D1410D',
                         invalidFocusBorderColor: '#D1410D',
+                           disabled:{
+                            Background:'#f3f3f3',
+                            color: '#616161',
+                        }
                     },
 
                 }
@@ -98,6 +105,10 @@ const AppTheme = definePreset(Aura, {
                     root: {
                         invalidBorderColor: '#D1410D',
                         invalidFocusBorderColor: '#D1410D',
+                        disabled:{
+                            Background:'#f3f3f3',
+                             color: '#616161',
+                        }
                     },
 
                 }
@@ -109,6 +120,10 @@ const AppTheme = definePreset(Aura, {
                     root: {
                         invalidBorderColor: '#D1410D',
                         invalidFocusBorderColor: '#D1410D',
+                           disabled:{
+                            Background:'#f3f3f3',
+                             color: '#616161',
+                        }
                     },
 
                 }
@@ -281,7 +296,7 @@ const AppTheme = definePreset(Aura, {
                             cell: {
                                 background: " #F8FAFB",
                                 padding: " 0.2rem 0.1rem",
-                                color:"#596864",
+                                color: "#596864",
                             }
                         }
                     }
@@ -348,14 +363,18 @@ const AppTheme = definePreset(Aura, {
                         },
                         tabpanel: {
                             background: "transparent",
+                            padding: '0px',
                         }
                     }
                 }
             }
 
-        }
+        },
+
+
 
     }
+
 }
 
 );

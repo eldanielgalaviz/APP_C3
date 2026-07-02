@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY, PRIMENG_NAVIGATION } from '../../../shared/imports';
 import { ProductService } from '../../../../service/productservice';
 import { Product } from '../../../../domain/product';
 import { MenuItem } from 'primeng/api';
@@ -13,7 +13,7 @@ interface macro {
 
 @Component({
   selector: 'app-dashboard-project',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY, ...PRIMENG_NAVIGATION],
   providers: [ProductService, CustomerService],
   templateUrl: './dashboard-project.component.html',
   styleUrl: './dashboard-project.component.scss'

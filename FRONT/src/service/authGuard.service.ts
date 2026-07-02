@@ -1,50 +1,89 @@
 import { Inject, Injectable } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { inject, PLATFORM_ID } from '@angular/core';
+import { PLATFORM_ID } from '@angular/core';
+import { UtilApiService } from './UtilApi.service';
+import { Observable } from 'rxjs';
+import { Respuesta } from '../app/interfaces/apiResponse.interface';
+import { environment } from '../environments/environments';
+import { LoggedUser } from '../app/interfaces/auth/LoggedUser.interface';
+import { JwtPayload } from '../app/interfaces/auth/JwtPayload.interface';
+import { ObservableService } from './observable/Observable.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class authGuardService {
-  private readonly TOKEN_KEY = 'token';
-  private readonly USER_KEY = 'user';
-  private readonly USER_MENUS = 'user_menus';
+  private readonly TOKEN_KEY       = 'token';
+  private readonly USER_KEY        = 'user';
+  private readonly USER_MENUS      = 'user_menus';
+  private readonly PERMISSIONS_KEY = 'permissions';
 
-  private menus: any[] = [];
+  private userPermissions: any[] = [];
+  private menus: any[]           = [];
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  ApiUrl: string = environment.url + 'api/';
 
-  }
- 
+  private currentMenuLabel:  string = '';
+  private currentSubLabel:   string = '';
+  private currentIdSubmenu:  number = 0;
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _apiService: UtilApiService,
+    private _observableService: ObservableService
+  ) {}
   // TOKEN
   setToken(token: string): void {
     if(isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.TOKEN_KEY, token)
+      sessionStorage.setItem(this.TOKEN_KEY, token);
     }
   }
 
   getToken(): string | null {
     if (isPlatformBrowser(this.platformId)) {
-      return localStorage.getItem(this.TOKEN_KEY) ?? 'null'
+      return sessionStorage.getItem(this.TOKEN_KEY);
     }
     return null;
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem(this.TOKEN_KEY);
+    if (isPlatformBrowser(this.platformId)) {
+      return !!sessionStorage.getItem(this.TOKEN_KEY);
+    }
+    return false;
+  }
+
+  // Decodifica el payload del JWT sin verificar firma
+  private decodeTokenPayload(token: string): JwtPayload | null {
+    try {
+      const base64Payload = token.split('.')[1];
+      const decoded = atob(base64Payload.replace(/-/g, '+').replace(/_/g, '/'));
+      return JSON.parse(decoded) as JwtPayload;
+    } catch {
+      return null;
+    }
+  }
+
+  // true si el token expiro o no se puede leer
+  isTokenExpired(): boolean {
+    const token = this.getToken();
+    if (!token) return true;
+    const payload = this.decodeTokenPayload(token);
+    if (!payload?.exp) return true;
+    return Date.now() >= payload.exp * 1000;
   }
 
   // USER
-  setUser(user: string): void {
+  setUser(user: LoggedUser): void {
     if(isPlatformBrowser(this.platformId)) {
-      localStorage.setItem(this.USER_KEY, JSON.stringify(user))
+      sessionStorage.setItem(this.USER_KEY, JSON.stringify(user));
     }
 
   }
 
-  getUser(): string | null {
+  getUser(): LoggedUser | null {
     if (isPlatformBrowser(this.platformId)) {
-      return JSON.parse(localStorage.getItem(this.USER_KEY) ?? 'null');
+      const stored = sessionStorage.getItem(this.USER_KEY);
+      return stored ? JSON.parse(stored) as LoggedUser : null;
     }
     return null;
   }
@@ -57,22 +96,17 @@ export class authGuardService {
     return null;
   }
 
-  clearAll(): void {
-    localStorage.clear();
-    this.userPermissions = [];
-  }
-
   // PERSMISSIONS
-  private userPermissions: any[] = [];
-
-  setPermissions(perms: any[]) {
+  setPermissions(perms: any[]): void {
     this.userPermissions = perms;
-    localStorage.setItem('permissions', JSON.stringify(perms));
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem(this.PERMISSIONS_KEY, JSON.stringify(perms));
+    }
   }
 
-  getPermissions() {
-    if (!this.userPermissions.length) {
-      const stored = localStorage.getItem('permissions');
+  getPermissions(): any[] {
+    if (!this.userPermissions.length && isPlatformBrowser(this.platformId)) {
+      const stored = sessionStorage.getItem(this.PERMISSIONS_KEY);
       this.userPermissions = stored ? JSON.parse(stored) : [];
     }
     return this.userPermissions;
@@ -85,14 +119,15 @@ export class authGuardService {
   }
 
   hasPermission(route: string, permission: string): boolean {
-    const modulePerms = this.getModulePermissions(route);
-    return modulePerms.includes(permission);
+    return this.getModulePermissions(route).includes(permission);
   }
 
   // USER MENU
-  setUserMenu(modules: any[]) {
+  setUserMenu(modules: any[]): void {
     this.menus = modules;
-    localStorage.setItem(this.USER_MENUS, JSON.stringify(modules));
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem(this.USER_MENUS, JSON.stringify(modules));
+    }
   }
 
   getAllowedRoutes(): string[] {
@@ -100,9 +135,7 @@ export class authGuardService {
 
     this.menus.forEach(menu => {
       menu.items?.forEach((item: any) => {
-        if (item.routerLink) {
-          routes.push(item.routerLink);
-        }
+        if (item.routerLink) routes.push(item.routerLink);
       });
     });
 
@@ -110,18 +143,66 @@ export class authGuardService {
   }
 
   hasAccess(url: string): boolean {
-    const allowedRoutes = this.getAllowedRoutes();
-
-    return allowedRoutes.some(route => {
-      return url === route || url.startsWith(route + '/');
-    });
+    return this.getAllowedRoutes().some(
+      route => url === route || url.startsWith(route + '/')
+    );
   }
   
   clearSession(): void {
-    localStorage.removeItem(this.TOKEN_KEY);
-    localStorage.removeItem(this.USER_KEY);
-    localStorage.removeItem('permissions');
-    localStorage.removeItem(this.USER_MENUS);
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.removeItem(this.TOKEN_KEY);
+      sessionStorage.removeItem(this.USER_KEY);
+      sessionStorage.removeItem(this.PERMISSIONS_KEY);
+      sessionStorage.removeItem(this.USER_MENUS);
+      sessionStorage.removeItem('selectedOption');
+      sessionStorage.removeItem('currentIdSubmenu');
+      sessionStorage.removeItem('currentMenuLabel');
+      sessionStorage.removeItem('currentSubLabel');
+    }
     this.userPermissions = [];
+    this.menus           = [];
+    this._observableService.resetProject();
+  }
+
+  setCurrentSubmenu(id: number): void {
+    this.currentIdSubmenu = id;
+    sessionStorage.setItem('currentIdSubmenu', String(id));
+  }
+
+  getCurrentSubmenu(): number {
+    if (this.currentIdSubmenu) return this.currentIdSubmenu;
+    return Number(sessionStorage.getItem('currentIdSubmenu') ?? 0);
+  }
+
+  setCurrentSubmenuLabels(menu: string, sub: string): void {
+    this.currentMenuLabel = menu;
+    this.currentSubLabel  = sub;
+    sessionStorage.setItem('currentMenuLabel', menu);
+    sessionStorage.setItem('currentSubLabel', sub);
+  }
+
+  getCurrentMenuLabel(): string {
+    return this.currentMenuLabel || sessionStorage.getItem('currentMenuLabel') || '';
+  }
+
+  getCurrentSubLabel(): string {
+    return this.currentSubLabel || sessionStorage.getItem('currentSubLabel') || '';
+  }
+
+  getSubmenuIdByRoute(route: string): number {
+    if (!isPlatformBrowser(this.platformId)) return 0;
+    const stored = sessionStorage.getItem(this.USER_MENUS);
+    if (!stored) return 0;
+
+    const menus: any[] = JSON.parse(stored);
+    for (const menu of menus) {
+      const found = (menu.items ?? []).find((item: any) => item.routerLink === route);
+      if (found) return found.Idsubmenu;
+    }
+    return 0;
+  }
+
+  getPermissionsBySubmenu(idSubmenu: number, token: string): Observable<Respuesta> {
+    return this._apiService.sendGetRequest(`${this.ApiUrl}permissionssub/getPermissions/${idSubmenu}`, token);
   }
 }

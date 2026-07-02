@@ -6,6 +6,8 @@ export interface CDREstimation {
     estimate_reversal_risk:    number;
     project_start_date:        Date;
     estimations:               Estimation[];
+    Date:                      string;
+    NameUser:                  string;
 }
 
 export interface Estimation {

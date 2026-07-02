@@ -3,6 +3,9 @@ import { UtilApiService } from '../UtilApi.service';
 import { environment } from '../../environments/environments';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
+import { LegalKycPayload } from '../../app/interfaces/origination/legal-kyc/legal-kyc.interface';
+import { Respuesta } from '../../app/interfaces/apiResponse.interface';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +22,14 @@ export class LegalKyc {
     return this._apiService.sendGetRequest(this.ApiUrl + `origination/getLegalKYC/${id}`, token);
   }
 
-  setLegalKyc(data: any, token: string): Observable<any> {
-    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setLegalKYC', token);
+  setLegalKyc(data: LegalKycPayload, namedFiles: { key: string, file: File }[], token: string): Observable<Respuesta> {
+    return this._apiService.sendPostTokenRequestWithNamedFiles(data, namedFiles, this.ApiUrl + 'origination/setLegalKYC', token);
   }
-
+  getFileWithPath(filePath: string, token: string): Observable<Blob> {
+    return this._apiService.sendPostBlobRequest(
+      this.ApiUrl + 'origination/getFileWithPath',
+      { filePath },
+      token
+    );
+  }
 }

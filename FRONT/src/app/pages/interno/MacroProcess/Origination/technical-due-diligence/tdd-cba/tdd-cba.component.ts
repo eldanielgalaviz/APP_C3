@@ -1,26 +1,33 @@
-import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../../../../shared/imports';
+import { Component, inject } from '@angular/core';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY } from '../../../../../../shared/imports';
 import { Product } from '../../../../../../../domain/product';
-import { ProductService } from '../../../../../../../service/productservice';
 import * as XLSX from 'xlsx';
 import { ObservableService } from '../../../../../../../service/observable/Observable.service';
 import { authGuardService } from '../../../../../../../service/authGuard.service';
 import { MessageService } from 'primeng/api';
+import { FormGroup } from '@angular/forms';
 import { TechnicalDueDiligence } from '../../../../../../../service/Origination/origination-technical-due-diligence.service';
 import { Respuesta } from '../../../../../../interfaces/apiResponse.interface';
 import { CbaImports } from '../../../../../../interfaces/origination/cba/cba.interface';
+import { PermissionUser } from '../../../../../../../utils/permission-user.service';
+
 
 @Component({
   selector: 'tdd-cba',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY],
   standalone: true,
-  providers: [ProductService, MessageService],
+  providers: [MessageService],
   templateUrl: './tdd-cba.component.html',
 })
 export class TddCbaComponent {
+  private _permissionUser     = inject(PermissionUser);
+  permissions: Record<string, boolean> = {};
+
 
   token: any;
   idProject: number = 0;
+  isSaving: boolean = false;
+
 
   importdoc: boolean = false;
   position!: 'bottom';
@@ -31,6 +38,8 @@ export class TddCbaComponent {
   Uploading: boolean = false;
   Uploaded: boolean = false;
   File: File | null = null;
+  form!: FormGroup;
+
 
   importDoc(position: 'bottom') {
     this.position = position;
@@ -97,13 +106,14 @@ export class TddCbaComponent {
   }
 
   ngOnInit() {
-   this._observableService.selectedProject$.subscribe(project => {
-      if (project?.Id_projects) {
-        this.idProject = project.Id_projects;
-        this.hideImport();
-        this.loadData();
-      }
-    });
+    this.loadPermissions();
+    this._observableService.selectedProject$.subscribe(project => {
+        if (project?.Id_projects) {
+          this.idProject = project.Id_projects;
+          this.hideImport();
+          this.loadData();
+        }
+      });
   } 
 
   loadData(){
@@ -311,6 +321,9 @@ export class TddCbaComponent {
       return;
     }
 
+    if (this.isSaving) return;
+    this.isSaving = true;
+
     const data = {
       p_ers_from_restoration: JSON.stringify(this.ersFromRestoration),
       p_initial_investment: JSON.stringify(this.initialInvestment),
@@ -319,16 +332,29 @@ export class TddCbaComponent {
 
     this._originaciontechnicalDueDiligenceService.setCBAimport(data, this.token).subscribe({
       next: (res: Respuesta) => {
+        this.isSaving = false;
         if(res.valido === 1){
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Saved successfully' });
           this.loadData();
+          this.importdoc = false;
         }
       },
       error: (err) => {
+        this.isSaving = false;
         this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to save CDR Estimation' });
         console.error('Error saving CDR Estimation:', err);
       }
     })
   }
 
+  private loadPermissions(): void {
+    this._permissionUser.formatData().subscribe({
+      next: (permisos: Record<string, boolean>) => {
+        this.permissions = permisos;
+        if (!permisos['CREATE-ORIGINATION'] && !permisos['EDIT-ORIGINATION']) {
+          this.form.disable();
+        }
+      }
+    });
+  }
 }

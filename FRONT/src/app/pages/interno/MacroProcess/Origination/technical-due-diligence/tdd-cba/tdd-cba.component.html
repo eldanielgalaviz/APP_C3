@@ -1,12 +1,13 @@
 <p-toast></p-toast>
-<div  class="flex justify-content-between pb-3">
+<div  class="flex justify-content-between py-3">
     <div>
         <p>Method for evaluating the financial viability of a project or investment by comparing its costs with its
             expected benefits. <br>
-            If you haven't tried this method, <a class="font-bold template" href="">Download the template.</a> </p>
-    </div>
+            If you haven't tried this method, <a class="font-bold template" href="templates/xlsx/plantilla de importacion - CBA.xlsx" download>Download the template.</a> </p>
+     <small>Last date modification: 12 / Ene / 2022</small>
+        </div>
     <div>
-        <p-button styleClass="w-full" class="col-6" label="Import document" [rounded]="true"
+        <p-button  *ngIf="permissions['UPLOAD-ORIGINATION']"  styleClass="w-full" class="col-6" label="Import document" [rounded]="true"
             (click)="importDoc('bottom')" severity="secondary" />
     </div>
 </div>
@@ -135,7 +136,7 @@
                     </div>
                     <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
                         <i *ngIf="Uploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
-                        <p-fileupload *ngIf="!Uploading" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                        <p-fileupload *ngIf="permissions['UPLOAD-ORIGINATION'] && (!Uploading)" mode="basic" chooseIcon="pi pi-upload" [auto]="true"
                             chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
                             (onSelect)="onFileChange($event)">
                         </p-fileupload>
@@ -145,11 +146,11 @@
     </div>
 
     <hr>
-    <small>The file must comply with the required structure or an error will occur. If you don’t have the template, <a class="font-bold template" href="">download it here.</a> </small>
+    <small>The file must comply with the required structure or an error will occur. If you don’t have the template, <a class="font-bold template" href="templates/xlsx/plantilla de importacion - CBA.xlsx" download>download it here.</a> </small>
 
 
     <ng-template #footer>
-        <p-button label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="visible = false" />
-        <p-button label="import document" [rounded]="true" severity="primary" (click)="save()" />
+        <p-button *ngIf="permissions['CREATE-ORIGINATION'] || permissions['EDIT-ORIGINATION']"  label="Cancel" [text]="true" [rounded]="true" severity="secondary" (click)="importdoc = false" />
+        <p-button *ngIf="permissions['CREATE-ORIGINATION'] || permissions['EDIT-ORIGINATION']"  label="Save" [rounded]="true" severity="primary" [disabled]="isSaving" [loading]="isSaving" (click)="save()" />
     </ng-template>
 </p-dialog>

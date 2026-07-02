@@ -14,7 +14,7 @@ export class UtilApiService {
       let token
 
       if (isPlatformBrowser(this._platformId)) {
-        token = localStorage.getItem('token');
+        token = sessionStorage.getItem('token');
       }
 
       const headers = new HttpHeaders({

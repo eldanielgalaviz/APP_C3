@@ -9,6 +9,23 @@
     <div class="grid">
         <div class="col-12 md:col-4">
             <p-floatlabel>
+                <input pInputText formControlName="kycCompleted" type="text"
+                    [ngClass]="{'ng-invalid ng-dirty': isInvalid('kycCompleted')}" />
+                <label for="kycCompleted">KYC completed?</label>
+            </p-floatlabel>
+            <small class="p-error" *ngIf="isInvalid('kycCompleted')">KYC completed is required</small>
+        </div>
+        <div class="col-12 md:col-4">
+                <p-floatlabel>
+                    <p-select formControlName="meKycStatus" inputId="meKycStatus" [options]="mekycStatus"
+                        optionLabel="mekyc_status" optionValue="Id_mekyc_status" styleClass="w-full"
+                        [ngClass]="{'ng-invalid ng-dirty': isInvalid('meKycStatus')}" />
+                    <label for="meKycStatus">ME KYC status</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('meKycStatus')">ME KYC status is required</small>
+            </div>
+        <div class="col-12 md:col-4">
+            <p-floatlabel>
                 <p-datepicker formControlName="dateKycPackPrepared" styleClass="w-full" inputId="dateKycPackPrepared" showIcon iconDisplay="input" 
                   [ngClass]="{'ng-invalid ng-dirty': isInvalid('dateKycPackPrepared')}" />
                 <label for="dateKycPackPrepared">Date KYC Pack prepared</label>
@@ -35,16 +52,121 @@
     </div>
 </div>
 
+<div class="col-12 pb-5">
+      <div class="pb-3">
+        <hr class="m-0 p-0">
+        <h5 class="font-bold m-0">Docs KYC</h5>
+    </div>
+    <div class="grid">
+
+         <!-- UPLOAD DOF/RP -->
+        <div class="col-12 md:col-3">
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center gap-2">
+                    <small *ngIf="!dofRpUrl">Upload DOF/RP document</small>
+                    <a *ngIf="dofRpUrl" [href]="dofRpUrl" target="_blank" style="text-decoration: underline; cursor: pointer;">
+                        <small>DOF/RP document</small>
+                    </a>
+                </div>
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="dofRpUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <ng-container *ngIf="!dofRpUploading">
+                        <p-fileupload *ngIf="permissions['UPLOAD-LEGAL'] && (!dofRpUrl)"  mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                            (onSelect)="onDofRpUpload($event)">
+                        </p-fileupload>
+                        <p-button *ngIf="permissions['DELETE-LEGAL'] && (dofRpUrl)" icon="pi pi-trash" [text]="true" severity="danger"
+                            (click)="onDofRpDelete()">
+                        </p-button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+         <!-- UPLOAD PHINA -->
+        <div class="col-12 md:col-3">
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center gap-2">
+                    <small *ngIf="!phinaUrl">Upload PHINA document</small>
+                    <a *ngIf="phinaUrl" [href]="phinaUrl" target="_blank" style="text-decoration: underline; cursor: pointer;">
+                        <small>PHINA document</small>
+                    </a>
+                </div>
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="phinaUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <ng-container *ngIf="!phinaUploading">
+                        <p-fileupload *ngIf="permissions['UPLOAD-LEGAL'] && (!phinaUrl)"  mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                            (onSelect)="onPhinaUpload($event)">
+                        </p-fileupload>
+                        <p-button *ngIf="permissions['DELETE-LEGAL'] && (phinaUrl)" icon="pi pi-trash" [text]="true" severity="danger"
+                            (click)="onPhinaDelete()">
+                        </p-button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+         <!-- UPLOAD ACTA DE ELECCION DE AUTORIDADES -->
+        <div class="col-12 md:col-3">
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center gap-2">
+                    <small *ngIf="!actaEleccionUrl">Upload Acta de elección de autoridades</small>
+                    <a *ngIf="actaEleccionUrl" [href]="actaEleccionUrl" target="_blank" style="text-decoration: underline; cursor: pointer;">
+                        <small>Acta de elección de autoridades</small>
+                    </a>
+                </div>
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="actaEleccionUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <ng-container *ngIf="!actaEleccionUploading">
+                        <p-fileupload *ngIf="permissions['UPLOAD-LEGAL'] && (!actaEleccionUrl)"  mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                            (onSelect)="onActaEleccionUpload($event)">
+                        </p-fileupload>
+                        <p-button *ngIf="permissions['DELETE-LEGAL'] && (actaEleccionUrl)" icon="pi pi-trash" [text]="true" severity="danger"
+                            (click)="onActaEleccionDelete()">
+                        </p-button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+         <!-- UPLOAD IDENTIFICACION DE AUTORIDADES -->
+        <div class="col-12 md:col-3">
+            <div class="flex justify-content-between align-items-center document" style="height: 2.5rem;">
+                <div class="flex align-items-center gap-2">
+                    <small *ngIf="!identificacionUrl">Upload Identificación de autoridades</small>
+                    <a *ngIf="identificacionUrl" [href]="identificacionUrl" target="_blank" style="text-decoration: underline; cursor: pointer;">
+                        <small>Identificación de autoridades</small>
+                    </a>
+                </div>
+                <div class="flex align-items-center justify-content-center" style="width: 2.5rem; height: 2.5rem;">
+                    <i *ngIf="identificacionUploading" class="pi pi-spinner-dotted pi-spin green" style="font-size: 1.5rem;"></i>
+                    <ng-container *ngIf="!identificacionUploading">
+                        <p-fileupload *ngIf="permissions['UPLOAD-LEGAL'] && (!identificacionUrl)"  mode="basic" chooseIcon="pi pi-upload" [auto]="true"
+                            chooseStyleClass="p-button-text p-button-primary p-button-icon-only"
+                            (onSelect)="onIdentificacionUpload($event)">
+                        </p-fileupload>
+                        <p-button *ngIf="permissions['DELETE-LEGAL'] && (identificacionUrl)" icon="pi pi-trash" [text]="true" severity="danger"
+                            (click)="onIdentificacionDelete()">
+                        </p-button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <div class="flex justify-content-center flex-wrap">
     <div class="col-3">
-            <!-- Sin registro: solo aparece si tiene CREATE -->
-        <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro y tiene EDIT: muestra Edit -->
-        <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-            <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-        <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
+        <p-button  *ngIf="permissions['CREATE-LEGAL'] || permissions['EDIT-LEGAL']"  styleClass="w-full" label="Save" [rounded]="true" [disabled]="isSaving || (hasData && !formChanged)" [loading]="isSaving"  (click)="saveForm()" />
+        <small *ngIf="data?.Date || data?.NameUser">
+            Last date modification:
+            <span *ngIf="data?.Date">{{ data?.Date }}</span>
+            <span *ngIf="data?.Date && data?.NameUser"> by </span>
+            <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+        </small>
     </div>
 </div>
 </form>

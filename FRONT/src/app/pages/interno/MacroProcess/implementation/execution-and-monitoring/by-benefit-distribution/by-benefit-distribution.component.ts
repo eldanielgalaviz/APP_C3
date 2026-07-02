@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { Customer } from '../../../../../../../domain/customer';
 import { CustomerService } from '../../../../../../../service/customerservice';
-import { SHARED_IMPORTS } from '../../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY } from '../../../../../../shared/imports';
 
 @Component({
   selector: 'by-benefit-distribution',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY],
   standalone: true,
   providers: [CustomerService],
   templateUrl: './by-benefit-distribution.component.html',

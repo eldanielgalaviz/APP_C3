@@ -1,0 +1,100 @@
+<p-menu #menu [model]="items" [popup]="true" />
+
+<div class="flex justify-content-between flex-wrap">
+    <div class="inline-flex">
+        <h4 class="tit-subcu font-bold">Annual Plan Preview</h4>
+        <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" [rounded]="true" [text]="true" />
+    </div>
+    <div class="flex align-content-center flex-wrap align-items-center">
+        <div class="fondo-cards">
+            <p>01</p>
+            <small>RP</small>
+        </div>
+        <div class="fondo-cards">
+            <p>PAD00123</p>
+            <small>Folio</small>
+        </div>
+        <div class="fondo-cards">
+            <p>12 Ene 2023</p>
+            <small>Creation date</small>
+        </div>
+        <div class="fondo-cards">
+            <p>$66,686.00</p>
+            <small>Total Planned <i class="fa-solid fa-circle-info" (click)="op.toggle($event)"></i></small>
+        </div>
+        <div class="fondo-cards">
+            <p class="font-bold status correction">Correction</p>
+            <small>Status</small>
+        </div>
+        <div class="pr-2">
+            <p-floatlabel>
+
+                <p-select inputId="over_label" [options]="status" optionLabel="name" styleClass="w-full">
+                    <!-- ITEM SELECCIONADO -->
+                    <ng-template #selectedItem let-selectedOption>
+                        <span class="status" [ngClass]="selectedOption?.styleClass">
+                            {{ selectedOption?.name }}
+                        </span>
+                    </ng-template>
+                    <!-- ITEMS DEL DROPDOWN -->
+                    <ng-template let-item #item>
+                        <span class="status" [ngClass]="item.styleClass">
+                            {{ item.name }}
+                        </span>
+                    </ng-template>
+                </p-select>
+
+                <label for="over_label">
+                    Status
+                </label>
+
+            </p-floatlabel>
+        </div>
+        <div>
+            <!--caso 1-->
+            <p-button styleClass="w-full" label="Save" [rounded]="true" />
+            <!--caso 2-->
+            <p-button styleClass="w-full" label="Assing financial" [rounded]="true"
+                (click)="seguridad.toggle($event)" />
+        </div>
+    </div>
+</div>
+
+<p-tabs value="0">
+    <p-tablist>
+        <p-tab value="0">Activity Schedule</p-tab>
+        <p-tab value="1">Activity details</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="0">
+            <app-pl-view-plan-cronograma></app-pl-view-plan-cronograma>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+            <app-pl-view-plan-act-details></app-pl-view-plan-act-details>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>
+
+<!---->
+
+<p-popover #op>
+    <div class="flex flex-column">
+        <div class="p-2">
+            <p class="p-0 m-0 font-bold">$2,500.00 <span class="text-xs">USD</span></p>
+            <small>Budget estimated</small>
+        </div>
+        <div class="p-2">
+            <p class="p-0 m-0 font-bold">$2,500.00 <span class="text-xs">USD</span></p>
+            <small>RP anterior</small>
+        </div>
+    </div>
+</p-popover>
+
+<p-popover #seguridad   [style]="{ width: '30rem' }">
+    <p>
+        Por seguridad, al aceptar, los USD de las actividades apareceran en financial monitoring y enviaremos un correo
+        de este movimiento a los gerentes involucrados.
+        <br><br>
+      <b>Los cambios solo aplica por una aprobación de asamblea</b>  
+    </p>
+</p-popover>

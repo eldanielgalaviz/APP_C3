@@ -1,1 +1,19 @@
-<p>annual-planning works!</p>
+<h4 class="tit-subcu font-bold">Annual planning</h4>
+<p-tabs value="0">
+    <p-tablist>
+        <p-tab value="0">Activities planning</p-tab>
+        <p-tab value="1">Plannings Opens</p-tab>
+        <p-tab value="2">Plannings Approved</p-tab>
+    </p-tablist>
+    <p-tabpanels>
+        <p-tabpanel value="0">
+          <app-pl-activities></app-pl-activities>
+        </p-tabpanel>
+        <p-tabpanel value="1">
+          <app-pl-opens></app-pl-opens>
+        </p-tabpanel>
+        <p-tabpanel value="2">
+          <app-pl-approved></app-pl-approved>
+        </p-tabpanel>
+    </p-tabpanels>
+</p-tabs>

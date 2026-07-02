@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY } from '../../../../../shared/imports';
 import { FormBuilder, Validators } from '@angular/forms';
 import { PlanTeamService } from '../../../../../../service/Implementation/PlanAndTeam/PlanTeam.service';
 import { PlanTeamCatalogService } from '../../../../../../service/Implementation/PlanAndTeam/catalogs/PlanTeam.service';
@@ -8,14 +8,14 @@ import { Respuesta } from '../../../../../interfaces/apiResponse.interface';
 import { OriginationPromoter, ProjectManagers, Smes, StatusProject } from '../../../../../interfaces/implementation/planTeam/CatalogsPlanTeam.interface';
 import { ObservableService } from '../../../../../../service/observable/Observable.service';
 import { Subscription } from 'rxjs';
-import { SmesByPlanAndTeam } from '../../../../../interfaces/implementation/planTeam/PlanTeam.interface';
+import { SmesByPlanAndTeam, SmePayload, SetPlanTeamPayload  } from '../../../../../interfaces/implementation/planTeam/PlanTeam.interface';
 import { MessageService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { CatalogsService } from '../../../../../../service/Origination/origination-catalogs.service';
 
 @Component({
   selector: 'app-assign-pm-to-project',
-  imports: [SHARED_IMPORTS],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY],
   providers: [DatePipe, MessageService],
   templateUrl: './assign-pm-to-project.component.html',
   styleUrl: './assign-pm-to-project.component.scss'
@@ -52,7 +52,7 @@ export class AssignPMToProjectComponent implements OnInit {
     p_project_log_id: [''],
     p_implementation_partner_id: [''],
     p_status_project: ['', [Validators.required]],
-    smes: [[], [Validators.required]],
+    smes: [[] as number[], [Validators.required]],
   });
 
   isInvalid(field: string): boolean {
@@ -161,7 +161,7 @@ export class AssignPMToProjectComponent implements OnInit {
 
     const formValue = this.planTeamForm.value;
     const currentSelection = formValue.smes || [];
-    let SmeList: any[] = [];
+    let SmeList: SmePayload[] = [];
 
     this.smeInvolved.forEach((existingSME) => {
       const isStillSelected = currentSelection.find((smeId: number) => smeId === existingSME.id_sme);
@@ -188,7 +188,7 @@ export class AssignPMToProjectComponent implements OnInit {
       });
     }
 
-    const data = {
+    const data: SetPlanTeamPayload = {
       p_id_plan_team: this.idPlanTeam,
       p_projects_id: this.idProject,
       p_project_manager_id: formValue.p_project_manager_id,
@@ -210,5 +210,5 @@ export class AssignPMToProjectComponent implements OnInit {
         }
       }
     });
-  }
+  } 
 }

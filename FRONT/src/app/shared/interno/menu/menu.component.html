@@ -1,6 +1,6 @@
 <p-menubar [model]="items" styleClass="center-global">
     <ng-template pTemplate="start">
-        <img src="../logo-white.png" alt="" width="150">
+        <img src="logo-white.png" alt="" width="150">
     </ng-template>
     <ng-template pTemplate="item" let-item let-root="root">
         <a pRipple class="flex align-items-center p-menuitem-link">
@@ -9,7 +9,7 @@
     </ng-template>
     <ng-template pTemplate="end">
         <div class="inline-flex align-items-center flex-wrap">
-            <div class="pr-5">
+            <div class="pr-5" *ngIf="hasProjectsAccess">
                 <p-select [options]="projects" (onChange)="onProjectSelected($event.value)"
                     [(ngModel)]="selectedCountry" optionLabel="project_name" [filter]="true" filterBy="project_name"
                     [showClear]="true" placeholder="Select a project">
@@ -30,18 +30,18 @@
                         <div class="pb-3">
                             <p-divider />
                             <p-button label="New project" fluid severity="secondary" text size="small"
-                                routerLink="portafolio/prospect" icon="pi pi-plus" />
+                                routerLink="portafolio/origination/prospect" icon="pi pi-plus" />
                         </div>
                     </ng-template>
                 </p-select>
             </div>
             <div class="pr-3">
-                <p-button pTooltip="Report a Problem" tooltipPosition="bottom" icon="fa-solid fa-screwdriver-wrench" size="small" 
-                    severity="warn" [rounded]="true" ></p-button>
+                <p-button pTooltip="Report a Problem" tooltipPosition="bottom" icon="fa-solid fa-screwdriver-wrench"
+                    size="small" severity="warn" [rounded]="true"></p-button>
             </div>
-            <div>
-                <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" 
-                    (click)="sidebarPerfil = true" />
+            <div class="avatar-mini" (click)="sidebarPerfil = true" >
+                <!--poner la 1er letra de nombre y de apellido-->
+              <p>{{cutName(user?.name)}}</p>
             </div>
         </div>
     </ng-template>
@@ -51,19 +51,26 @@
 <p-drawer [(visible)]="sidebarPerfil" position="right">
     <ng-template pTemplate="header" stlyleClass="fondo">
         <div class=" align-items-center gap-2">
-            <p>{{user?.puesto}}</p>
-
+            User Profile
         </div>
     </ng-template>
 
     <div class="text-center fondo pb-3">
-        <img class="avatar" src="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" alt="">
+        <div class="relative inline-block" (mouseenter)="hoverAvatar = true" (mouseleave)="hoverAvatar = false"
+            style="cursor: pointer;">
+            <img class="avatar" [src]="profileImage" alt="">
+            <div *ngIf="hoverAvatar" class="hover-avatar">
+                <a (click)="triggerFileInput()"><i class="pi pi-camera"></i><br><small>Upload photo</small></a>
+                <input #fileInput type="file" accept="image/*" style="display: none;"
+                    (change)="onPhotoSelected($event)" />
+            </div>
+        </div>
         <h4 class="m-0 p-0">{{user?.name}}</h4>
+        <p>{{user?.puesto}}</p>
         <small class="m-0 p-0">{{user?.email}}</small>
     </div>
 
     <div>
-        <p class="py-2 venta">Configuración</p>
         <p-menu #menu [model]="avatar" />
     </div>
     <ng-template #footer>

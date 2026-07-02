@@ -45,11 +45,6 @@ export class CatalogsService {
     return this._apiService.sendGetRequest(this.ApiUrl + `catalogs/getLocationByCP/${id}`, token);
   }
 
-
-  getLeadsOriginacion(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadsOriginacion', token);
-  }
-
   getOriginationPromoter(token: string): Observable<any> {
     return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getOriginationPromoter', token);
   }
@@ -262,36 +257,46 @@ export class CatalogsService {
     return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getStatusProject', token);
   }
 
-  getLeadSig(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadSig', token);
-  }
-
   getMekycStatus(token: string): Observable<any> {
     return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getMekycStatus', token);
   }
 
-  getLeadLegal(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadLegal', token); 
-  }
 
-  getLegalDDStatus(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLegalDDStatus', token);
-  }
+
+  // getLegalDDStatus(token: string): Observable<any> {
+  //   return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLegalDDStatus', token);
+  // }
 
   getApprovedBuyer(token: string): Observable<any> {
     return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getApprovedBuyer', token);
   }
 
-  getLeadsDesarrollo(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadsDesarrollo', token);
+  getSmeArea(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getSmeArea', token);
   }
 
-  getLeadMrv(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadMrv', token);
+  getStatusDocuments(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getStatusDocuments', token);
   }
 
-  getLeadSafeguards(token: string): Observable<any> {
-    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getLeadSafeguards', token);
+  getMilestonesTDD(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getMilestonesTDD', token);
+  }
+
+  getBufferPool(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getBufferPool', token);
+  }
+
+  getInventoryStratification(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getInventoryStratification', token);
+  }
+
+  getGrievanceMechanism(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getGrievanceMechanism', token);
+  }
+
+  getPressNegative(token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + 'catalogs/getPressNegative', token);
   }
 
 }

@@ -8,4 +8,6 @@ export interface TeamAndPlan {
     id_sme_safeguards:         number;
     id_sme_sig:                number;
     id_sme_mrv:                number;
+    Date:                      string;
+    NameUser:                  string;
 }

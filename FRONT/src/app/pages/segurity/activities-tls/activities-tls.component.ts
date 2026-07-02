@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Customer } from '../../../../domain/customer';
 import { CustomerService } from '../../../../service/customerservice';
-import { SHARED_IMPORTS } from '../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_FORM, PRIMENG_DATA, PRIMENG_OVERLAY } from '../../../shared/imports';
 
 interface state {
   name: string;
@@ -9,7 +9,7 @@ interface state {
 
 @Component({
   selector: 'app-activities-tls',
- imports: [SHARED_IMPORTS],
+ imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY],
   providers: [CustomerService],
   standalone: true,
   templateUrl: './activities-tls.component.html',

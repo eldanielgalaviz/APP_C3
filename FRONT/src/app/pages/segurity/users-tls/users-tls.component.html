@@ -1,4 +1,5 @@
 <p-toast></p-toast>
+<p-confirmdialog />
 <div>
     <div class="flex justify-content-between flex-wrap">
         <div>
@@ -11,15 +12,14 @@
 
     <p>Users cannot be deleted until all assigned roles are removed in the Roles section.</p>
 
-    <p-table [value]="users" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5" [filterDelay]="0"
-        [globalFilterFields]="['Name', 'AP', 'AM', 'Email','short_department_desc', 'short_position_desc']">
+    <p-table #dt2 [value]="users" [rowsPerPageOptions]="[5, 10, 20]" [paginator]="true" [rows]="5" [filterDelay]="0"
+        [globalFilterFields]="['Name', 'AP', 'AM', 'Email','short_status_user_desc','short_department_desc', 'short_position_desc']">
         <ng-template #caption>
             <div class="flex justify-content-center flex-wrap">
                 <p-iconField iconPosition="left">
-                    <p-inputIcon>
-                        <i class="pi pi-search"></i>
-                    </p-inputIcon>
-                    <input pInputText type="text" placeholder="Global search" />
+                        <p-inputIcon><i class="pi pi-search"></i></p-inputIcon>
+                        <input pInputText type="text" placeholder="Global search"
+                        (input)="dt2.filterGlobal($any($event.target).value, 'contains')" />
                 </p-iconField>
             </div>
         </ng-template>
@@ -37,6 +37,9 @@
                 <th pSortableColumn="Email">
                     E-mail<p-sortIcon field="Email" />
                 </th>
+                <th pSortableColumn="short_status_user_desc">
+                    Status<p-sortIcon field="short_status_user_desc" />
+                </th>
                 <th style="width:3rem"></th>
             </tr>
         </ng-template>
@@ -46,6 +49,7 @@
                 <td>{{ user.short_department_desc }}</td>
                 <td>{{ user.short_position_desc }}</td>
                 <td>{{ user.Email }}</td>
+                <td>{{ user.short_status_user_desc }}</td>
                 <td> <p-button icon="pi pi-pencil" severity="secondary" variant="text" [rounded]="true"
                         (click)="onRowSelected(user)" /></td>
             </tr>
@@ -112,15 +116,32 @@
                 <p-floatlabel>
                     <p-select [ngClass]="{'ng-invalid ng-dirty': isInvalid('puesto')}" formControlName="puesto" [options]="positions" optionLabel="short_position_desc" optionValue="Idpositionuser"
                         styleClass="w-full" />
-                    <label for="puesto">Position</label>
+                    <label for="puesto">User type</label>
                 </p-floatlabel>
                 <small class="p-error" *ngIf="isInvalid('puesto')">Position required.</small>
             </div>
-
+            <div class="col-12">
+                <p-floatlabel>
+                    <input pInputText id="puesto2" formControlName="puesto2" [ngClass]="{'ng-invalid ng-dirty': isInvalid('puesto2')}" />
+                    <label for="puesto2">Position</label>
+                </p-floatlabel>
+                <small class="p-error" *ngIf="isInvalid('Name')">Puesto required.</small>
+            </div>
         </div>
     </div>
     <ng-template #footer>
-        <p-button label="Save" [rounded]="true" styleClass="w-full mb-3" (onClick)="save()" />
-        <p-button label="Delete" severity="danger" [rounded]="true" styleClass="w-full" />
+    <p-button 
+        label="Save" 
+        [rounded]="true" 
+        styleClass="w-full mb-3" 
+        (onClick)="save()" />
+
+    <p-button
+        *ngIf="userSelected?.Iduser"
+        [label]="userSelected.Idstatususer === 1 ? 'Deactivate' : 'Activate'"
+        [severity]="userSelected.Idstatususer === 1 ? 'danger' : 'success'"
+        [rounded]="true"
+        styleClass="w-full"
+        (click)="toggleUserStatus()" />
     </ng-template>
 </p-drawer>

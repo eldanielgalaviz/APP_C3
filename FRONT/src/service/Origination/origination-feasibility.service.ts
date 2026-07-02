@@ -18,8 +18,8 @@ export class Origination {
     return this._apiService.sendGetRequest(this.ApiUrl + `origination/getOrigination/${id}`, token);
   }
 
-  setOrigination(data: any, token: string): Observable<any> {
-    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setOrigination', token);
+  setOrigination(data: any, namedFiles: { key: string, file: File }[], token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequestWithNamedFiles(data, namedFiles, this.ApiUrl + 'origination/setOrigination', token);
   }
 
   // =================== TEAM AND PLANS ===================
@@ -36,10 +36,17 @@ export class Origination {
     return this._apiService.sendGetRequest(this.ApiUrl + `origination/getPrePinAssumptions/${id}`, token);
   }
 
-  setPrePinAssumptions(data: any, token: string): Observable<any> {
-    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setPrePinAssumptions', token);
+  setPrePinOrigination(data: any, token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setPrePinOrigination', token);
   }
 
+  setPrePinMrv(data: any, token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setPrePinMrv', token);
+  }
+
+  setPrePinSafeguards(data: any, token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setPrePinSafeguards', token);
+  }
   // =================== PROJECT AREAS ===================
   getspProjectAreas(id: number, token: string): Observable<any> {
     return this._apiService.sendGetRequest(this.ApiUrl + `origination/getProjectAreas/${id}`, token);
@@ -81,7 +88,16 @@ export class Origination {
     return this._apiService.sendGetRequest(this.ApiUrl + `origination/getPed/${id}`, token);
   }
 
-  setPed(data: any, namedFiles: { key: string, file: File }[], token: string): Observable<any> {
-    return this._apiService.sendPostTokenRequestWithNamedFiles(data, namedFiles, this.ApiUrl + 'origination/setPed', token);
+  setPedOrigination(data: any, token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequest(data, this.ApiUrl + 'origination/setPedOrigination', token);
+  }
+
+  setPedSig(data: any, namedFiles: { key: string, file: File }[], token: string): Observable<any> {
+    return this._apiService.sendPostTokenRequestWithNamedFiles(data, namedFiles, this.ApiUrl + 'origination/setPedSig', token);
+  }
+
+  //==================== OVERVIEW =====================
+  getOverview(id: number, token: string): Observable<any> {
+    return this._apiService.sendGetRequest(this.ApiUrl + `origination/getOverview/${id}`, token);
   }
 }

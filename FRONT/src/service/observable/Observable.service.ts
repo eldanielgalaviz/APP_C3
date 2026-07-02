@@ -31,5 +31,9 @@ export class ObservableService {
     setProject(project : Project) : void {
       this.proyecto$.next(project);
     }
+    
+    resetProject(): void {
+      this.proyecto$.next(initProyecto);
+    }
 
 }

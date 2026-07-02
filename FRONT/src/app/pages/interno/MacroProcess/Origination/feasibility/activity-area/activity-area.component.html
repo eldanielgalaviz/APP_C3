@@ -9,9 +9,9 @@
     <div class="grid">
       <div class="col-12 md:col-4">
         <p-floatlabel>
-          <input pInputText formControlName="activityArea" id="activityArea" type="text"
+          <p-inputNumber formControlName="activityArea" id="activityArea" mode="decimal" [useGrouping]="false" [allowEmpty]="true" [maxFractionDigits]="4" styleClass="w-full"
             [ngClass]="{'ng-invalid ng-dirty': isInvalid('activityArea')}" />
-          <label for="activityArea">Activity area (ha)</label>
+          <label for="activityArea">Activity area (ha) *</label>
         </p-floatlabel>
         <small class="p-error" *ngIf="isInvalid('activityArea')">Activity area is required.</small>
       </div>
@@ -22,7 +22,7 @@
             optionValue="Id_status_validation_aa"
             styleClass="w-full"
             [ngClass]="{'ng-invalid ng-dirty': isInvalid('validationStatusAA')}" />
-          <label for="validationStatusAA">AA validation status</label>
+          <label for="validationStatusAA">AA validation status *</label>
         </p-floatlabel>
         <small class="p-error" *ngIf="isInvalid('validationStatusAA')">AA validation status is required.</small>
       </div>
@@ -33,7 +33,7 @@
             optionValue="Id_version_aa"
             styleClass="w-full"
             [ngClass]="{'ng-invalid ng-dirty': isInvalid('versionAA')}" />
-          <label for="versionAA">AA version</label>
+          <label for="versionAA">AA version *</label>
         </p-floatlabel>
         <small class="p-error" *ngIf="isInvalid('versionAA')">AA version is required.</small>
       </div>
@@ -41,7 +41,7 @@
         <p-floatlabel>
           <textarea pTextarea formControlName="notesAA" id="notesAA" rows="3" class="w-full"
             [ngClass]="{'ng-invalid ng-dirty': isInvalid('notesAA')}"></textarea>
-          <label for="notesAA">AA notes</label>
+          <label for="notesAA">AA notes *</label>
         </p-floatlabel>
         <small class="p-error" *ngIf="isInvalid('notesAA')">AA notes is required.</small>
       </div>
@@ -50,15 +50,14 @@
 
   <div class="flex justify-content-center flex-wrap">
       <div class="col-3">
-        <!-- Sin registro: solo aparece si tiene CREATE -->
-      <p-button *ngIf="isInsert && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-        <!-- Con registro y tiene EDIT: muestra Edit -->
-      <p-button *ngIf="!isInsert && canEdit" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-
-        <!-- Con registro, no tiene EDIT pero sí CREATE: fallback con Save -->
-      <p-button *ngIf="!isInsert && !canEdit && canCreate" styleClass="w-full" label="Save" [rounded]="true" (click)="saveForm()" />
-      </div>
+      <p-button *ngIf="permissions['CREATE-SIG'] || permissions['EDIT-SIG']" styleClass="w-full" label="Save" [rounded]="true" [disabled]="(hasData && !formChanged)" (click)="saveForm()" />
+        <small *ngIf="data?.Date || data?.NameUser">
+            Last date modification:
+            <span *ngIf="data?.Date">{{ data?.Date }}</span>
+            <span *ngIf="data?.Date && data?.NameUser"> by </span>
+            <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+        </small>
+    </div>
   </div>
 
 </form>

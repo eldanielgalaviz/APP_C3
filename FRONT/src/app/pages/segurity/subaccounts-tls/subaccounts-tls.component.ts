@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../../domain/product';
-import { ProductService } from '../../../../service/productservice';
 import { SHARED_IMPORTS } from '../../../shared/imports';
 import { Customer } from '../../../../domain/customer';
 import { CustomerService } from '../../../../service/customerservice';

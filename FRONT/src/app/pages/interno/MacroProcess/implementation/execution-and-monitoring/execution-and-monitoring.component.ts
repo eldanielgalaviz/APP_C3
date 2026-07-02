@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SHARED_IMPORTS } from '../../../../../shared/imports';
+import { CORE_IMPORTS, PRIMENG_DATA, PRIMENG_OVERLAY, PRIMENG_NAVIGATION, PRIMENG_FORM } from '../../../../../shared/imports';
 import { ByAccountsComponent } from './by-accounts/by-accounts.component';
 import { ByActivitiesComponent } from './by-activities/by-activities.component';
 import { ByBenefitDistributionComponent } from './by-benefit-distribution/by-benefit-distribution.component';
@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-execution-and-monitoring',
-  imports: [SHARED_IMPORTS, ByAccountsComponent, ByActivitiesComponent, ByBenefitDistributionComponent, ByTransactionComponent],
+  imports: [...CORE_IMPORTS, ...PRIMENG_FORM, ...PRIMENG_DATA, ...PRIMENG_OVERLAY, ...PRIMENG_NAVIGATION, ByAccountsComponent, ByActivitiesComponent, ByBenefitDistributionComponent, ByTransactionComponent],
   templateUrl: './execution-and-monitoring.component.html',
   styleUrl: './execution-and-monitoring.component.scss'
 })

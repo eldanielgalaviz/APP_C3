@@ -1,0 +1,49 @@
+
+        <div class="col-2">
+            <p-floatlabel>
+                <p-select formControlName="rp" inputId="rp" [options]="rp" optionLabel="name" styleClass="w-full"
+                />
+                <label for="rp">RP</label>
+            </p-floatlabel>
+            <small class="p-error" >RP is required</small>
+        </div>
+
+    <p-tabs value="0">
+        <p-tablist>
+            <p-tab value="0">Origination</p-tab>
+            <p-tab value="1">Implementation</p-tab>
+            <p-tab value="2">Reporting</p-tab>
+            <p-tab value="3">Verification</p-tab>
+            <p-tab value="4">Registration/issuance</p-tab>
+            <p-tab value="5">Settlement</p-tab>
+            <p-tab value="6">Benefit Distribution</p-tab>
+            <p-tab value="7">Commercialisation</p-tab>
+        </p-tablist>
+        <p-tabpanels>
+            <p-tabpanel value="0">
+                <app-list-plan-origin></app-list-plan-origin>
+            </p-tabpanel>
+            <p-tabpanel value="1">
+                <app-list-plan-imple></app-list-plan-imple>
+            </p-tabpanel>
+            <p-tabpanel value="2">
+                <app-list-plan-repo></app-list-plan-repo>
+            </p-tabpanel>
+            <p-tabpanel value="3">
+                <app-list-plan-veri></app-list-plan-veri>
+            </p-tabpanel>
+            <p-tabpanel value="4">
+                <app-list-plan-regis></app-list-plan-regis>
+            </p-tabpanel>
+            <p-tabpanel value="5">
+                <app-list-plan-sett></app-list-plan-sett>
+            </p-tabpanel>
+            <p-tabpanel value="6">
+                <app-list-plan-bene></app-list-plan-bene>
+            </p-tabpanel>
+            <p-tabpanel value="7">
+                <app-list-plan-comm></app-list-plan-comm>
+            </p-tabpanel>
+
+        </p-tabpanels>
+    </p-tabs>

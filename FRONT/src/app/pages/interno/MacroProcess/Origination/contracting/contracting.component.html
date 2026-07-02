@@ -91,7 +91,13 @@
 
     <div class="flex justify-content-center flex-wrap pt-3">
         <div class="col-4">
-            <p-button styleClass="w-full" label="Save" [rounded]="true" appPermission="CREATE" (click)="saveForm()" />
+            <p-button *ngIf="permissions['CREATE-LEGAL'] || permissions['EDIT-LEGAL']" styleClass="w-full" label="Save" [rounded]="true" [disabled]="isSaving || (hasData && !formChanged)" [loading]="isSaving" (click)="saveForm()" />
+            <small *ngIf="data?.Date || data?.NameUser">
+                Last date modification:
+                <span *ngIf="data?.Date">{{ data?.Date }}</span>
+                <span *ngIf="data?.Date && data?.NameUser"> by </span>
+                <span *ngIf="data?.NameUser">{{ data?.NameUser }}</span>
+            </small>
         </div>
     </div>
     </form>
