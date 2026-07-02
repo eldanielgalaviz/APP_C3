@@ -1,6 +1,6 @@
 import { ContainerClient, BlockBlobClient, StorageSharedKeyCredential, generateBlobSASQueryParameters, BlobSASPermissions } from '@azure/storage-blob';
 import { getContainerClient } from './configStorage';
-import { SecureYamlConfig } from '../config/SecureYamlConfig';
+import { SecureYamlConfig } from '../../config/SecureYamlConfig';
 
 export interface UploadedFile {
   buffer: Buffer;
@@ -29,8 +29,7 @@ export interface BlobResult {
 
   const AccountName = config.ACCOUNT_NAME;
   const ContainerName = config.CONTAINER_NAME;
-  const SASToken = config.SAS_TOKEN;
-
+  const AccountKey = config.STORAGE_KEY
 
 export class BlobService {
   private containerClient: ContainerClient;
@@ -103,25 +102,48 @@ export class BlobService {
     }
 
     /** Visualización de archivos */
-    getFileSasUrl(filePath: string, expiresMinutes = 10): string {
-      const containerName = ContainerName;
-      const credential = new StorageSharedKeyCredential(AccountName, SASToken);
+    getFileSasUrl(filePath: string): string {
+      const sharedKeyCredential =
+      new StorageSharedKeyCredential(
+        AccountName,
+        AccountKey
+      );
 
-      const expiresOn = new Date();
-      expiresOn.setMinutes(expiresOn.getMinutes() + expiresMinutes);
+    console.log('blobName:', filePath);
 
-      const sasToken = generateBlobSASQueryParameters(
+    const sasToken =
+      generateBlobSASQueryParameters(
         {
-          containerName,
+          containerName: ContainerName,
           blobName: filePath,
-          permissions: BlobSASPermissions.parse('r'), // solo lectura
-          expiresOn
+          permissions:
+            BlobSASPermissions.parse('r'),
+          startsOn: new Date(Date.now() - 5 * 60 * 1000),
+          expiresOn: new Date(
+            Date.now() + (15 * 60 * 1000)
+          )
         },
-        credential
+        sharedKeyCredential
       ).toString();
 
-      return `https://${AccountName}.blob.core.windows.net/${containerName}/${filePath}?${sasToken}`;
+      return `https://${AccountName}.blob.core.windows.net/${ContainerName}/${filePath}?${sasToken}`
     }
 
-  
+
+    async uploadUserProfileImage(file: UploadedFile, path: string): Promise<BlobResult> {
+
+      const blockBlobClient: BlockBlobClient =
+        this.containerClient.getBlockBlobClient(path);
+
+      await blockBlobClient.uploadData(file.buffer, {
+        blobHTTPHeaders: {
+          blobContentType: file.mimetype
+        }
+      });
+
+      return {
+        blobName: path,
+        url: blockBlobClient.url
+      };
+    }
 }

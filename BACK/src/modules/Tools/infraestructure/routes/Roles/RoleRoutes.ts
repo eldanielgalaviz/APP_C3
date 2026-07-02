@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../../../../../shared/middleware/AuthMiddleware";
-import { asyncWrapper } from "../../../../../utils/asyncWrapper";
-import { RoleController } from "../../../../../controllers/ToolsControllers/Roles/RoleController";
+import { asyncWrapper } from "../../../../../shared/middleware/asyncHandler";
+import { RoleController } from "../../controllers/Roles/RoleController";
 
 export class RoleRoutes {
     static register(router: Router): void {

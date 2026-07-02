@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { AuthMiddleware } from "../../../../../shared/middleware/AuthMiddleware";
-import { SubMenuController } from "../../../../../controllers/ToolsControllers/Menus/SubMenuController";
-import { asyncWrapper } from "../../../../../utils/asyncWrapper";
+import { SubMenuController } from "../../controllers/Menus/SubMenuController";
+import { asyncWrapper } from "../../../../../shared/middleware/asyncHandler";
 
 export class SubMenuRoutes {
     static register(router: Router): void {

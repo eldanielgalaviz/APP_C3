@@ -1,11 +1,11 @@
 import express, { Application } from "express";
 import * as dotenv from "dotenv";
-import { AppModule } from "./app/AppModule";
 import cors from "cors";
-import { SecureYamlConfig } from "./shared/config/SecureYamlConfig";
 import { initBlobStorage } from "./shared/storage/configStorage";
-import http from 'http';
-import pool from "./shared/db/config/config";
+import { pool } from "./shared/db/config/config";
+import cookieParser from 'cookie-parser';
+import { AppModule } from "./bootstrap/AppModule";
+import { SecureYamlConfig } from "./config/SecureYamlConfig";
 
 // Cargar solo la clave de descifrado (opcional desde .env o variable del sistema)
 dotenv.config();
@@ -17,11 +17,18 @@ export class Server {
 
   constructor() {
     this.app = express();
-    this.loadConfig();
+    this.loadConfig(); 
     this.middlewares();
     this.connectDB();
     this.loadAppModule();
     this.setupErrorHandling();
+  }
+
+  static async create(): Promise<Server> {
+    const server = new Server();
+    await server.connectDB();
+    server.middlewares()
+    return server;
   }
 
   // Obtener la clave de descifrado
@@ -37,12 +44,14 @@ export class Server {
 
   // === Middlewares globales === Express y sus middlewares van en la capa de infraestructura, nunca en el dominio o aplicación. 
   private middlewares(): void {
+    this.app.use(cookieParser())
     this.app.use(express.json());
     // You have two cors middlewares here. The second one overwrites the first if options are passed.
     // It's better to keep only the configured one.
     this.app.use(cors({
       origin: process.env.FRONTEND_URL || 'http://localhost:4200',
-      credentials: true
+      credentials: true,
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     }));
     
     this.app.use(express.static("public"));
@@ -82,7 +91,7 @@ export class Server {
     });
   }
 
-  // Iniciar servidor
+  // Iniciar servidor 
   public listen(): void {
     if (!this.port) {
       throw new Error("Port is not defined");

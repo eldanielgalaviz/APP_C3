@@ -2,7 +2,7 @@ import mysql2 from 'mysql2/promise';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
-import { SecureYamlConfig } from '../../config/SecureYamlConfig';
+import { SecureYamlConfig } from '../../../config/SecureYamlConfig';
 dotenv.config();
 
 const DECRYPTION_KEY = process.env.CONFIG_DECRYPTION_KEY;
@@ -15,7 +15,7 @@ const config = new SecureYamlConfig(DECRYPTION_KEY);
 const sslCertPath = path.resolve(__dirname, './azure-combined-root-ca.pem');
 
 const pool = mysql2.createPool({
-  host: "dbportafolio.mysql.database.azure.com",
+  host: config.HOST,
   user: config.USER,
   password: config.PASSWORD,
   database: config.DATABASE,
@@ -25,4 +25,4 @@ const pool = mysql2.createPool({
   },
 });
 
-export default pool;
+export { pool };

@@ -73,13 +73,7 @@ export class OriginationRequest {
   @IsNotEmpty({ message: "municipalities_id es obligatorio" })
   municipalities_id!: number;
 
-  @IsNotEmpty({
-    message: "El prospect_contact_telephone no puede estar en blanco",
-  })
-  @MaxLength(250, {
-    message:
-      "El prospect_contact_telephone no puede superar los 250 caracteres",
-  })
+  @IsOptional({ message: "street es opcional" })
   street!: string;
 
   @IsOptional()
@@ -106,13 +100,15 @@ export class OriginationRequest {
   @IsNotEmpty({ message: "project_counterpart es obligatorio" })
   project_counterpart!: string;
 
-  @IsNotEmpty({ message: "id_agrarian_nucleus es obligatorio" })
   id_agrarian_nucleus!: number;
 
-  @IsNotEmpty({ message: "link_property_polygon es obligatorio" })
+  @IsOptional({ message: "link_property_polygon es opcional" })
   link_property_polygon!: string;
 
-  @IsNotEmpty({ message: "Id_land_tenure es obligatorio" })
+  @IsOptional({ message: "Id_land_tenure es opcional" })
   Id_land_tenure!: number;
+
+  @IsOptional({ message: "nucleo_agrario es opcional" })
+  nucleo_agrario!: number;
 }
 

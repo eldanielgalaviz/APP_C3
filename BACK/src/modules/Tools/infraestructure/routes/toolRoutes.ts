@@ -6,6 +6,7 @@ import { RoleRoutes } from './Roles/RoleRoutes';
 import { UserRoleRoutes } from './Roles/UserRoleRoutes';
 import { RolePermissionRoutes } from './Roles/RolePermissionRoutes';
 import { UserModuleRoutes } from './Roles/UserModuleRoutes';
+import { PermissionUserRoutes } from './Roles/PermissionUserRoutes';
 export class ToolRoutes {
   static register(router: Router): void {
     const toolsRouter = Router();
@@ -19,5 +20,6 @@ export class ToolRoutes {
     UserRoleRoutes.register(toolsRouter);
     RolePermissionRoutes.register(toolsRouter);
     UserModuleRoutes.register(toolsRouter);
+    PermissionUserRoutes.register(toolsRouter);
   }
 }

@@ -1,7 +1,7 @@
 import { Client } from "@microsoft/microsoft-graph-client";
 import { ClientSecretCredential } from "@azure/identity";
 
-import { SecureYamlConfig } from "../config/SecureYamlConfig";
+import { SecureYamlConfig } from "../../config/SecureYamlConfig";
 import * as dotenv from 'dotenv';
 dotenv.config();
 

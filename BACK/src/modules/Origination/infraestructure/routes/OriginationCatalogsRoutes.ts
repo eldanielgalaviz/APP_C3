@@ -1,6 +1,6 @@
-import { asyncWrapper } from '../../../../utils/asyncWrapper';
+import { asyncWrapper } from '../../../../shared/middleware/asyncHandler';
 import { Router } from 'express';
-import { OriginationCatalogController } from '../../../../controllers/OriginationControllers/OriginationCatalogsController';
+import { OriginationCatalogController } from '../controllers/OriginationCatalogsController';
 import { AuthMiddleware } from '../../../../shared/middleware/AuthMiddleware';
 
 export class OriginationCatalogsRoutes {
@@ -20,7 +20,7 @@ export class OriginationCatalogsRoutes {
     authRouter.get('/getAgrarianNucleusByMunicipality/:id', AuthMiddleware.authenticate, asyncWrapper(controller.cat_agrarian_nucleus_by_municipality));
     authRouter.get('/getProjectStates', AuthMiddleware.authenticate, asyncWrapper(controller.ct_state));
 
-    authRouter.get('/getLeadsOriginacion', AuthMiddleware.authenticate, asyncWrapper(controller.ct_leads_originacion));
+    // authRouter.get('/getLeadsOriginacion', AuthMiddleware.authenticate, asyncWrapper(controller.ct_leads_originacion));
     authRouter.get('/getOriginationPromoter', AuthMiddleware.authenticate, asyncWrapper(controller.ct_origination_promoter));
     authRouter.get('/getProgramme', AuthMiddleware.authenticate, asyncWrapper(controller.ct_programme));
     authRouter.get('/getRegistrationRoute', AuthMiddleware.authenticate, asyncWrapper(controller.ct_registration_route));
@@ -37,6 +37,10 @@ export class OriginationCatalogsRoutes {
     authRouter.get('/getSocialCommunityNoHarm', AuthMiddleware.authenticate, asyncWrapper(controller.ct_social_community_no_harm));
     authRouter.get('/getShareholdersEngagement', AuthMiddleware.authenticate, asyncWrapper(controller.ct_shareholders_engagement));
     authRouter.get('/getBiodiversity', AuthMiddleware.authenticate, asyncWrapper(controller.ct_biodiversity));
+    authRouter.get('/getBufferPool', AuthMiddleware.authenticate, asyncWrapper(controller.ct_buffer_pool));
+    authRouter.get('/getInventoryStratification', AuthMiddleware.authenticate, asyncWrapper(controller.ct_inventory_stratification));
+    authRouter.get('/getGrievanceMechanism', AuthMiddleware.authenticate, asyncWrapper(controller.ct_grievance_mechanism));
+    authRouter.get('/getPressNegative', AuthMiddleware.authenticate, asyncWrapper(controller.ct_press_negative));
     authRouter.get('/getHs', AuthMiddleware.authenticate, asyncWrapper(controller.ct_hs));
     authRouter.get('/getNegativeehs', AuthMiddleware.authenticate, asyncWrapper(controller.ct_negativeehs));
     authRouter.get('/getIndigenousPeople', AuthMiddleware.authenticate, asyncWrapper(controller.ct_indigenouspeople));
@@ -70,7 +74,7 @@ export class OriginationCatalogsRoutes {
     authRouter.get('/getProspectPriority', AuthMiddleware.authenticate, asyncWrapper(controller.ct_prospect_priority));
     // authRouter.get('/getState', AuthMiddleware.authenticate, asyncWrapper(controller.ct_state));
     authRouter.get('/getStatusProject', AuthMiddleware.authenticate, asyncWrapper(controller.ct_status_project));
-    authRouter.get('/getLeadSig', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_sig));
+    // authRouter.get('/getLeadSig', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_sig));
     // Aqui empieza PED
     authRouter.get('/getPedaaPopulation', AuthMiddleware.authenticate, asyncWrapper(controller.ct_population_aa));
     authRouter.get('/getPedapResult', AuthMiddleware.authenticate, asyncWrapper(controller.ct_pedap_result));
@@ -80,12 +84,15 @@ export class OriginationCatalogsRoutes {
     authRouter.get('/getPedaaSteep', AuthMiddleware.authenticate, asyncWrapper(controller.ct_aa_steep));
     authRouter.get('/getPedaaCoverageChange', AuthMiddleware.authenticate, asyncWrapper(controller.ct_aa_coverage_change));
     authRouter.get('/getPedaaResult', AuthMiddleware.authenticate, asyncWrapper(controller.ct_pedaa_result));
-    authRouter.get('/getLeadLegal', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_legal));
+    // authRouter.get('/getLeadLegal', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_legal));
     authRouter.get('/getLegalddStatus', AuthMiddleware.authenticate, asyncWrapper(controller.ct_legal_dd_status));
     authRouter.get('/getMekycStatus', AuthMiddleware.authenticate, asyncWrapper(controller.ct_mekyc_status));
     authRouter.get('/getApprovedBuyer', AuthMiddleware.authenticate, asyncWrapper(controller.ct_approved_buyer));
-    authRouter.get('/getLeadsDesarrollo', AuthMiddleware.authenticate, asyncWrapper(controller.ct_leads_desarrollo));
-    authRouter.get('/getLeadSafeguards', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_safeguards));
-    authRouter.get('/getLeadMrv', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_mrv));
+    // authRouter.get('/getLeadsDesarrollo', AuthMiddleware.authenticate, asyncWrapper(controller.ct_leads_desarrollo));
+    // authRouter.get('/getLeadSafeguards', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_safeguards));
+    // authRouter.get('/getLeadMrv', AuthMiddleware.authenticate, asyncWrapper(controller.ct_lead_mrv));
+    authRouter.get('/getStatusDocuments', AuthMiddleware.authenticate, asyncWrapper(controller.ct_status_document));
+    authRouter.get('/getMilestonesTDD', AuthMiddleware.authenticate, asyncWrapper(controller.cat_milestones_tdd));
+    
   }
 }

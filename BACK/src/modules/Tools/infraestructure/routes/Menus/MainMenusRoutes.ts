@@ -1,7 +1,7 @@
-import { asyncWrapper } from '../../../../../utils/asyncWrapper';
+import { asyncWrapper } from '../../../../../shared/middleware/asyncHandler';
 import { Router } from 'express';
 import { AuthMiddleware } from '../../../../../shared/middleware/AuthMiddleware';
-import { MainMenuController } from '../../../../../controllers/ToolsControllers/Menus/MainMenuController';
+import { MainMenuController } from '../../controllers/Menus/MainMenuController';
 
 export class MainMenusRoutes {
     static register(router: Router): void {

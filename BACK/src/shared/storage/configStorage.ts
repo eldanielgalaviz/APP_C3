@@ -1,5 +1,5 @@
 import { BlobServiceClient, ContainerClient } from '@azure/storage-blob';
-import { SecureYamlConfig } from '../config/SecureYamlConfig';
+import { SecureYamlConfig } from '../../config/SecureYamlConfig';
 
 let containerClient: ContainerClient;
 
@@ -12,14 +12,10 @@ export const initBlobStorage = async (): Promise<void> => {
 
   const config = new SecureYamlConfig(DECRYPTION_KEY);
 
-  const AccountName = config.ACCOUNT_NAME;
   const ContainerName = config.CONTAINER_NAME;
-  const SASToken = config.SAS_TOKEN;
-
-  const blobServiceClient = new BlobServiceClient(
-    `https://${AccountName}.blob.core.windows.net/?${SASToken}`
-  );
-
+  const StorageConnection = config.AZURE_STORAGE_CONNECTION_STRING;
+  
+  const blobServiceClient = BlobServiceClient.fromConnectionString(StorageConnection);
   containerClient = blobServiceClient.getContainerClient(ContainerName);
 };
 

@@ -48,25 +48,11 @@ export class CreateUserRequest {
   @IsNotEmpty({ message: 'El departamento es obligatorio' })
   departamento!: number;
 
-  // @IsInt({ message: 'Idlocationkey debe ser un número entero' })
-  // @IsNotEmpty({ message: 'Idlocationkey es obligatorio' })
   Idlocationkey: number = 0;
 
-  // @IsInt()
-  // @IsNotEmpty({ message: 'Idstatususer es obligatorio' })
   Idstatususer: number = 0;
 
-  // @IsInt()
-  // @IsNotEmpty({ message: 'Idusertype es obligatorio' })
-  Idusertype: number = 0;
-
-  // @IsInt()
-  // @IsNotEmpty({ message: 'Idpositionuser es obligatorio' })
   Idpositionuser: number = 0;
-
-  // @IsInt()
-  // @IsNotEmpty({ message: 'Idoperationmenu es obligatorio' })
-  // Idoperationmenu: number = 0;
 
   @IsOptional()
   @IsString()

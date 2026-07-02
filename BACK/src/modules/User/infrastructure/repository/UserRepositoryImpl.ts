@@ -1,20 +1,19 @@
 // src/modules/User/infrastructure/repository/UserRepositoryImpl.ts
-import { executeStoredProcedure } from '../../../../shared/db/CallStoredProcedures/CallStoredProcedures';
+import { executeStoredProcedure, executeViews } from '../../../../shared/db/CallStoredProcedures/CallStoredProcedures';
 import { UserRepository } from '../../domain/exceptions/UserRepository';
 import { CreateUserRequest } from '../../domain/CreateUserRequest';
-import { plainToInstance } from 'class-transformer';
 import * as bcrypt from 'bcrypt';
 
 export class UserRepositoryImpl implements UserRepository {
   async getUsers(): Promise<CreateUserRequest[]> {
-    const result = await executeStoredProcedure('getUsers', []);
+    const result = await executeViews('vw_user');
     return result[0];
   }
 
   async findByEmail(email: string): Promise<CreateUserRequest | null> {
     const result = await executeStoredProcedure('sp_getUserByEmail', [email]);
     const rows = result[0];
-    return rows.length > 0 ? this.toDomain(rows[0]) : null;
+    return rows.length > 0 ? rows[0] : null;
   }
 
   async setUsers(user: CreateUserRequest): Promise<void> {
@@ -40,7 +39,6 @@ export class UserRepositoryImpl implements UserRepository {
       user.departamento,
       user.Idlocationkey,
       user.Idstatususer,
-      user.Idusertype,
       user.Idpositionuser,
       1
     ];
@@ -67,26 +65,14 @@ export class UserRepositoryImpl implements UserRepository {
     return result[0];
   }
 
-  // Mapea fila de BD → Entidad CreateUserRequest con sus Value Objects
-  
-  private toDomain(row: any): CreateUserRequest {
-    const userData = {
-      Iduser: Number(row.Iduser),
-      Name: row.Name,
-      AP: row.AP,
-      AM: row.AM || undefined,
-      Email: row.Email,
-      PasswordHash: row.PasswordHash,
-      puesto: row.Puesto,
-      departamento: row.Departamento,
-      Idlocationkey: row.IdLocationKey,
-      Idstatususer: row.Status,
-      Idusertype: row.IdUserType,
-      Idpositionuser: row.IdPositionUser || undefined,
-      // Idoperationmenu: row.IdOperationMenu || undefined,
-      user_create: row.user_create || undefined,
-    };
+  async setUserProfileImage(userId: number, url_img: string): Promise<void> {
+    const result = await executeStoredProcedure('sp_set_user_profile_image', [userId, url_img]);
+    return result[0];
+  }
 
-    return plainToInstance(CreateUserRequest, userData);
-}
+  async getUserProfileImage(userId: number): Promise<void> {
+    const result = await executeStoredProcedure('sp_get_user_profile_image', [userId]);
+    return result[0];
+  }
+
 }

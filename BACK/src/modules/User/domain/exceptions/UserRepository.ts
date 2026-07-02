@@ -8,4 +8,6 @@ export interface UserRepository {
   userPermissions(Iduser: number): Promise<void>;
   invalidateRefreshToken(refreshToken: string): Promise<void>;
   getUserMenu(userId: number): Promise<any[]>;
+  setUserProfileImage(userId: number, url_img: string): Promise<void>;
+  getUserProfileImage(userId: number): Promise<void>;
 }

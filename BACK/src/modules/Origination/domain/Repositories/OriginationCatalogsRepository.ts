@@ -1,5 +1,10 @@
 export interface CatalogsRepository {
+
   getCatalog(spName: string): Promise<any>;
+}
+
+export interface TddMilestoneRepository {
+  getMilestonesTDD(): Promise<any[]>;
 }
 
 export interface CatalogStateRepository {
@@ -20,4 +25,8 @@ export interface CatalogMunicipalitiesByState {
 
 export interface CatalogAgrarianNucleusByMunicipality {
   getAgrarianNucleusByMunicipality(idState: number): Promise<any>;
+}
+
+export interface CatalogSmeAreaRepository {
+  getOriginationSmeArea(): Promise<any[]>;
 }

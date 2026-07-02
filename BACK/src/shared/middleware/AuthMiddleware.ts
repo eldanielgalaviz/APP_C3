@@ -1,6 +1,6 @@
 // src/shared/middleware/AuthMiddleware.ts
 import { Request, Response, NextFunction } from 'express';
-import { JwtService } from '../../middlewares/JwtService';
+import { JwtService } from './JwtService';
 
 export class AuthMiddleware {
   static authenticate(req: Request, res: Response, next: NextFunction): void {
@@ -21,5 +21,17 @@ export class AuthMiddleware {
     
     (req as any).user = payload;
     next();
+  }
+
+  static userLogged(req: Request){
+    const token = req.headers.authorization?.split(" ")[1];
+
+    if(!token){
+        return "Not user logged";
+    } else {
+        const payload = JwtService.verifyAccessToken(token);
+        const userId = payload.Iduser;
+        return userId;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { getCatalogs, getMunicipalities, getNeighborhoodsByMunicipality, getLocationByCP } from '../../../../shared/db/CallStoredProcedures/CallStoredProcedures';
+import { getCatalogs, getMunicipalities, getNeighborhoodsByMunicipality, getLocationByCP, executeViews } from '../../../../shared/db/CallStoredProcedures/CallStoredProcedures';
 import { CatalogLocationByCPRepository, CatalogNeighborhoodRepository, CatalogsRepository, CatalogStateRepository } from '../../domain/Repositories/OriginationCatalogsRepository';
 import { executeStoredProcedure } from '../../../../shared/db/CallStoredProcedures/CallStoredProcedures';
 
@@ -15,6 +15,11 @@ export class CatalogsRepositoryImpl implements CatalogsRepository {
   async getAgrarianNucleusByMunicipality(idState: number):  Promise<any>{
     const result = await executeStoredProcedure('sp_get_agrarian_nucleus_by_municipality', [idState]);
     return result[0];
+  }
+
+  async getMilestonesTDD(): Promise<any[]> {
+      const result = await executeViews('vw_milestone_technical_due_diligence');
+      return result[0];
   }
 }
 

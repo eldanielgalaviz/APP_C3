@@ -1,10 +1,19 @@
 import CryptoJS from 'crypto-js';
+import { SecureYamlConfig } from '../../config/SecureYamlConfig';
 
 export class EncryptionService {
   private static getEncryptionKey(): CryptoJS.lib.WordArray {
-    const secretPwd = process.env.SECRET_PWD || '5y5Fj5k980FlqUtd8psd';
+    const DECRYPTION_KEY = process.env.CONFIG_DECRYPTION_KEY;
+
+    if (!DECRYPTION_KEY) {
+      throw new Error('CONFIG_DECRYPTION_KEY no está definida');
+    }
     
-    const hash = CryptoJS.SHA256(secretPwd).toString(CryptoJS.enc.Base64);
+    const config = new SecureYamlConfig(DECRYPTION_KEY);
+  
+    const EncryptPwd = config.ENCRYPTION_KEY;
+    
+    const hash = CryptoJS.SHA256(EncryptPwd).toString(CryptoJS.enc.Base64);
     const key = hash.substr(0, 32);
     
     return CryptoJS.enc.Utf8.parse(key);

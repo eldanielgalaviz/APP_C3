@@ -1,4 +1,4 @@
-import dbconnection from "../config/config";
+import { pool } from "../config/config";
 import mysql from "mysql2";
 
 export async function executeStoredProcedure(
@@ -10,7 +10,7 @@ export async function executeStoredProcedure(
   console.log(sql, "---", new Date());
   
   try {
-    const [results] = await dbconnection.execute(sql, parametros);
+    const [results] = await pool.execute(sql, parametros);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar el SP "${nombreSP}":`, error);
@@ -23,7 +23,7 @@ export async function executeViews<T = any>(
 ): Promise<any[]> {
   const query = `SELECT * FROM ${nombreVista}`;
   console.log(nombreVista, "---", new Date());
-  const rows = await dbconnection.query(query);
+  const rows = await pool.query(query);
 
   return rows;
 }
@@ -33,7 +33,7 @@ export async function getCatalogs(tableName: string): Promise<any> {
   console.log(sql, "---", new Date());
 
   try {
-    const [results] = await dbconnection.execute(sql);
+    const [results] = await pool.execute(sql);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar query en "${tableName}":`, error);
@@ -46,7 +46,7 @@ export async function getMunicipalities(idState: number): Promise<any> {
   console.log(sql, "---", new Date());
 
   try {
-    const [results] = await dbconnection.execute(sql);
+    const [results] = await pool.execute(sql);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar query en "cat_municipalities":`, error);
@@ -59,7 +59,7 @@ export async function getNeighborhoodsByMunicipality(idNeigborhood: number): Pro
   console.log(sql, "---", new Date());
 
   try {
-    const [results] = await dbconnection.execute(sql);
+    const [results] = await pool.execute(sql);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar query en "cat_neighborhoods":`, error);
@@ -72,7 +72,7 @@ export async function getNeighborhoods(idNeigborhood: number): Promise<any> {
   console.log(sql, "---", new Date());
 
   try {
-    const [results] = await dbconnection.execute(sql);
+    const [results] = await pool.execute(sql);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar query en "cat_neighborhoods":`, error);
@@ -96,7 +96,7 @@ export async function getLocationByCP(cp: number): Promise<any> {
   console.log(sql, "---", new Date());
 
   try {
-    const [results] = await dbconnection.execute(sql);
+    const [results] = await pool.execute(sql);
     return results;
   } catch (error) {
     console.error(`Error al ejecutar query en "cat_postal_codes":`, error);
